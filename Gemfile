@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
+ruby '2.2.1'
 
-gem 'rails'
+gem 'rails', '4.2.0'
 gem 'pg'
 gem 'sass-rails'
 gem 'uglifier'
@@ -17,5 +18,5 @@ group :development do
 end
 
 group :production do
-  gem 'heroku-deflater'
+  gem 'rails_12factor'
 end
