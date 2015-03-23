@@ -13,7 +13,8 @@
     rails g scaffold Semester number:int
     rails g scaffold TeachingUnit number:int
     rails g scaffold TeachingSubject label:int teaching_unit_id:int
-    rails g scaffold TeachingModule code:string label:string objectives:text content:text hours:int semester_id:int teaching_subject_id:int teaching_unit_id:int
+    rails g scaffold TeachingCategory label:int
+    rails g scaffold TeachingModule code:string label:string objectives:text content:text howto:text hours:int semester_id:int teaching_subject_id:int teaching_unit_id:int teaching_category_id:int coefficient:int
     rails g scaffold Competency label:string teaching_module_id:int
     rails g scaffold Keyword label:string teaching_module_id:int
 
