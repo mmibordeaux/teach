@@ -7,10 +7,11 @@ gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'jbuilder'
 gem 'unicorn'
 gem 'nokogiri'
+gem 'foundation-rails'
+gem 'foundation_rails_helper'
 
 group :development do
   gem 'byebug'
