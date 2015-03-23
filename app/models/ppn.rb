@@ -12,7 +12,6 @@ class PPN
       subjects.push category.content
     end
     subjects.uniq!
-    puts subjects
 
     # teaching_category
     categories = []
@@ -20,7 +19,6 @@ class PPN
       categories.push category.content
     end
     categories.uniq!
-    puts categories
 
     # Training modules
     doc.css('.element').each do |m|
