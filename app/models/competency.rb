@@ -10,4 +10,5 @@
 #
 
 class Competency < ActiveRecord::Base
+  belongs_to :teaching_module
 end
