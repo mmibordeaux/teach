@@ -18,7 +18,7 @@
     rails g scaffold Competency label:string teaching_module_id:integer
     rails g scaffold Keyword label:string teaching_module_id:integer
 
-    rails g scaffold Field label:string
+    rails g scaffold Field label:string parent_id:integer
     rails g scaffold Project label:string semester_id:integer
     rails g scaffold User first_name:string last_name:string hours:integer
     rails g scaffold Involvement project_id:integer user_id:integer hours:integer

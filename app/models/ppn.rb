@@ -59,7 +59,6 @@ class PPN
             nodes.collect(&:content).each do |objective_label|
               Objective.find_or_create_by(label: objective_label, teaching_module_id: teaching_module.id)
             end
-            #teaching_module.objectives = nodes.collect(&:content)
           when 'Contenus'
             teaching_module.content = nodes.collect(&:content).join(' ')
           when 'Modalités de mise en œuvre'
@@ -76,11 +75,10 @@ class PPN
             else
               ul = nodes.pop
               ul.css('li').each do |li|
-                competencies.push li.content
+                competency_label = li.content
+                Competency.find_or_create_by(label: competency_label, teaching_module_id: teaching_module.id)
               end
             end
-            # TODO
-            #teaching_module[:competencies] = competencies
           when 'Mots-clés'
             list = nodes.collect(&:content).join(',')
             list.gsub!("\r\n", ' ')
@@ -98,10 +96,10 @@ class PPN
             list.gsub!(', ', ',')
             list.downcase!
             keywords = list.split(',')
-            #teaching_module[:keywords] = []
             keywords.each do |keyword| 
-              # TODO
-              #teaching_module[:keywords] << keyword unless keyword.empty?
+              unless keyword.empty?
+                Keyword.find_or_create_by(label: keyword, teaching_module_id: teaching_module.id)
+              end
             end
           end
       end
