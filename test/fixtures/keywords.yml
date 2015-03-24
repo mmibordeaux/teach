@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: keywords
+#
+#  id                 :integer          not null, primary key
+#  label              :string
+#  teaching_module_id :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  label: MyString
+  teaching_module_id: 1
+
+two:
+  label: MyString
+  teaching_module_id: 1

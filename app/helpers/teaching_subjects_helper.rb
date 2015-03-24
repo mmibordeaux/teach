@@ -1,0 +1,2 @@
+module TeachingSubjectsHelper
+end

@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @teaching_module.code %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @teaching_module.label %>
+</p>
+
+<p>
+  <strong>Objectives:</strong>
+  <%= @teaching_module.objectives %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @teaching_module.content %>
+</p>
+
+<p>
+  <strong>How to:</strong>
+  <%= @teaching_module.how_to %>
+</p>
+
+<p>
+  <strong>What next:</strong>
+  <%= @teaching_module.what_next %>
+</p>
+
+<p>
+  <strong>Hours:</strong>
+  <%= @teaching_module.hours %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @teaching_module.semester_id %>
+</p>
+
+<p>
+  <strong>Teaching subject:</strong>
+  <%= @teaching_module.teaching_subject_id %>
+</p>
+
+<p>
+  <strong>Teaching unit:</strong>
+  <%= @teaching_module.teaching_unit_id %>
+</p>
+
+<p>
+  <strong>Teaching category:</strong>
+  <%= @teaching_module.teaching_category_id %>
+</p>
+
+<p>
+  <strong>Coefficient:</strong>
+  <%= @teaching_module.coefficient %>
+</p>
+
+<%= link_to 'Edit', edit_teaching_module_path(@teaching_module) %> |
+<%= link_to 'Back', teaching_modules_path %>

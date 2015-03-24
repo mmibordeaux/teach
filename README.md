@@ -12,9 +12,9 @@
 ## DB
     rails g scaffold Semester number:integer
     rails g scaffold TeachingUnit number:integer
-    rails g scaffold TeachingSubject label:integer teaching_unit_id:integer
-    rails g scaffold TeachingCategory label:integer
-    rails g scaffold TeachingModule code:string label:string objectives:text content:text howto:text hours:integer semester_id:integer teaching_subject_id:integer teaching_unit_id:integer teaching_category_id:integer coefficient:integer
+    rails g scaffold TeachingSubject label:string teaching_unit_id:integer
+    rails g scaffold TeachingCategory label:string
+    rails g scaffold TeachingModule code:string label:string objectives:text content:text how_to:text what_next:text hours:integer semester_id:integer teaching_subject_id:integer teaching_unit_id:integer teaching_category_id:integer coefficient:integer
     rails g scaffold Competency label:string teaching_module_id:integer
     rails g scaffold Keyword label:string teaching_module_id:integer
 

@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Teaching Modules</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Label</th>
+      <th>Objectives</th>
+      <th>Content</th>
+      <th>How to</th>
+      <th>What next</th>
+      <th>Hours</th>
+      <th>Semester</th>
+      <th>Teaching subject</th>
+      <th>Teaching unit</th>
+      <th>Teaching category</th>
+      <th>Coefficient</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teaching_modules.each do |teaching_module| %>
+      <tr>
+        <td><%= teaching_module.code %></td>
+        <td><%= teaching_module.label %></td>
+        <td><%= teaching_module.objectives %></td>
+        <td><%= teaching_module.content %></td>
+        <td><%= teaching_module.how_to %></td>
+        <td><%= teaching_module.what_next %></td>
+        <td><%= teaching_module.hours %></td>
+        <td><%= teaching_module.semester_id %></td>
+        <td><%= teaching_module.teaching_subject_id %></td>
+        <td><%= teaching_module.teaching_unit_id %></td>
+        <td><%= teaching_module.teaching_category_id %></td>
+        <td><%= teaching_module.coefficient %></td>
+        <td><%= link_to 'Show', teaching_module %></td>
+        <td><%= link_to 'Edit', edit_teaching_module_path(teaching_module) %></td>
+        <td><%= link_to 'Destroy', teaching_module, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Teaching module', new_teaching_module_path %>

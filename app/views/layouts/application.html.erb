@@ -15,13 +15,24 @@
         <li class="name">
           <h1><%= link_to 'MMI Bordeaux', root_path %></h1>
         </li>
-         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
 
       <section class="top-bar-section">
         <ul class="right">
           <li><%= link_to 'Equipe', users_path %></li>
+          <li class="has-dropdown">
+            <a href="#">PPN</a>
+            <ul class="dropdown">
+              <li><%= link_to 'Semestres', semesters_path %></li>
+              <li><%= link_to 'Unités d\'enseignement', teaching_units_path %></li>
+              <li><%= link_to 'Sujets', teaching_subjects_path %></li>
+              <li><%= link_to 'Catégories', teaching_categories_path %></li>
+              <li><%= link_to 'Modules', teaching_modules_path %></li>
+              <li><%= link_to 'Compétences', competencies_path %></li>
+              <li><%= link_to 'Mots-clés', keywords_path %></li>
+            </ul>
+          </li>
         </ul>
       </section>
     </nav>

@@ -6,12 +6,21 @@ class PPN
     f.close
     objects = []
 
+    (1..4).each do |index|
+      Semester.find_or_create_by(number: index)
+    end
+    (1..2).each do |index|
+      TeachingUnit.find_or_create_by(number: index)
+    end
+
     # teaching_subject
     subjects = []
-    doc.css('.element .name').each do |category|
-      subjects.push category.content
+    doc.css('.element').each do |element|
+      label = element.css('.name').first.content.to_s
+      teaching_unit_number = element.css('.uevalue').first.content.to_i
+      teaching_unit = TeachingUnit.where(number: teaching_unit_number).first
+      TeachingSubject.find_or_create_by(label: label, teaching_unit_id: teaching_unit.id)
     end
-    subjects.uniq!
 
     # teaching_category
     categories = []
@@ -49,13 +58,15 @@ class PPN
           when 'Contenus'
             teaching_module[:content] = nodes.collect(&:content).join(' ')
           when 'Modalités de mise en œuvre'
-            teaching_module[:howto] = nodes.collect(&:content).join(' ')
+            teaching_module[:how_to] = nodes.collect(&:content).join(' ')
+          when 'Prolongements possibles'
+            teaching_module[:what_next] = nodes.collect(&:content).join(' ')
           when 'Compétences visées'
             competencies = []
             if nodes.count == 1
               competency = nodes.first.content
-              competency.sub!('Être capable de ', '')
-              competency.sub!('Être capable d\'', '')
+              competency.gsub!('Être capable de ', '')
+              competency.gsub!('Être capable d\'', '')
               competencies << competency
             else
               ul = nodes.pop
@@ -64,7 +75,28 @@ class PPN
               end
             end
             teaching_module[:competencies] = competencies
-        end
+          when 'Mots-clés'
+            list = nodes.collect(&:content).join(',')
+            list.gsub!("\r\n", ' ')
+            list.gsub!("\n", ' ')
+            list.gsub!("\r", ' ')
+            list.gsub!("
+", ' ')
+            list.gsub!(" ; ", ',')
+            list.gsub!('…', ',')
+            list.gsub!('.', ',')
+            list.gsub!('                                    ', '')
+            list.gsub!(',,', ',')
+            list.gsub!(', ', ',')
+            list.gsub!('—', ',')
+            list.gsub!(', ', ',')
+            list.downcase!
+            keywords = list.split(',')
+            teaching_module[:keywords] = []
+            keywords.each do |keyword| 
+              teaching_module[:keywords] << keyword unless keyword.empty?
+            end
+          end
       end
       teaching_module[:hours] = full_data.css('.total').first.content.to_i
       objects << teaching_module

@@ -11,10 +11,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323211606) do
+ActiveRecord::Schema.define(version: 20150324085731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "competencies", force: :cascade do |t|
+    t.string   "label"
+    t.integer  "teaching_module_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string   "label"
+    t.integer  "teaching_module_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "semesters", force: :cascade do |t|
+    t.integer  "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teaching_categories", force: :cascade do |t|
+    t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teaching_modules", force: :cascade do |t|
+    t.string   "code"
+    t.string   "label"
+    t.text     "objectives"
+    t.text     "content"
+    t.text     "how_to"
+    t.text     "what_next"
+    t.integer  "hours"
+    t.integer  "semester_id"
+    t.integer  "teaching_subject_id"
+    t.integer  "teaching_unit_id"
+    t.integer  "teaching_category_id"
+    t.integer  "coefficient"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "teaching_subjects", force: :cascade do |t|
+    t.string   "label"
+    t.integer  "teaching_unit_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "teaching_units", force: :cascade do |t|
+    t.integer  "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
