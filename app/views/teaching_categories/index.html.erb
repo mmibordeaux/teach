@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Teaching Categories</h1>
+<h1><%= @teaching_categories.count %> catégories</h1>
 
 <table>
   <thead>
@@ -16,12 +16,7 @@
         <td><%= teaching_category.label %></td>
         <td><%= link_to 'Show', teaching_category %></td>
         <td><%= link_to 'Edit', edit_teaching_category_path(teaching_category) %></td>
-        <td><%= link_to 'Destroy', teaching_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Teaching category', new_teaching_category_path %>

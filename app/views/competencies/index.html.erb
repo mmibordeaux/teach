@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Competencies</h1>
+<h1><%= @competencies.count %> compétences</h1>
 
 <table>
   <thead>
@@ -18,12 +18,7 @@
         <td><%= competency.teaching_module_id %></td>
         <td><%= link_to 'Show', competency %></td>
         <td><%= link_to 'Edit', edit_competency_path(competency) %></td>
-        <td><%= link_to 'Destroy', competency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Competency', new_competency_path %>

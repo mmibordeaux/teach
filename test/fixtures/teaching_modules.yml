@@ -5,7 +5,6 @@
 #  id                   :integer          not null, primary key
 #  code                 :string
 #  label                :string
-#  objectives           :text
 #  content              :text
 #  how_to               :text
 #  what_next            :text

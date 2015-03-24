@@ -5,7 +5,6 @@
 #  id                   :integer          not null, primary key
 #  code                 :string
 #  label                :string
-#  objectives           :text
 #  content              :text
 #  how_to               :text
 #  what_next            :text
@@ -20,4 +19,14 @@
 #
 
 class TeachingModule < ActiveRecord::Base
+  belongs_to :teaching_unit
+  belongs_to :teaching_subject
+  belongs_to :teaching_category
+  belongs_to :semester
+  has_many :objectives
+
+  def to_s
+    "#{code}"
+  end
+
 end

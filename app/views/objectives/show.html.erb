@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @objective.label %>
+</p>
+
+<p>
+  <strong>Teaching module:</strong>
+  <%= @objective.teaching_module_id %>
+</p>
+
+<%= link_to 'Edit', edit_objective_path(@objective) %> |
+<%= link_to 'Back', objectives_path %>
