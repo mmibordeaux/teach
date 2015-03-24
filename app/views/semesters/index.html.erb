@@ -2,11 +2,10 @@
 
 <h1><%= @semesters.count %> semestres</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Number</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -14,8 +13,6 @@
     <% @semesters.each do |semester| %>
       <tr>
         <td><%= link_to semester, semester %></td>
-        <td><%= link_to 'Show', semester %></td>
-        <td><%= link_to 'Edit', edit_semester_path(semester) %></td>
       </tr>
     <% end %>
   </tbody>

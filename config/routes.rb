@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :involvements
+
+  resources :projects
+
+  resources :fields
+
   resources :objectives
 
   resources :keywords

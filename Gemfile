@@ -10,8 +10,8 @@ gem 'jquery-rails'
 gem 'jbuilder'
 gem 'unicorn'
 gem 'nokogiri'
-gem 'foundation-rails'
-gem 'foundation_rails_helper'
+gem 'twitter-bootstrap-rails'
+gem 'simple_form'
 
 group :development do
   gem 'byebug'

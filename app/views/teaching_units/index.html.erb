@@ -2,20 +2,17 @@
 
 <h1><%= @teaching_units.count %> unités d'enseignement</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Number</th>
-      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @teaching_units.each do |teaching_unit| %>
       <tr>
-        <td><%= teaching_unit %></td>
-        <td><%= link_to 'Show', teaching_unit %></td>
-        <td><%= link_to 'Edit', edit_teaching_unit_path(teaching_unit) %></td>
+        <td><%= link_to teaching_unit, teaching_unit %></td>
       </tr>
     <% end %>
   </tbody>

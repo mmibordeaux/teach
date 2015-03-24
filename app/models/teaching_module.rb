@@ -29,4 +29,8 @@ class TeachingModule < ActiveRecord::Base
     "#{code}"
   end
 
+  def full_name
+    "#{code} - #{label}"
+  end
+
 end

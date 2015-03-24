@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @involvement.project_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @involvement.user_id %>
+</p>
+
+<p>
+  <strong>Hours:</strong>
+  <%= @involvement.hours %>
+</p>
+
+<%= link_to 'Edit', edit_involvement_path(@involvement) %> |
+<%= link_to 'Back', involvements_path %>
