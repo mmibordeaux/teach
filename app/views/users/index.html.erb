@@ -1,31 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Equipe</h1>
+<%= link_to 'Nouvelle personne', new_user_path %>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Hours</th>
-      <th colspan="3"></th>
+      <th>Nom</th>
+      <th>Heures</th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
+        <td><%= link_to user, user %></td>
         <td><%= user.hours %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
