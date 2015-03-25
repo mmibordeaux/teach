@@ -16,6 +16,8 @@ gem 'twitter-bootstrap-rails'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'd3_rails'
+gem 'chartkick'
+gem 'highcharts-rails'
 
 group :development do
   gem 'byebug'

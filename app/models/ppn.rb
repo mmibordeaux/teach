@@ -1,5 +1,7 @@
 class PPN
 
+  HOURS = 1800
+
   def self.parse
     f = File.open(File.dirname(__FILE__) + '/ppn.html')
     doc = Nokogiri::HTML(f)
