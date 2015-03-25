@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: fields_projects
+#
+#  id         :integer          not null, primary key
+#  field_id   :integer
+#  project_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  field_id: 1
+  project_id: 1
+
+two:
+  field_id: 1
+  project_id: 1
