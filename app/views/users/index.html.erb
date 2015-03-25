@@ -8,6 +8,7 @@
     <tr>
       <th>Nom</th>
       <th>Heures</th>
+      <th>Titulaire</th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
       <tr>
         <td><%= link_to user, user %></td>
         <td><%= user.hours %></td>
+        <td><%= user.tenured %></td>
       </tr>
     <% end %>
   </tbody>
