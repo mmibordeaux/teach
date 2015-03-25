@@ -6,7 +6,7 @@
 <p>Heures des titulaires : <%= @tenured_hours %></p>
 <p>Heures restantes : <%= @remaining_hours %></p>
 
- <%= pie_chart User.group(:tenured).count %>
+ <%= pie_chart User.group(:tenured).sum(:hours) %>
 
 <h2><%= @users.count %> personnes</h2>
 <%= link_to 'Nouvelle personne', new_user_path %>
