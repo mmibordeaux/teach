@@ -1,14 +1,4 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @keyword.label %>
-</p>
-
-<p>
-  <strong>Teaching module:</strong>
-  <%= @keyword.teaching_module_id %>
-</p>
-
-<%= link_to 'Edit', edit_keyword_path(@keyword) %> |
-<%= link_to 'Back', keywords_path %>
+<h1>Mot-clé : <%= @keyword %></h1>
+<p><%= link_to @keyword.teaching_module.full_name, @keyword.teaching_module %></p>

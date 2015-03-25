@@ -5,8 +5,6 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all.order(:last_name, :first_name)
-    @tenured_hours = User.where(tenured: true).sum(:hours)
-    @remaining_hours = PPN::HOURS - @tenured_hours
   end
 
   # GET /users/1

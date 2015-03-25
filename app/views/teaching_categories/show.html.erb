@@ -1,9 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @teaching_category.label %>
-</p>
+<h1><%= @teaching_category %></h1>
 
-<%= link_to 'Edit', edit_teaching_category_path(@teaching_category) %> |
-<%= link_to 'Back', teaching_categories_path %>
+<div class="row">
+  <div class="col-md-4">
+    <%= column_chart @teaching_category.teaching_modules.group(:semester).sum(:hours) %>
+    <p>Heures par semestres</p>
+  </div>
+</div>
+
+<h2>Modules</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Nom</th>
+      <th>Heure</th>
+      <th>Unité</th>
+      <th>Categorie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teaching_category.teaching_modules.each do |teaching_module| %>
+      <tr>
+        <td><%= link_to teaching_module.code, teaching_module %></td>
+        <td><%= link_to teaching_module.label, teaching_module %></td>
+        <td><%= teaching_module.hours %></td>
+        <td><%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %></td>
+        <td><%= link_to teaching_module.teaching_category, teaching_module.teaching_category %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

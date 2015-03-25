@@ -10,6 +10,8 @@
 
 class Semester < ActiveRecord::Base
 
+  has_many :teaching_modules
+
   def to_s
     "S#{number}"
   end

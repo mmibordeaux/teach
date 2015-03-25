@@ -11,6 +11,7 @@
 
 class TeachingSubject < ActiveRecord::Base
 
+  has_many :teaching_modules
   belongs_to :teaching_unit
 
   def to_s

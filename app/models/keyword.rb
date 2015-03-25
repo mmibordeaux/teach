@@ -11,6 +11,7 @@
 
 class Keyword < ActiveRecord::Base
 
+  # Should be a many to many with a joint table, some keywords are used multiple times
   belongs_to :teaching_module
 
   def to_s

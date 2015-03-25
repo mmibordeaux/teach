@@ -1,14 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @field.label %>
-</p>
+<% unless @field.parent.nil? %>
+  <p><%= link_to @field.parent, @field.parent %> / </p>
+<% end %>
 
-<p>
-  <strong>Parent:</strong>
-  <%= @field.parent_id %>
-</p>
+<h1><%= @field %></h1>
+<%= link_to 'Edit', edit_field_path(@field) %>
 
-<%= link_to 'Edit', edit_field_path(@field) %> |
-<%= link_to 'Back', fields_path %>
+<% if @field.children.any? %>
+  <h2>Sous-champs</h2>
+  <ul>
+    <% @field.children.each do |child| %>
+      <li><%= link_to child, child %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>Modules</h2>
+<ul>
+  <% @field.teaching_modules.each do |teaching_module| %>
+    <li><%= link_to teaching_module.full_name, teaching_module %></li>
+  <% end %>
+</ul>
+
+<h2>Mots clés</h2>

@@ -1,4 +1,9 @@
 <%= semantic_form_for @field do |f| %>
-  <%= f.inputs %>
+  <%= f.inputs do %>
+    <%= f.input :label %>
+    <%= f.input :parent %>
+    <%= f.input :position %>
+    <%= f.input :teaching_modules, as: :check_boxes %>
+  <% end %>
   <%= f.actions %>
 <% end %>

@@ -1,14 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Equipe</h1>
-
-<h2>Heures</h2>
-<p>Heures des titulaires : <%= @tenured_hours %></p>
-<p>Heures restantes : <%= @remaining_hours %></p>
-
- <%= pie_chart User.group(:tenured).sum(:hours) %>
-
-<h2><%= @users.count %> personnes</h2>
+<h1><%= @users.count %> personnes</h1>
 <%= link_to 'Nouvelle personne', new_user_path %>
 
 <table class="table table-hover">

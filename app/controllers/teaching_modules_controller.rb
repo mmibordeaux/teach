@@ -4,7 +4,7 @@ class TeachingModulesController < ApplicationController
   # GET /teaching_modules
   # GET /teaching_modules.json
   def index
-    @teaching_modules = TeachingModule.all
+    @teaching_modules = TeachingModule.all.order(:semester_id)
   end
 
   # GET /teaching_modules/1

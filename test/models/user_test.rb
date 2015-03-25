@@ -8,6 +8,7 @@
 #  hours      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  tenured    :boolean
 #
 
 require 'test_helper'

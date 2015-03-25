@@ -1,14 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @objective.label %>
-</p>
-
-<p>
-  <strong>Teaching module:</strong>
-  <%= @objective.teaching_module_id %>
-</p>
-
-<%= link_to 'Edit', edit_objective_path(@objective) %> |
-<%= link_to 'Back', objectives_path %>
+<h1>Objectif <%= @objective.id %></h1>
+<p><%= @objective.label %></p>
+<p>Cet objectif fait partie du module <%= link_to @objective.teaching_module.full_name, @objective.teaching_module %></p>

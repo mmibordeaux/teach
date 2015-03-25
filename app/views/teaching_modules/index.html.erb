@@ -6,30 +6,22 @@
   <thead>
     <tr>
       <th>Code</th>
-      <th>Label</th>
-      <th>Hours</th>
-      <th>Semester</th>
-      <th>Teaching subject</th>
-      <th>Teaching unit</th>
-      <th>Teaching category</th>
-      <th>Coefficient</th>
-      <th colspan="2"></th>
+      <th>Nom</th>
+      <th>Heure</th>
+      <th>Semestre</th>
+      <th>Unité</th>
+      <th>Categorie</th>
     </tr>
   </thead>
-
   <tbody>
     <% @teaching_modules.each do |teaching_module| %>
       <tr>
-        <td><%= teaching_module.code %></td>
-        <td><%= teaching_module.label %></td>
+        <td><%= link_to teaching_module.code, teaching_module %></td>
+        <td><%= link_to teaching_module.label, teaching_module %></td>
         <td><%= teaching_module.hours %></td>
-        <td><%= teaching_module.semester %></td>
-        <td><%= teaching_module.teaching_subject %></td>
-        <td><%= teaching_module.teaching_unit %></td>
-        <td><%= teaching_module.teaching_category %></td>
-        <td><%= teaching_module.coefficient %></td>
-        <td><%= link_to 'Show', teaching_module %></td>
-        <td><%= link_to 'Edit', edit_teaching_module_path(teaching_module) %></td>
+        <td><%= link_to teaching_module.semester, teaching_module.semester %></td>
+        <td><%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %></td>
+        <td><%= link_to teaching_module.teaching_category, teaching_module.teaching_category %></td>
       </tr>
     <% end %>
   </tbody>

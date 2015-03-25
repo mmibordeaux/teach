@@ -1,63 +1,47 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @teaching_module.full_name %></h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <h2>Contenus</h2>
+    <p><%= @teaching_module.content %></p>
+  </div>
+  <div class="col-md-4 abstract">
+    <h2>En bref</h2>
+    <ul>
+      <li><%= link_to @teaching_module.teaching_unit, @teaching_module.teaching_unit %></li>
+      <li><%= link_to @teaching_module.semester, @teaching_module.semester %></li>
+      <li><%= link_to @teaching_module.teaching_category, @teaching_module.teaching_category %></li>
+      <li><%= link_to @teaching_module.teaching_subject, @teaching_module.teaching_subject %></li>
+      <li><%= @teaching_module.hours %> heures</li>
+      <li>Coefficient <%= @teaching_module.coefficient %></li>
+    </ul>
+  </div>
+</div>
+
+<h2>Objectifs</h2>
 <p>
-  <strong>Code:</strong>
-  <%= @teaching_module.code %>
+  <ul>
+    <% @teaching_module.objectives.each do |objective| %>
+      <li><%= link_to objective, objective %></li>
+    <% end %>
+  </ul>
 </p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @teaching_module.label %>
-</p>
+<h2>Modalités de mise en œuvre</h2>
+<p><%= @teaching_module.how_to %></p>
 
-<p>
-  <strong>Objectives:</strong>
-  <%= @teaching_module.objectives %>
-</p>
+<h2>Prolongements possibles</h2>
+<p><%= @teaching_module.what_next %></p>
 
+<h2>Mots-clés</h2>
 <p>
-  <strong>Content:</strong>
-  <%= @teaching_module.content %>
-</p>
-
-<p>
-  <strong>How to:</strong>
-  <%= @teaching_module.how_to %>
-</p>
-
-<p>
-  <strong>What next:</strong>
-  <%= @teaching_module.what_next %>
-</p>
-
-<p>
-  <strong>Hours:</strong>
-  <%= @teaching_module.hours %>
-</p>
-
-<p>
-  <strong>Semester:</strong>
-  <%= @teaching_module.semester_id %>
-</p>
-
-<p>
-  <strong>Teaching subject:</strong>
-  <%= @teaching_module.teaching_subject_id %>
-</p>
-
-<p>
-  <strong>Teaching unit:</strong>
-  <%= @teaching_module.teaching_unit_id %>
-</p>
-
-<p>
-  <strong>Teaching category:</strong>
-  <%= @teaching_module.teaching_category_id %>
-</p>
-
-<p>
-  <strong>Coefficient:</strong>
-  <%= @teaching_module.coefficient %>
+  <ul class="list-inline">
+    <% @teaching_module.keywords.each do |keyword| %>
+      <li><%= link_to keyword, keyword, class: 'btn btn-primary' %></li>
+    <% end %>
+  </ul>
 </p>
 
 <%= link_to 'Edit', edit_teaching_module_path(@teaching_module) %> |

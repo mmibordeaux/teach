@@ -24,6 +24,9 @@ class TeachingModule < ActiveRecord::Base
   belongs_to :teaching_category
   belongs_to :semester
   has_many :objectives
+  has_many :keywords
+
+  #default_scope { order('semester_id') }
 
   def to_s
     "#{code}"

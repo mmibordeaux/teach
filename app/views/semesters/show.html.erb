@@ -1,9 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @semester.number %>
-</p>
+<h1><%= @semester %></h1>
+<%= link_to 'Edit', edit_semester_path(@semester) %>
 
-<%= link_to 'Edit', edit_semester_path(@semester) %> |
-<%= link_to 'Back', semesters_path %>
+<h2><%= @semester.teaching_modules.count %> modules</h2>
+
+<%= pie_chart @semester.teaching_modules.group(:teaching_category).sum(:hours) %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Nom</th>
+      <th>Heure</th>
+      <th>Unité</th>
+      <th>Categorie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @semester.teaching_modules.each do |teaching_module| %>
+      <tr>
+        <td><%= link_to teaching_module.code, teaching_module %></td>
+        <td><%= link_to teaching_module.label, teaching_module %></td>
+        <td><%= teaching_module.hours %></td>
+        <td><%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %></td>
+        <td><%= link_to teaching_module.teaching_category, teaching_module.teaching_category %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
