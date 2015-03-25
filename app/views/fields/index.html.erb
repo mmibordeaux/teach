@@ -1,17 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @fields.count %> champs</h1>
-<%= link_to 'Nouveau champ', new_field_path %>
 
+<%= link_to 'Nouveau champ', new_field_path %>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Label</th>
       <th>Modules</th>
       <th>Projets</th>
+      <th>Heures cumulées</th>
     </tr>
   </thead>
-
   <tbody>
     <% @fields.each do |field| %>
       <tr>
@@ -30,6 +30,7 @@
             <% end %>
           </ul>
         </td>
+        <td><%= field.hours %></td>
       </tr>
     <% end %>
   </tbody>

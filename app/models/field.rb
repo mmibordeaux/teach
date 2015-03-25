@@ -24,6 +24,10 @@ class Field < ActiveRecord::Base
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :projects
   
+  def hours
+    teaching_modules.sum(:hours)
+  end
+
   def to_s
     "#{label}"
   end
