@@ -69,6 +69,6 @@ class TeachingModulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teaching_module_params
-      params.require(:teaching_module).permit(:code, :label, :objectives, :content, :how_to, :what_next, :hours, :semester_id, :teaching_subject_id, :teaching_unit_id, :teaching_category_id, :coefficient)
+      params.require(:teaching_module).permit(:code, :label, :objectives, :content, :how_to, :what_next, :hours, :semester_id, :teaching_subject_id, :teaching_unit_id, :teaching_category_id, :coefficient, field_ids: [] )
     end
 end

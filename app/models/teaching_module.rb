@@ -25,6 +25,14 @@ class TeachingModule < ActiveRecord::Base
   belongs_to :semester
   has_many :objectives
   has_many :keywords
+  has_many :fields_teaching_modules
+  has_many :fields, through: :fields_teaching_modules
+  has_many :projects_teaching_modules
+  has_many :projects, through: :projects_teaching_modules
+
+  
+  accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
+  accepts_nested_attributes_for :fields
 
   #default_scope { order('semester_id') }
 

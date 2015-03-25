@@ -5,23 +5,36 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Code</th>
       <th>Nom</th>
-      <th>Heure</th>
-      <th>Semestre</th>
-      <th>Unité</th>
-      <th>Categorie</th>
+      <th>En bref</th>
+      <th>Champs</th>
+      <th>Projets</th>
     </tr>
   </thead>
   <tbody>
     <% @teaching_modules.each do |teaching_module| %>
       <tr>
-        <td><%= link_to teaching_module.code, teaching_module %></td>
-        <td><%= link_to teaching_module.label, teaching_module %></td>
-        <td><%= teaching_module.hours %></td>
-        <td><%= link_to teaching_module.semester, teaching_module.semester %></td>
-        <td><%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %></td>
-        <td><%= link_to teaching_module.teaching_category, teaching_module.teaching_category %></td>
+        <td><%= link_to teaching_module.full_name, teaching_module %></td>
+        <td>
+          <%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %>,
+          <%= link_to teaching_module.teaching_category, teaching_module.teaching_category %>,
+          <%= link_to teaching_module.semester, teaching_module.semester %>, 
+          <%= teaching_module.hours %> heures
+        </td>
+        <td>
+          <ul class="list-inline">
+            <% teaching_module.fields.each do |field| %>
+              <li><%= link_to field, field, class: 'btn btn-primary btn-xs' %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td>
+          <ul class="list-inline">
+            <% teaching_module.projects.each do |project| %>
+              <li><%= link_to project, project, class: 'btn btn-primary btn-xs' %></li>
+            <% end %>
+          </ul>
+        </td>
       </tr>
     <% end %>
   </tbody>

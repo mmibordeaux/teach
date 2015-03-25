@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @teaching_module.full_name %></h1>
+<%= link_to 'Edit', edit_teaching_module_path(@teaching_module) %>
 
 <div class="row">
   <div class="col-md-8">
@@ -39,10 +40,16 @@
 <p>
   <ul class="list-inline">
     <% @teaching_module.keywords.each do |keyword| %>
-      <li><%= link_to keyword, keyword, class: 'btn btn-primary' %></li>
+      <li><%= link_to keyword, keyword, class: 'btn btn-info' %></li>
     <% end %>
   </ul>
 </p>
 
-<%= link_to 'Edit', edit_teaching_module_path(@teaching_module) %> |
-<%= link_to 'Back', teaching_modules_path %>
+<h2>Champs</h2>
+<p>
+  <ul class="list-inline">
+    <% @teaching_module.fields.each do |field| %>
+      <li><%= link_to field, field, class: 'btn btn-primary' %></li>
+    <% end %>
+  </ul>
+</p>
