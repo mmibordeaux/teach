@@ -1,13 +1,18 @@
 # == Schema Information
 #
-# Table name: projects
+# Table name: projects_semesters
 #
 #  id          :integer          not null, primary key
-#  label       :string
+#  project_id  :integer
 #  semester_id :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-class Project < ActiveRecord::Base
+require 'test_helper'
+
+class ProjectsSemesterTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

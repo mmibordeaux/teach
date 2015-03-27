@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :models
+
+  resources :jobs
+
   resources :involvements
   resources :projects
   resources :fields

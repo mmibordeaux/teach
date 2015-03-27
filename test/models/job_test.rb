@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: projects
+# Table name: jobs
 #
 #  id         :integer          not null, primary key
 #  label      :string
@@ -10,7 +10,7 @@
 
 require 'test_helper'
 
-class ProjectTest < ActiveSupport::TestCase
+class JobTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

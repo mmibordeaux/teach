@@ -20,12 +20,33 @@ class Field < ActiveRecord::Base
   has_many :projects, through: :fields_projects
   
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
-  accepts_nested_attributes_for :teaching_modules
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :projects
   
+  def teaching_modules
+    list = super
+    if children.any?
+      children.each do |child|
+        list += child.teaching_modules
+      end
+    end
+    list.uniq!
+    list
+  end
+
   def hours
-    teaching_modules.sum(:hours)
+    teaching_modules.map{|tm|tm.hours}.sum
+  end
+
+  def projects
+    list = super
+    if children.any?
+      children.each do |child|
+        list += child.projects
+      end
+    end
+    list.uniq!
+    list
   end
 
   def to_s

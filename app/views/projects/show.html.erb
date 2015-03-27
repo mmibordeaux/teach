@@ -1,14 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @project.label %>
-</p>
+<h1><%= @project.label %></h1>
+<%= link_to 'Edit', edit_project_path(@project) %>
 
-<p>
-  <strong>Semester:</strong>
-  <%= @project.semester_id %>
-</p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>

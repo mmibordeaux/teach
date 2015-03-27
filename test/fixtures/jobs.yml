@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: projects
+# Table name: jobs
 #
 #  id         :integer          not null, primary key
 #  label      :string
@@ -8,10 +8,10 @@
 #  updated_at :datetime         not null
 #
 
-require 'test_helper'
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-class ProjectTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-end
+one:
+  label: MyString
+
+two:
+  label: MyString

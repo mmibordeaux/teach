@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325223659) do
+ActiveRecord::Schema.define(version: 20150327080447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 20150325223659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "position"
+  end
+
+  create_table "fields_jobs", force: :cascade do |t|
+    t.integer  "field_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "fields_projects", force: :cascade do |t|
@@ -51,11 +58,25 @@ ActiveRecord::Schema.define(version: 20150325223659) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "keywords", force: :cascade do |t|
     t.string   "label"
     t.integer  "teaching_module_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "models", force: :cascade do |t|
+    t.string   "FieldsJob"
+    t.integer  "field_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "objectives", force: :cascade do |t|
@@ -67,6 +88,12 @@ ActiveRecord::Schema.define(version: 20150325223659) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects_semesters", force: :cascade do |t|
+    t.integer  "project_id"
     t.integer  "semester_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
