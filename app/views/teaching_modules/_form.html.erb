@@ -1,6 +1,6 @@
 <%= semantic_form_for @teaching_module do |f| %>
   <%= f.inputs do %>
-    <%= f.input :fields, as: :check_boxes %>
+    <%= f.input :fields, as: :check_boxes, collection: Field.not_root %>
   <% end %>
   <%= f.actions %>
 <% end %>
