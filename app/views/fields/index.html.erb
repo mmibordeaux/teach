@@ -24,7 +24,7 @@ var vis = div.append("svg")
 
 var partition = d3.layout.partition()
     .sort(null)
-    .value(function(d) { return 5.8 - d.depth; });
+    .value(function(d) { return d.size; });
 
 var arc = d3.svg.arc()
     .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
@@ -42,7 +42,7 @@ d3.json("fields.json", function(error, json) {
       .style("visibility", function(d) { return d.depth <= visibleDepth ? 'visible' : 'hidden'; })
       .style("stroke", "#fff")
       .attr("fill-rule", "evenodd")
-      .style("fill", function(object) { return d.depth == 0 ? '#fff' : object.colour })
+      .style("fill", function(d) { return d.depth == 0 ? '#fff' : d.colour })
       .on("click", click);
 
   var text = vis.selectAll("text").data(nodes);

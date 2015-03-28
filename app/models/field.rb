@@ -38,7 +38,9 @@ class Field < ActiveRecord::Base
   end
 
   def hours
-    teaching_modules.map{|tm|tm.hours}.sum
+    hours = children.map{|c|c.hours}.sum
+    hours += teaching_modules.map{|tm|tm.hours}.sum
+    hours
   end
 
   def projects
