@@ -2,10 +2,14 @@
 
 <h1><%= @project.label %></h1>
 <%= link_to 'Edit', edit_project_path(@project) %>
-<p><%= @project.description %>
+<%= simple_format @project.description %>
+
+<h2>Semestres</h2>
+<%= render partial: 'semesters/inline_list', locals: {semesters: @project.semesters} %>
 
 <h2>Champs</h2>
 <%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
 
 <h2>Modules</h2>
+<p>Nous pouvons intégrer des notes de ce projet dans les modules suivants</p>
 <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
