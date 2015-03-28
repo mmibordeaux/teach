@@ -37,19 +37,11 @@
 <p><%= @teaching_module.what_next %></p>
 
 <h2>Mots-clés</h2>
-<p>
-  <ul class="list-inline">
-    <% @teaching_module.keywords.each do |keyword| %>
-      <li><%= link_to keyword, keyword, class: 'btn btn-info' %></li>
-    <% end %>
-  </ul>
-</p>
+<%= render partial: 'keywords/inline_list', locals: {keywords: @teaching_module.keywords} %>
 
 <h2>Champs</h2>
-<p>
-  <ul class="list-inline">
-    <% @teaching_module.fields.each do |field| %>
-      <li><%= link_to field, field, class: 'btn btn-primary' %></li>
-    <% end %>
-  </ul>
-</p>
+<%= render partial: 'fields/inline_list', locals: {fields: @teaching_module.fields} %>
+
+
+<h2>Projets</h2>
+<%= render partial: 'projects/inline_list', locals: {projects: @teaching_module.projects} %>

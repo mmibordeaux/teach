@@ -37,6 +37,15 @@ class Field < ActiveRecord::Base
     list
   end
 
+  def keywords_including_children
+    list = []
+    teaching_modules_including_children.each do |tm|
+      list += tm.keywords
+    end
+    list.uniq!
+    list
+  end
+
   def hours
     hours = children.map{|c|c.hours}.sum
     hours += teaching_modules.map{|tm|tm.hours}.sum

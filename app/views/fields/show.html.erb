@@ -3,24 +3,17 @@
 <% unless @field.parent.nil? %>
   <p><%= link_to @field.parent, @field.parent %> / </p>
 <% end %>
-
 <h1><%= @field %></h1>
 <%= link_to 'Edit', edit_field_path(@field) %>
 
-<% if @field.children.any? %>
-  <h2>Sous-champs</h2>
-  <ul>
-    <% @field.children.sorted.each do |child| %>
-      <li><%= link_to child, child %></li>
-    <% end %>
-  </ul>
-<% end %>
+<h2>Sous-champs</h2>
+<%= render partial: 'table', locals: {fields: @field.children.sorted} %>
+
+<h2>Projets</h2>
+<%= render partial: 'projects/inline_list', locals: {projects: @field.projects} %>
 
 <h2>Modules</h2>
-<ul>
-  <% @field.teaching_modules.each do |teaching_module| %>
-    <li><%= link_to teaching_module.full_name, teaching_module %></li>
-  <% end %>
-</ul>
+<%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @field.teaching_modules_including_children} %>
 
 <h2>Mots clés</h2>
+<%= render partial: 'keywords/inline_list', locals: {keywords: @field.keywords_including_children} %>
