@@ -16,20 +16,8 @@
     <% @fields.each do |field| %>
       <tr>
         <td><%= link_to field, field %></td>
-        <td>
-          <ul class="list-inline">
-            <% field.teaching_modules.each do |teaching_module| %>
-              <li><%= link_to teaching_module, teaching_module, class: 'btn btn-default btn-xs' %></li>
-            <% end %>
-          </ul>
-        </td>
-        <td>
-          <ul class="list-inline">
-            <% field.projects.each do |project| %>
-              <li><%= link_to project, project, class: 'btn btn-default btn-xs' %></li>
-            <% end %>
-          </ul>
-        </td>
+        <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: field.teaching_modules} %></td>
+        <td><%= render partial: 'projects/inline_list', locals: {projects: field.projects} %></td>
         <td><%= field.hours %></td>
       </tr>
     <% end %>

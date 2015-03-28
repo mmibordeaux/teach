@@ -3,10 +3,14 @@
 <h1><%= @semester %></h1>
 <%= link_to 'Edit', edit_semester_path(@semester) %>
 
-<h2><%= @semester.teaching_modules.count %> modules</h2>
+<div class="row">
+  <div class="col-md-6">
+    <%= pie_chart @semester.teaching_modules.group(:teaching_category).sum(:hours) %>
+    <p>Heures par catégorie</p>
+  </div>
+</div>
 
-<%= pie_chart @semester.teaching_modules.group(:teaching_category).sum(:hours) %>
-
+<h3><%= @semester.teaching_modules.count %> modules</h3>
 <table class="table table-hover">
   <thead>
     <tr>

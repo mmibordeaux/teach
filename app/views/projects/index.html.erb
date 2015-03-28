@@ -18,7 +18,7 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= link_to project, project %></td>
-        <td></td>
+        <td><%= render partial: 'semesters/inline_list', locals: {semesters: project.semesters} %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: project.fields} %></td>
         <td></td>
         <td></td>

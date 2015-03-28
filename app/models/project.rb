@@ -12,9 +12,13 @@ class Project < ActiveRecord::Base
 
   has_many :fields_projects
   has_many :fields, through: :fields_projects
+  has_many :projects_semesters
+  has_many :semesters, through: :projects_semesters
   
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :fields
+  accepts_nested_attributes_for :projects_semesters, allow_destroy: true
+  accepts_nested_attributes_for :semesters
 
   def to_s
     "#{label}"
