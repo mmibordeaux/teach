@@ -2,4 +2,10 @@
 
 <h1><%= @project.label %></h1>
 <%= link_to 'Edit', edit_project_path(@project) %>
+<p><%= @project.description %>
 
+<h2>Champs</h2>
+<%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
+
+<h2>Modules</h2>
+<%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>

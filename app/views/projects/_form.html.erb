@@ -1,6 +1,7 @@
 <%= semantic_form_for @project do |f| %>
   <%= f.inputs do %>
     <%= f.input :label %>
+    <%= f.input :description %>
     <%= f.input :fields, as: :check_boxes, label: 'Champs', collection: Field.not_root %>
     <%= f.input :semesters, as: :check_boxes, labe: 'Semestres' %>
   <% end %>
