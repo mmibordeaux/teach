@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<div id="vis"></div>
+
+<h1><%= @fields.count %> champs</h1>
+
+<%= link_to 'Nouveau champ', new_field_path %>
+<%= render partial: 'table', locals: {fields: @fields} %>
