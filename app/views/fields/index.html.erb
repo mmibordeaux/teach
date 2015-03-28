@@ -8,7 +8,9 @@ var width = 840,
     x = d3.scale.linear().range([0, 2 * Math.PI]),
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]),
     padding = 5,
-    duration = 1000;
+    duration = 1000,
+    currentDepth = 0,
+    visibleDepth = 2;
 
 var div = d3.select("#vis");
 
@@ -37,16 +39,23 @@ d3.json("fields.json", function(error, json) {
   path.enter().append("path")
       .attr("id", function(d, i) { return "path-" + i; })
       .attr("d", arc)
+      .style("visibility", function(d) { return d.depth <= visibleDepth ? 'visible' : 'hidden'; })
+      .style("stroke", "#fff")
       .attr("fill-rule", "evenodd")
-      .style("fill", colour)
+      .style("fill", function(object) { 
+        colour = object.colour;
+        if (!colour) {
+          colour = "#aaa";
+        }
+        return colour; 
+      })
       .on("click", click);
 
   var text = vis.selectAll("text").data(nodes);
   var textEnter = text.enter().append("text")
+      .style("visibility", function(d) { return d.depth <= visibleDepth ? 'visible' : 'hidden'; })
       .style("fill-opacity", 1)
-      .style("fill", function(d) {
-        return brightness(d3.rgb(colour(d))) < 125 ? "#eee" : "#000";
-      })
+      .style("fill", '#000000')
       .attr("text-anchor", function(d) {
         return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
       })
@@ -55,25 +64,35 @@ d3.json("fields.json", function(error, json) {
         var multiline = (d.name || "").split(" ").length > 1,
             angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
             rotate = angle + (multiline ? -.5 : 0);
+            //rotate -= 90;
         return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
       })
       .on("click", click);
+
   textEnter.append("tspan")
       .attr("x", 0)
-      .text(function(d) { return d.depth ? d.name.split(" ")[0] : ""; });
-  textEnter.append("tspan")
-      .attr("x", 0)
-      .attr("dy", "1em")
-      .text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });
+      .text(function(d) { 
+        return d.name; });
 
   function click(d) {
-    path.transition()
+    currentDepth = d.depth;
+    
+    path
+      .style("visibility", function(d) { return d.depth <= currentDepth + visibleDepth ? 'visible' : 'hidden'; })
+      .transition()
       .duration(duration)
       .attrTween("d", arcTween(d));
 
     // Somewhat of a hack as we rely on arcTween updating the scales.
     text.style("visibility", function(e) {
-          return isParentOf(d, e) ? null : d3.select(this).style("visibility");
+          visibility = 'visible';
+          if (!isParentOf(d, e)) {
+            visibility = d3.select(this).style("visibility");
+          }
+          if (e.depth > visibleDepth + currentDepth) {
+            visibility = 'hidden';
+          }
+          return visibility;
         })
       .transition()
         .duration(duration)
@@ -92,7 +111,7 @@ d3.json("fields.json", function(error, json) {
         })
         .style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
         .each("end", function(e) {
-          d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
+          //d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
         });
   }
 });
@@ -107,18 +126,6 @@ function isParentOf(p, c) {
   return false;
 }
 
-function colour(d) {
-  if (d.children) {
-    // There is a maximum of two children!
-    var colours = d.children.map(colour),
-        a = d3.hsl(colours[0]),
-        b = d3.hsl(colours[1]);
-    // L*a*b* might be better here...
-    return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
-  }
-  return d.colour || "#fff";
-}
-
 // Interpolate the scales!
 function arcTween(d) {
   var my = maxY(d),
@@ -126,7 +133,11 @@ function arcTween(d) {
       yd = d3.interpolate(y.domain(), [d.y, my]),
       yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
   return function(d) {
-    return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
+    return function(t) { 
+      x.domain(xd(t)); 
+      y.domain(yd(t)).range(yr(t)); 
+      return arc(d); 
+    };
   };
 }
 
@@ -134,10 +145,6 @@ function maxY(d) {
   return d.children ? Math.max.apply(Math, d.children.map(maxY)) : d.y + d.dy;
 }
 
-// http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
-function brightness(rgb) {
-  return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
-}
 </script>
 
 
@@ -148,8 +155,8 @@ function brightness(rgb) {
   <thead>
     <tr>
       <th>Label</th>
-      <th>Modules</th>
       <th>Projets</th>
+      <th>Modules</th>
       <th>Heures cumulées</th>
     </tr>
   </thead>
@@ -157,8 +164,8 @@ function brightness(rgb) {
     <% @fields.each do |field| %>
       <tr>
         <td><%= link_to field, field %></td>
-        <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: field.teaching_modules_including_children} %></td>
         <td><%= render partial: 'projects/inline_list', locals: {projects: field.projects} %></td>
+        <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: field.teaching_modules_including_children} %></td>
         <td><%= field.hours %></td>
       </tr>
     <% end %>
