@@ -3,7 +3,7 @@ json.array!(@fields) do |field|
   json.colour field.color
   json.size 1
   json.children do 
-    json.array!(field.children) do |child|
+    json.array!(field.children.sorted) do |child|
       json.name child.label
       json.colour (child.color.nil? or child.color.empty?) ? field.color : child.color 
       json.size 1
