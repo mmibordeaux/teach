@@ -26,8 +26,8 @@ class Field < ActiveRecord::Base
   scope :root, -> { where(parent_id: nil) }
   scope :sorted, -> { order(:position) }
   
-  def teaching_modules
-    list = super
+  def teaching_modules_including_children
+    list = teaching_modules
     if children.any?
       children.each do |child|
         list += child.teaching_modules
