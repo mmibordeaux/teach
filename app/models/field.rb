@@ -22,6 +22,9 @@ class Field < ActiveRecord::Base
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :projects
+
+  scope :root, -> { where(parent_id: nil) }
+  scope :sorted, -> { order(:position) }
   
   def teaching_modules
     list = super

@@ -4,7 +4,7 @@ class FieldsController < ApplicationController
   # GET /fields
   # GET /fields.json
   def index
-    @fields = Field.where(parent_id: nil).order(:position)
+    @fields = Field.root.sorted
   end
 
   # GET /fields/1
