@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  resources :models
-
   resources :jobs
-
   resources :involvements
   resources :projects
   resources :fields
@@ -16,5 +13,5 @@ Rails.application.routes.draw do
   resources :semesters
   resources :users
   get 'parse' => 'application#parse'
-  root 'users#index'
+  root 'fields#index'
 end
