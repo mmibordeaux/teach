@@ -5,4 +5,5 @@
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require chartkick
+//= require sunburst
 //= require_self
