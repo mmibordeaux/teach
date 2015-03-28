@@ -42,13 +42,7 @@ d3.json("fields.json", function(error, json) {
       .style("visibility", function(d) { return d.depth <= visibleDepth ? 'visible' : 'hidden'; })
       .style("stroke", "#fff")
       .attr("fill-rule", "evenodd")
-      .style("fill", function(object) { 
-        colour = object.colour;
-        if (!colour) {
-          colour = "#aaa";
-        }
-        return colour; 
-      })
+      .style("fill", function(object) { return d.depth == 0 ? '#fff' : object.colour })
       .on("click", click);
 
   var text = vis.selectAll("text").data(nodes);
