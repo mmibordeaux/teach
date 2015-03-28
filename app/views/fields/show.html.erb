@@ -10,7 +10,7 @@
 <% if @field.children.any? %>
   <h2>Sous-champs</h2>
   <ul>
-    <% @field.children.each do |child| %>
+    <% @field.children.sorted.each do |child| %>
       <li><%= link_to child, child %></li>
     <% end %>
   </ul>
