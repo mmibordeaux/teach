@@ -4,6 +4,8 @@
     <%= f.input :last_name %>
     <%= f.input :hours %>
     <%= f.input :tenured, label: 'Titulaire' %>
+    <%= f.input :teaching_modules, as: :check_boxes, label: 'Responsable des modules' %>
+    <%= f.input :projects, as: :check_boxes, label: 'Projets' %>
   <% end %>
   <%= f.actions %>
 <% end %>

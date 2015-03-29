@@ -1,11 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @user %></h1>
+<%= link_to 'Edit', edit_user_path(@user) %>
+<p><%= @user.hours %> heures</p>
 
-<p>
-  <strong>Hours:</strong>
-  <%= @user.hours %>
-</p>
+<h2>Projets</h2>
+<%= render partial: 'projects/inline_list', locals: {projects: @user.projects} %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Nouvelle personne', new_user_path %>
+<h2>Modules</h2>
+<%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @user.teaching_modules} %>

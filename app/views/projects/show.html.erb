@@ -10,6 +10,9 @@
 <h2>Champs</h2>
 <%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
 
+<h2>Personnes</h2>
+<%= render partial: 'users/inline_list', locals: {users: @project.users} %>
+
 <h2>Modules</h2>
 <p>Nous pouvons intégrer des notes de ce projet dans les modules suivants</p>
 <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
