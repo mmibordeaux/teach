@@ -7,6 +7,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  description :text
+#  position    :integer
 #
 
 class Project < ActiveRecord::Base
@@ -21,6 +22,8 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :fields
   accepts_nested_attributes_for :projects_semesters, allow_destroy: true
   accepts_nested_attributes_for :semesters
+
+  default_scope { order('position') }
 
   # Modules though fields, filtered by semesters
   def teaching_modules
