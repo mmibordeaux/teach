@@ -1,6 +1,12 @@
-<h1>Editing Teaching Module</h1>
+<h1><%= @teaching_module.full_name %></h1>
+<%= link_to 'Show', @teaching_module %>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'show' %>
+  </div>
+  <div class="col-md-4">
+    <%= render 'form' %>
+  </div>
+</div>
 
-<%= link_to 'Show', @teaching_module %> |
-<%= link_to 'Back', teaching_modules_path %>

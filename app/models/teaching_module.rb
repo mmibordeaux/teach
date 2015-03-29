@@ -16,6 +16,7 @@
 #  coefficient          :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  user_id              :integer
 #
 
 class TeachingModule < ActiveRecord::Base
@@ -23,6 +24,7 @@ class TeachingModule < ActiveRecord::Base
   belongs_to :teaching_subject
   belongs_to :teaching_category
   belongs_to :semester
+  belongs_to :user
   has_many :objectives
   has_many :keywords
   has_many :fields_teaching_modules

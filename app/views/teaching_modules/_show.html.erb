@@ -1,0 +1,39 @@
+<h2>En bref</h2>
+<ul class="list">
+  <li>Unité : <%= link_to @teaching_module.teaching_unit, @teaching_module.teaching_unit %></li>
+  <li>Semestre : <%= link_to @teaching_module.semester, @teaching_module.semester %></li>
+  <li>Semestre : Catégorie : <%= link_to @teaching_module.teaching_category, @teaching_module.teaching_category %></li>
+  <li>Sujet : <%= link_to @teaching_module.teaching_subject, @teaching_module.teaching_subject %></li>
+  <li>Durée : <%= @teaching_module.hours %> heures</li>
+  <li>Coefficient : <%= @teaching_module.coefficient %></li>
+  <% unless @teaching_module.user.nil? %>
+    <li>Responsable : <%= link_to @teaching_module.user, @teaching_module.user %></li>
+  <% end %>
+</ul>
+
+<h2>Contenus</h2>
+<p><%= @teaching_module.content %></p>
+
+<h2>Objectifs</h2>
+<p>
+  <ul>
+    <% @teaching_module.objectives.each do |objective| %>
+      <li><%= link_to objective, objective %></li>
+    <% end %>
+  </ul>
+</p>
+
+<h2>Modalités de mise en œuvre</h2>
+<p><%= @teaching_module.how_to %></p>
+
+<h2>Prolongements possibles</h2>
+<p><%= @teaching_module.what_next %></p>
+
+<h2>Mots-clés</h2>
+<%= render partial: 'keywords/inline_list', locals: {keywords: @teaching_module.keywords} %>
+
+<h2>Champs</h2>
+<%= render partial: 'fields/inline_list', locals: {fields: @teaching_module.fields} %>
+
+<h2>Projets</h2>
+<%= render partial: 'projects/inline_list', locals: {projects: @teaching_module.projects} %>
