@@ -7,8 +7,10 @@
     <tr>
       <th>Nom</th>
       <th>En bref</th>
+      <th>Responsable</th>
       <th>Champs</th>
       <th>Projets</th>
+      <th>Mots-clés</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +23,7 @@
           <%= link_to teaching_module.semester, teaching_module.semester %>, 
           <%= teaching_module.hours %> heures
         </td>
+        <td><%= link_to teaching_module.user, teaching_module.user unless teaching_module.user.nil? %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: teaching_module.fields} %></td>
         <td><%= render partial: 'projects/inline_list', locals: {projects: teaching_module.projects} %></td>
         <td><small><%= teaching_module.keywords.map{|k|k.label}.join(', ') %></small></td>
