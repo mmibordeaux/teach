@@ -13,6 +13,8 @@
 
 class User < ActiveRecord::Base
 
+  default_scope { order('last_name, first_name') }
+
   has_many :teaching_modules
   has_and_belongs_to_many :projects
 
