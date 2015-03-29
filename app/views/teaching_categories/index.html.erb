@@ -2,20 +2,21 @@
 
 <h1><%= @teaching_categories.count %> catégories</h1>
 
+<%= pie_chart @teaching_categories.map{|teaching_category| ["#{teaching_category.label}", teaching_category.hours] } %>
+
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Label</th>
-      <th colspan="3"></th>
+      <th>Heures</th>
     </tr>
   </thead>
 
   <tbody>
     <% @teaching_categories.each do |teaching_category| %>
       <tr>
-        <td><%= teaching_category.label %></td>
-        <td><%= link_to 'Show', teaching_category %></td>
-        <td><%= link_to 'Edit', edit_teaching_category_path(teaching_category) %></td>
+        <td><%= link_to teaching_category, teaching_category %></td>
+        <td><%= teaching_category.hours %></td>
       </tr>
     <% end %>
   </tbody>

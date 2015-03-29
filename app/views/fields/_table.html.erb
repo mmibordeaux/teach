@@ -4,7 +4,6 @@
       <th>Label</th>
       <th>Projets</th>
       <th>Modules</th>
-      <th>Heures cumulées</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +12,6 @@
         <td><%= link_to field, field %></td>
         <td><%= render partial: 'projects/inline_list', locals: {projects: field.projects} %></td>
         <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: field.teaching_modules_including_children} %></td>
-        <td><%= field.hours %></td>
       </tr>
     <% end %>
   </tbody>

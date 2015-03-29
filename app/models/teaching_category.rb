@@ -12,6 +12,10 @@ class TeachingCategory < ActiveRecord::Base
 
   has_many :teaching_modules
 
+  def hours
+    teaching_modules.sum(:hours)
+  end
+
   def to_s
     "#{label}"
   end
