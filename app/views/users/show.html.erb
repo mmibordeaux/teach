@@ -7,3 +7,6 @@
 
 <h2>Modules</h2>
 <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @user.teaching_modules} %>
+
+<h2>Champs</h2>
+<%= render partial: 'fields/inline_list', locals: {fields: @user.fields} %>

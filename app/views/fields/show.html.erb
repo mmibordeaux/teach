@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <% unless @field.parent.nil? %>
   <p><%= link_to @field.parent, @field.parent %> / </p>
 <% end %>
@@ -17,3 +15,6 @@
 
 <h2>Mots clés</h2>
 <%= render partial: 'keywords/inline_list', locals: {keywords: @field.keywords_including_children} %>
+
+<h2>Personnes</h2>
+<%= render partial: 'users/inline_list', locals: {users: @field.users} %>

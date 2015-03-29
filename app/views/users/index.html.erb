@@ -18,8 +18,8 @@
       <tr>
         <td><%= link_to user, user %></td>
         <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: user.teaching_modules} %></td>
-        <td></td>
-        <td></td>
+        <td><%= render partial: 'fields/inline_list', locals: {fields: user.fields} %></td>
+        <td><%= render partial: 'projects/inline_list', locals: {projects: user.projects} %></td>
       </tr>
     <% end %>
   </tbody>

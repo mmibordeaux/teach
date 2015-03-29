@@ -69,6 +69,6 @@ class FieldsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def field_params
-      params.require(:field).permit(:label, :color, :parent_id, :position, teaching_module_ids: [])
+      params.require(:field).permit(:label, :color, :parent_id, :position, teaching_module_ids: [], user_ids: [])
     end
 end

@@ -4,7 +4,8 @@
     <%= f.input :color %>
     <%= f.input :parent %>
     <%= f.input :position %>
-    <%= f.input :teaching_modules, as: :check_boxes %>
+    <%= f.input :teaching_modules, as: :check_boxes, label: 'Modules' %>
+    <%= f.input :users, as: :check_boxes, label: 'Personnes' %>
   <% end %>
   <%= f.actions %>
 <% end %>

@@ -17,9 +17,11 @@ class User < ActiveRecord::Base
 
   has_many :teaching_modules
   has_and_belongs_to_many :projects
+  has_and_belongs_to_many :fields
 
   accepts_nested_attributes_for :teaching_modules
   accepts_nested_attributes_for :projects
+  accepts_nested_attributes_for :fields
 
   STUDENTS_HOURS = 1600
   BUDGET = 100000

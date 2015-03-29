@@ -6,6 +6,7 @@
     <%= f.input :tenured, label: 'Titulaire' %>
     <%= f.input :teaching_modules, as: :check_boxes, label: 'Responsable des modules' %>
     <%= f.input :projects, as: :check_boxes, label: 'Projets' %>
+    <%= f.input :fields, as: :check_boxes, collection: Field.not_root, label: 'Champs' %>
   <% end %>
   <%= f.actions %>
 <% end %>

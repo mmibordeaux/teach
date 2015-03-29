@@ -19,6 +19,7 @@ class Field < ActiveRecord::Base
   has_many :teaching_modules, through: :fields_teaching_modules
   has_many :fields_projects
   has_many :projects, through: :fields_projects
+  has_and_belongs_to_many :users
   
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
