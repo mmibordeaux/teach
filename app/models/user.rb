@@ -13,6 +13,8 @@
 
 class User < ActiveRecord::Base
 
+  has_many :teaching_modules
+
   STUDENTS_HOURS = 1600
   BUDGET = 100000
   PER_HOUR_PRICE = 60

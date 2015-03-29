@@ -7,8 +7,9 @@
   <thead>
     <tr>
       <th>Nom</th>
-      <th>Heures</th>
-      <th>Titulaire</th>
+      <th>Responsable des modules</th>
+      <th>Champs</th>
+      <th>Projets</th>
     </tr>
   </thead>
 
@@ -16,8 +17,9 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user, user %></td>
-        <td><%= user.hours %></td>
-        <td><%= user.tenured %></td>
+        <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: user.teaching_modules} %></td>
+        <td></td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
