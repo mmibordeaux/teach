@@ -15,8 +15,8 @@
       <tr>
         <td><%= link_to project, project %></td>
         <td><%= render partial: 'semesters/inline_list', locals: {semesters: project.semesters} %></td>
-        <td><%= link_to project.user, project.user unless project.user.nil? %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: project.fields} %></td>
+        <td><%= link_to project.user, project.user unless project.user.nil? %></td>
         <td><%= render partial: 'users/inline_list', locals: {users: project.users} %></td>
         <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: project.teaching_modules} %></td>
       </tr>
