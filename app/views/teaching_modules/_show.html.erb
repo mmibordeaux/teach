@@ -32,6 +32,11 @@
 <h2>Mots-clés</h2>
 <%= render partial: 'keywords/inline_list', locals: {keywords: @teaching_module.keywords} %>
 
+<h2>Heures</h2>
+<p><%= @teaching_module.hours_planned %>h planifiées / <%= @teaching_module.hours %>h prévues au PPN</p>
+<%= link_to 'Ajouter une personne', new_involvement_path(teaching_module_id: @teaching_module.id) %>
+<%= render partial: 'involvements/table', locals: {involvements: @teaching_module.involvements} %>
+
 <h2>Champs</h2>
 <%= render partial: 'fields/inline_list', locals: {fields: @teaching_module.fields} %>
 

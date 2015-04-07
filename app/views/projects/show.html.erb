@@ -10,7 +10,8 @@
 <h2>Champs</h2>
 <%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
 
-<h2>Personnes</h2>
+<h2>Personnes impliquées</h2>
+<p>Responsable : <%= link_to @project.user, @project.user unless @project.user.nil? %></p>
 <%= render partial: 'users/inline_list', locals: {users: @project.users} %>
 
 <h2>Modules</h2>

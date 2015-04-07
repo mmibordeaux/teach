@@ -8,6 +8,7 @@
 #  updated_at  :datetime         not null
 #  description :text
 #  position    :integer
+#  user_id     :integer
 #
 
 class Project < ActiveRecord::Base
@@ -17,6 +18,7 @@ class Project < ActiveRecord::Base
   has_many :projects_semesters
   has_many :semesters, through: :projects_semesters
   has_and_belongs_to_many :users
+  belongs_to :user
   
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :fields

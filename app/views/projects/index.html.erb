@@ -19,27 +19,4 @@
 
 <h1><%= @projects.count %> projets</h1>
 <%= link_to 'Nouveau projet', new_project_path %>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th style="min-width: 200px">Label</th>
-      <th>Semestres</th>
-      <th>Champs</th>
-      <th>Personnes</th>
-      <th>Modules</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= link_to project, project %></td>
-        <td><%= render partial: 'semesters/inline_list', locals: {semesters: project.semesters} %></td>
-        <td><%= render partial: 'fields/inline_list', locals: {fields: project.fields} %></td>
-        <td><%= render partial: 'users/inline_list', locals: {users: project.users} %></td>
-        <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: project.teaching_modules} %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'table', locals: {projects: @projects} %>

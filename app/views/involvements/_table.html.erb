@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Personne</th>
+      <th>Modules</th>
+      <th>Heures</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% involvements.each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.user, involvement.user %></td>
+      <td><%= link_to involvement.teaching_module, involvement.teaching_module %></td>
+      <td><%= involvement.hours %></td>
+      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

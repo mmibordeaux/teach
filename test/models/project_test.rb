@@ -8,6 +8,7 @@
 #  updated_at  :datetime         not null
 #  description :text
 #  position    :integer
+#  user_id     :integer
 #
 
 require 'test_helper'

@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :teaching_modules
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :fields
+  has_many :involvements
+  has_many :teaching_modules_involved, through: :involvements
+  has_many :projects_managed, foreign_key: :user_id, class: Project
 
   accepts_nested_attributes_for :teaching_modules
   accepts_nested_attributes_for :projects
@@ -27,6 +30,10 @@ class User < ActiveRecord::Base
   BUDGET = 100000
   PER_HOUR_PRICE = 60
   EXTRA_HOURS = BUDGET / PER_HOUR_PRICE
+  
+  def hours_planned
+    involvements.sum(:hours)
+  end
   
   def to_s
     "#{first_name} #{last_name}"

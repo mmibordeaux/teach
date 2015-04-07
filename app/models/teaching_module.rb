@@ -29,13 +29,18 @@ class TeachingModule < ActiveRecord::Base
   has_many :keywords
   has_many :fields_teaching_modules
   has_many :fields, through: :fields_teaching_modules
-  # has_many :projects_teaching_modules # TODO remove table, we are not going to connect them exclusively through the fields
   has_many :projects, -> { uniq }, through: :fields
+  has_many :involvements
+  has_many :users_involved, through: :involvements
   
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields
 
   #default_scope { order('semester_id') }
+
+  def hours_planned
+    involvements.sum(:hours)
+  end
 
   def to_s
     "#{code}"

@@ -15,6 +15,8 @@ class InvolvementsController < ApplicationController
   # GET /involvements/new
   def new
     @involvement = Involvement.new
+    @involvement.user_id = params[:user_id] if params.include? :user_id
+    @involvement.teaching_module_id = params[:teaching_module_id] if params.include? :teaching_module_id
   end
 
   # GET /involvements/1/edit
@@ -28,7 +30,7 @@ class InvolvementsController < ApplicationController
 
     respond_to do |format|
       if @involvement.save
-        format.html { redirect_to @involvement, notice: 'Involvement was successfully created.' }
+        format.html { redirect_to @involvement.teaching_module, notice: 'Involvement was successfully created.' }
         format.json { render :show, status: :created, location: @involvement }
       else
         format.html { render :new }
@@ -69,6 +71,6 @@ class InvolvementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def involvement_params
-      params.require(:involvement).permit(:project_id, :user_id, :hours)
+      params.require(:involvement).permit(:teaching_module_id, :user_id, :hours)
     end
 end

@@ -2,32 +2,4 @@
 
 <h1><%= @teaching_modules.count %> modules</h1>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>En bref</th>
-      <th>Responsable</th>
-      <th>Champs</th>
-      <th>Projets</th>
-      <th>Mots-clés</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teaching_modules.each do |teaching_module| %>
-      <tr>
-        <td><%= link_to teaching_module.full_name, teaching_module %></td>
-        <td>
-          <%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %>,
-          <%= link_to teaching_module.teaching_category, teaching_module.teaching_category %>,
-          <%= link_to teaching_module.semester, teaching_module.semester %>, 
-          <%= teaching_module.hours %> heures
-        </td>
-        <td><%= link_to teaching_module.user, teaching_module.user unless teaching_module.user.nil? %></td>
-        <td><%= render partial: 'fields/inline_list', locals: {fields: teaching_module.fields} %></td>
-        <td><%= render partial: 'projects/inline_list', locals: {projects: teaching_module.projects} %></td>
-        <td><small><%= teaching_module.keywords.map{|k|k.label}.join(', ') %></small></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'table', locals: {teaching_modules: @teaching_modules} %>

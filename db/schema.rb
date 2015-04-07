@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150329164735) do
+ActiveRecord::Schema.define(version: 20150407212617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,11 +57,12 @@ ActiveRecord::Schema.define(version: 20150329164735) do
   end
 
   create_table "involvements", force: :cascade do |t|
-    t.integer  "project_id"
+    t.integer  "teaching_module_id"
     t.integer  "user_id"
     t.integer  "hours"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.text     "description"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(version: 20150329164735) do
     t.datetime "updated_at",  null: false
     t.text     "description"
     t.integer  "position"
+    t.integer  "user_id"
   end
 
   create_table "projects_semesters", force: :cascade do |t|
@@ -105,13 +107,6 @@ ActiveRecord::Schema.define(version: 20150329164735) do
     t.integer  "semester_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "projects_teaching_modules", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "teaching_module_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "projects_users", force: :cascade do |t|

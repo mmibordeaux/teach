@@ -3,9 +3,10 @@
     <%= f.input :label %>
     <%= f.input :position %>
     <%= f.input :description %>
+    <%= f.input :user, label: 'Responsable' %>
     <%= f.input :fields, as: :check_boxes, label: 'Champs', collection: Field.not_root %>
     <%= f.input :semesters, as: :check_boxes, label: 'Semestres' %>
-    <%= f.input :users, as: :check_boxes, label: 'Personnes'  %>
+    <%= f.input :users, as: :check_boxes, label: 'Personnes impliquées'  %>
   <% end %>
   <%= f.actions %>
 <% end %>

@@ -1,12 +1,19 @@
 <h1><%= @user %></h1>
 <%= link_to 'Edit', edit_user_path(@user) %>
-<p><%= @user.hours %> heures</p>
+
+<h2>Champs</h2>
+<%= render partial: 'fields/inline_list', locals: {fields: @user.fields} %>
+
+<h2>Responsable des projets</h2>
+<%= render partial: 'projects/inline_list', locals: {projects: @user.projects_managed} %>
 
 <h2>Projets</h2>
 <%= render partial: 'projects/inline_list', locals: {projects: @user.projects} %>
 
-<h2>Modules</h2>
-<%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @user.teaching_modules} %>
+<h2>Responsable des modules</h2>
+<%= render partial: 'teaching_modules/table', locals: {teaching_modules: @user.teaching_modules} %>
 
-<h2>Champs</h2>
-<%= render partial: 'fields/inline_list', locals: {fields: @user.fields} %>
+<h2>Heures</h2>
+<p><%= @user.hours_planned %> heures planifiées / <%= @user.hours %> heures de service</p>
+<%= link_to 'Ajouter un module', new_involvement_path(user_id: @user.id) %>
+<%= render partial: 'involvements/table', locals: {involvements: @user.involvements} %>

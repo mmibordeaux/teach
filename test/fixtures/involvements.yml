@@ -2,12 +2,13 @@
 #
 # Table name: involvements
 #
-#  id         :integer          not null, primary key
-#  project_id :integer
-#  user_id    :integer
-#  hours      :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :integer          not null, primary key
+#  teaching_module_id :integer
+#  user_id            :integer
+#  hours              :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  description        :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

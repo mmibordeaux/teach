@@ -1,0 +1,5 @@
+<ul class="list-inline">
+  <% involvements.each do |involvement| %>
+    <li><%= link_to involvement, edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' %></li>
+  <% end %>
+</ul>
