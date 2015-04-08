@@ -38,8 +38,12 @@ class TeachingModule < ActiveRecord::Base
 
   #default_scope { order('semester_id') }
 
-  def hours_planned
-    involvements.sum(:hours)
+  def teacher_hours
+    involvements.collect(&:teacher_hours).sum
+  end
+
+  def student_hours
+    involvements.collect(&:student_hours).sum
   end
 
   def to_s

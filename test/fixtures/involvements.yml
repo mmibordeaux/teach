@@ -5,10 +5,12 @@
 #  id                 :integer          not null, primary key
 #  teaching_module_id :integer
 #  user_id            :integer
-#  hours              :integer
+#  hours_cm           :integer          default(0)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  description        :text
+#  hours_td           :integer          default(0)
+#  hours_tp           :integer          default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

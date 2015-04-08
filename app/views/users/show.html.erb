@@ -14,6 +14,6 @@
 <%= render partial: 'teaching_modules/table', locals: {teaching_modules: @user.teaching_modules} %>
 
 <h2>Heures</h2>
-<p><%= @user.hours_planned %> heures planifiées / <%= @user.hours %> heures de service</p>
-<%= link_to 'Ajouter un module', new_involvement_path(user_id: @user.id) %>
+<p><%= @user.teacher_hours %> heures enseignant / <%= @user.hours %> heures de service</p>
+<%= link_to 'Planifier un module', new_involvement_path(user_id: @user.id) %>
 <%= render partial: 'involvements/table', locals: {involvements: @user.involvements} %>

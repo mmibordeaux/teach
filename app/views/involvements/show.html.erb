@@ -1,19 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Teaching module</strong>
-  <%= @involvement.teaching_module %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @involvement.user %>
-</p>
-
-<p>
-  <strong>Hours:</strong>
-  <%= @involvement.hours %>
-</p>
+<h1><%= @involvement %></h1>
+<p>Module: <%= @involvement.teaching_module %></p>
+<p>User: <%= @involvement.user %></p>
+<p>CM: <%= @involvement.hours_cm %>, TD: <%= @involvement.hours_td %>, TP: <%= @involvement.hours_tp %></p>
+<p>Heures étudiant: <%= @involvement.student_hours %>, heures enseignant: <%= @involvement.teacher_hours %></p>
 
 <%= link_to 'Edit', edit_involvement_path(@involvement) %> |
 <%= link_to 'Back', involvements_path %>

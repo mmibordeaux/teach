@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Involvements</h1>
+<h1>Planification</h1>
+<%= link_to 'Nouvelle planification', new_involvement_path %>
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Project</th>
       <th>User</th>
-      <th>Hours</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures étudiant</th>
+      <th>Heures enseignant</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,7 +22,11 @@
       <tr>
         <td><%= involvement.project_id %></td>
         <td><%= involvement.user_id %></td>
-        <td><%= involvement.hours %></td>
+        <td><%= involvement.hours_cm %></td>
+        <td><%= involvement.hours_tm %></td>
+        <td><%= involvement.hours_tp %></td>
+        <td><%= involvement.student_hours %></td>
+        <td><%= involvement.teacher_hours %></td>
         <td><%= link_to 'Show', involvement %></td>
         <td><%= link_to 'Edit', edit_involvement_path(involvement) %></td>
         <td><%= link_to 'Destroy', involvement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,7 +34,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Involvement', new_involvement_path %>

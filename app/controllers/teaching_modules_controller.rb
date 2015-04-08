@@ -5,6 +5,8 @@ class TeachingModulesController < ApplicationController
   # GET /teaching_modules.json
   def index
     @teaching_modules = TeachingModule.all.order(:semester_id)
+    @student_hours = Involvement.student_hours
+    @teacher_hours = Involvement.teacher_hours
   end
 
   # GET /teaching_modules/1

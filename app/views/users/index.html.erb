@@ -8,7 +8,8 @@
       <th>Responsable des modules</th>
       <th>Champs</th>
       <th>Projets</th>
-      <th>Heures planifiées</th>
+      <th>Heures enseignant</th>
+      <th>Heures étudiant</th>
       <th>Service</th>
     </tr>
   </thead>
@@ -19,7 +20,8 @@
         <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: user.teaching_modules} %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: user.fields} %></td>
         <td><%= render partial: 'projects/inline_list', locals: {projects: user.projects} %></td>
-        <td><%= user.hours_planned %></td>
+        <td><%= user.teacher_hours %></td>
+        <td><%= user.student_hours %></td>
         <td><%= user.hours %></td>
       </tr>
     <% end %>

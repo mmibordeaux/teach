@@ -31,8 +31,12 @@ class User < ActiveRecord::Base
   PER_HOUR_PRICE = 60
   EXTRA_HOURS = BUDGET / PER_HOUR_PRICE
   
-  def hours_planned
-    involvements.sum(:hours)
+  def teacher_hours
+    involvements.collect(&:teacher_hours).sum
+  end
+
+  def student_hours
+    involvements.collect(&:student_hours).sum
   end
   
   def to_s
