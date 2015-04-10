@@ -36,7 +36,7 @@ class TeachingModule < ActiveRecord::Base
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields
 
-  #default_scope { order('semester_id') }
+  default_scope { order('code') }
 
   def teacher_hours
     involvements.collect(&:teacher_hours).sum
