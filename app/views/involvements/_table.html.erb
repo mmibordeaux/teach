@@ -3,7 +3,10 @@
     <tr>
       <th>Personne</th>
       <th>Modules</th>
-      <th>Heures étudiant</th>
+      <th>Heures étudiant total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
       <th>Heures enseignant</th>
       <th>Edit</th>
     </tr>
@@ -14,6 +17,9 @@
       <td><%= link_to involvement.user, involvement.user %></td>
       <td><%= link_to involvement.teaching_module, involvement.teaching_module %></td>
       <td><%= involvement.student_hours %></td>
+      <td><%= involvement.hours_cm %></td>
+      <td><%= involvement.hours_td %></td>
+      <td><%= involvement.hours_tp %></td>
       <td><%= involvement.teacher_hours %></td>
       <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' %></td>
     </tr>
