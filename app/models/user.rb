@@ -39,11 +39,15 @@ class User < ActiveRecord::Base
     involvements.collect(&:student_hours).sum
   end
   
-  def hours_filled?
+  def hours_delta
     unless teacher_hours.nil? or hours.nil?
-      return teacher_hours >= hours
+      return teacher_hours - hours
     end
-    return true
+    return 0
+  end
+
+  def hours_filled?
+    hours_delta >= 0
   end
 
   def to_s

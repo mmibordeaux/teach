@@ -61,6 +61,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def summary
+    @users = User.all.order(:last_name, :first_name)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
