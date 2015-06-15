@@ -26,7 +26,10 @@
         </td>
         <td><%= teaching_module.student_hours %></td>
         <td><%= teaching_module.hours %></td>
-        <td class="<%= teaching_module.student_hours_delta_warning ? 'hours-warning' : '' %>"><%= teaching_module.student_hours_delta.round %> %</td>
+        <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
+                    <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
+          <%= teaching_module.student_hours_delta.round %> %
+        </td>
       </tr>
     <% end %>
   </tbody>

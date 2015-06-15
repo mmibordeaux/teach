@@ -54,8 +54,12 @@ class TeachingModule < ActiveRecord::Base
     (result - 1) * 100
   end
 
-  def student_hours_delta_warning
-    student_hours_delta.abs > 30
+  def student_hours_above_threshold?
+    student_hours_delta > 30
+  end
+
+  def student_hours_below_threshold?
+    student_hours_delta < -30
   end
 
   def to_s
