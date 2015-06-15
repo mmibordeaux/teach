@@ -2,7 +2,8 @@
   <thead>
     <tr>
       <th>Personne</th>
-      <th>Modules</th>
+      <th>Code module</th>
+      <th>Nom module</th>
       <th>Heures étudiant total</th>
       <th>CM</th>
       <th>TD</th>
@@ -17,6 +18,7 @@
     <tr>
       <td><%= link_to involvement.user, involvement.user %></td>
       <td><%= link_to involvement.teaching_module, involvement.teaching_module %></td>
+      <td><%= link_to involvement.teaching_module.label, involvement.teaching_module %></td>
       <td><%= involvement.student_hours %></td>
       <td><%= involvement.hours_cm %></td>
       <td><%= involvement.hours_td %></td>
