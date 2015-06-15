@@ -55,7 +55,7 @@ class TeachingModule < ActiveRecord::Base
   end
 
   def student_hours_delta_warning
-    student_hours_delta.abs > 0.3
+    student_hours_delta.abs > 30
   end
 
   def to_s
