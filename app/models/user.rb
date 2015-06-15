@@ -39,6 +39,13 @@ class User < ActiveRecord::Base
     involvements.collect(&:student_hours).sum
   end
   
+  def hours_filled?
+    unless teacher_hours.nil? or hours.nil?
+      return teacher_hours >= hours
+    end
+    return true
+  end
+
   def to_s
     "#{first_name} #{last_name}"
   end

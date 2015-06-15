@@ -11,6 +11,7 @@
       <th>Heures enseignant</th>
       <th>Heures étudiant</th>
       <th>Service</th>
+      <th>Sous-service ?</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,7 @@
         <td><%= user.teacher_hours %></td>
         <td><%= user.student_hours %></td>
         <td><%= user.hours %></td>
+        <td><%= user.hours_filled? ? 'non' : 'oui' %></td>
       </tr>
     <% end %>
   </tbody>
