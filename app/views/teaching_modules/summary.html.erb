@@ -5,6 +5,9 @@
     <tr>
       <th>Nom</th>
       <th>Interventions</th>
+      <th>Heures planifiées</th>
+      <th>Heures PPN</th>
+      <th>Variation</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +23,9 @@
             <br/>
           <% end %>
         </td>
+        <td><%= teaching_module.student_hours %></td>
+        <td><%= teaching_module.hours %></td>
+        <td class="<%= teaching_module.student_hours_delta_warning ? 'hours-warning' : '' %>"><%= teaching_module.student_hours_delta %> %</td>
       </tr>
     <% end %>
   </tbody>

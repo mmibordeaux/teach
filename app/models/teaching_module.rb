@@ -46,6 +46,18 @@ class TeachingModule < ActiveRecord::Base
     involvements.collect(&:student_hours).sum
   end
 
+  def student_hours_delta
+    result = 0
+    unless hours == 0
+      result = student_hours * 1.0 / hours * 1.0
+    end
+    (result - 1) * 100
+  end
+
+  def student_hours_delta_warning
+    student_hours_delta.abs > 0.3
+  end
+
   def to_s
     "#{code}"
   end
