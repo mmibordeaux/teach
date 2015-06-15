@@ -58,7 +58,7 @@ class InvolvementsController < ApplicationController
   def destroy
     @involvement.destroy
     respond_to do |format|
-      format.html { redirect_to involvements_url, notice: 'Involvement was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Involvement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
