@@ -20,7 +20,7 @@
             CM <%= involvement.hours_cm %>
             TD <%= involvement.hours_td %>
             TP <%= involvement.hours_tp %>
-            (<%= involvement.description %>)
+            <%= "(#{involvement.description})" unless involvement.description.nil? or involvement.description.empty? %>
             <br/>
           <% end %>
         </td>
