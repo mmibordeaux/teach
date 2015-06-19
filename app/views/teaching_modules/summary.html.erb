@@ -1,36 +1,40 @@
 <h1>Maquette</h1>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Interventions</th>
-      <th>Heures planifiées</th>
-      <th>Heures PPN</th>
-      <th>Variation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teaching_modules.each do |teaching_module| %>
+<% @semesters.each do |semester| %>
+  <h2><%= semester %></h2>
+  <p><%= semester.student_hours %> heures planifiées (étudiant)</p>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= link_to teaching_module.full_name, teaching_module %></td>
-        <td>
-          <% teaching_module.involvements.each do |involvement| %>
-            <%= involvement.user %>
-            CM <%= involvement.hours_cm %>
-            TD <%= involvement.hours_td %>
-            TP <%= involvement.hours_tp %>
-            <%= "(#{involvement.description})" unless involvement.description.nil? or involvement.description.empty? %>
-            <br/>
-          <% end %>
-        </td>
-        <td><%= teaching_module.student_hours %></td>
-        <td><%= teaching_module.hours %></td>
-        <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
-                    <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
-          <%= teaching_module.student_hours_delta.round %> %
-        </td>
+        <th>Nom</th>
+        <th>Interventions</th>
+        <th>Heures planifiées</th>
+        <th>Heures PPN</th>
+        <th>Variation</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% semester.teaching_modules.each do |teaching_module| %>
+        <tr>
+          <td><%= link_to teaching_module.full_name, teaching_module %></td>
+          <td>
+            <% teaching_module.involvements.each do |involvement| %>
+              <%= involvement.user %>
+              CM <%= involvement.hours_cm %>
+              TD <%= involvement.hours_td %>
+              TP <%= involvement.hours_tp %>
+              <%= "(#{involvement.description})" unless involvement.description.nil? or involvement.description.empty? %>
+              <br/>
+            <% end %>
+          </td>
+          <td><%= teaching_module.student_hours %></td>
+          <td><%= teaching_module.hours %></td>
+          <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
+                      <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
+            <%= teaching_module.student_hours_delta.round %> %
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

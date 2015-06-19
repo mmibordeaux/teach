@@ -64,7 +64,7 @@ class TeachingModulesController < ApplicationController
   end
 
   def summary
-    @teaching_modules = TeachingModule.all.order(:semester_id)
+    @semesters = Semester.all
   end
 
   private
