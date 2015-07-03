@@ -30,6 +30,14 @@ class Involvement < ActiveRecord::Base
     all.collect(&:teacher_hours).sum.round(2)
   end
 
+  def self.tenured_teacher_hours
+    joins(:user).where('users.tenured = true').collect(&:teacher_hours).sum.round(2)
+  end
+
+  def self.untenured_teacher_hours
+    teacher_hours - tenured_teacher_hours
+  end
+
   def student_hours
     ( hours_cm + (multiplier_td/GROUPS_TD)*hours_td + (multiplier_tp/GROUPS_TP)*hours_tp ).round(2)
   end

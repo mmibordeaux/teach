@@ -1,5 +1,22 @@
 <h1>Récapitulatif</h1>
 <table class="table table-hover">
+  <tbody>
+    <tr>
+      <td>Heures enseignant planifiées</td>
+      <td><%= @teacher_hours %></td>
+    </tr>
+    <tr>
+      <td>dont titulaires</td>
+      <td><%= @tenured_teacher_hours %></td>
+    </tr>
+    <tr>
+      <td>dont vacataires</td>
+      <td><%= @untenured_teacher_hours %></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-hover">
   <thead>
     <tr>
       <th style="min-width: 200px">Nom</th>

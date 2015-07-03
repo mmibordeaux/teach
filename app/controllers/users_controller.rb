@@ -63,6 +63,9 @@ class UsersController < ApplicationController
 
   def summary
     @users = User.all.order(:last_name, :first_name)
+    @teacher_hours = Involvement.teacher_hours
+    @tenured_teacher_hours = Involvement.tenured_teacher_hours
+    @untenured_teacher_hours = Involvement.untenured_teacher_hours
   end
 
   private
