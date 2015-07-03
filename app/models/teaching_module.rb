@@ -39,11 +39,11 @@ class TeachingModule < ActiveRecord::Base
   default_scope { order('code') }
 
   def teacher_hours
-    involvements.collect(&:teacher_hours).sum
+    involvements.collect(&:teacher_hours).sum.round(2)
   end
 
   def student_hours
-    involvements.collect(&:student_hours).sum
+    involvements.collect(&:student_hours).sum.round(2)
   end
 
   def student_hours_delta

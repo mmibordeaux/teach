@@ -23,19 +23,19 @@ class Involvement < ActiveRecord::Base
   GROUPS_TP = 3.0
 
   def self.student_hours
-    all.collect(&:student_hours).sum
+    all.collect(&:student_hours).sum.round(2)
   end
 
   def self.teacher_hours
-    all.collect(&:teacher_hours).sum
+    all.collect(&:teacher_hours).sum.round(2)
   end
 
   def student_hours
-    (hours_cm + (multiplier_td/GROUPS_TD)*hours_td + (multiplier_tp/GROUPS_TP)*hours_tp).round(2)
+    ( hours_cm + (multiplier_td/GROUPS_TD)*hours_td + (multiplier_tp/GROUPS_TP)*hours_tp ).round(2)
   end
 
   def teacher_hours
-    (hours_cm + multiplier_td*hours_td + multiplier_tp*hours_tp).round(2)
+    ( hours_cm + multiplier_td*hours_td + multiplier_tp*hours_tp ).round(2)
   end
 
   def to_s
