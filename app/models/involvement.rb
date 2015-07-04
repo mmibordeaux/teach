@@ -22,6 +22,8 @@ class Involvement < ActiveRecord::Base
   GROUPS_TD = 2.0
   GROUPS_TP = 3.0
 
+  before_validation :check_hours
+
   def self.student_hours
     all.collect(&:student_hours).sum.round(2)
   end
@@ -49,5 +51,13 @@ class Involvement < ActiveRecord::Base
   def to_s
     "#{user} - #{teaching_module.code} (CM #{hours_cm}h, TD #{hours_td}, TP #{hours_tp})"
   end
+
+  protected
+
+    def check_hours
+      self.hours_cm ||= 0
+      self.hours_td ||= 0
+      self.hours_tp ||= 0
+    end
 
 end
