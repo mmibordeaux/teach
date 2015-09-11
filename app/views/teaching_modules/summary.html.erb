@@ -11,6 +11,7 @@
         <th>Heures planifiées</th>
         <th>Heures PPN</th>
         <th>Variation</th>
+        <th>Récapitulatif</th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +34,59 @@
                       <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
             <%= teaching_module.student_hours_delta.round %> %
           </td>
+          <td width="300" style="padding: 0"><div id="summary-<%= teaching_module.id %>"></div></td>
+          <script type="text/javascript">
+            $(function () {
+              $('#summary-<%= teaching_module.id %>').highcharts({
+                  chart: { 
+                    type: 'bar',
+                    height: 80
+                  },
+                  title: null,
+                  xAxis: { 
+                    categories: ['PPN', 'Planifié'],
+                    tickWidth: 0
+                  },
+                  yAxis: {
+                      min: 0,
+                      max: 60,
+                      title: null,
+                      gridLineWidth: 0,
+                      labels: {
+                        enabled: false
+                      }
+                  },
+                  tooltip: {
+                    backgroundColor: 'white',
+                    valueSuffix: ' heures'
+                  },
+                  plotOptions: {
+                    series: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: false
+                      }
+                    }
+                  },
+                  legend: {
+                    enabled: false
+                  },
+                  credits: {
+                      enabled: false
+                  },
+                  series: [{
+                      name: 'CM',
+                      data: [<%= teaching_module.hours_cm %>, <%= teaching_module.planned_student_hours_cm %>]
+                  }, {
+                      name: 'TD',
+                      data: [<%= teaching_module.hours_td %>, <%= teaching_module.planned_student_hours_td %>]
+                  }, {
+                      name: 'TP',
+                      data: [<%= teaching_module.hours_tp %>, <%= teaching_module.planned_student_hours_tp %>]
+                  }]
+              });
+          });
+          </script>
         </tr>
       <% end %>
     </tbody>

@@ -103,6 +103,9 @@ class PPN
           end
       end
       teaching_module.hours = full_data.css('.total').first.content.to_i
+      teaching_module.hours_cm = full_data.css('.cm').first.content.to_i
+      teaching_module.hours_td = full_data.css('.td').first.content.to_i
+      teaching_module.hours_tp = full_data.css('.tp').first.content.to_i
       teaching_module.save
       objects << teaching_module
     end

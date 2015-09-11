@@ -17,6 +17,9 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
+#  hours_cm             :integer
+#  hours_td             :integer
+#  hours_tp             :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

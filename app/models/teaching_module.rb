@@ -17,6 +17,9 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
+#  hours_cm             :integer
+#  hours_td             :integer
+#  hours_tp             :integer
 #
 
 class TeachingModule < ActiveRecord::Base
@@ -60,6 +63,18 @@ class TeachingModule < ActiveRecord::Base
 
   def student_hours_below_threshold?
     student_hours_delta < -30
+  end
+
+  def planned_student_hours_cm
+    involvements.collect(&:hours_cm).sum.round(2)
+  end
+
+  def planned_student_hours_td
+    involvements.collect(&:hours_td).sum.round(2)
+  end
+
+  def planned_student_hours_tp
+    involvements.collect(&:hours_tp).sum.round(2)
   end
 
   def to_s
