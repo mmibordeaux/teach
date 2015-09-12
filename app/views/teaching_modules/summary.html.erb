@@ -3,6 +3,27 @@
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>
   <p><%= semester.student_hours %> heures planifiées (étudiant)</p>
+  <div id="semester-<%= semester.id %>"></div></td>
+  <script type="text/javascript">
+    $(function () {
+      $('#semester-<%= semester.id %>').highcharts({
+          chart: { type: 'bar', height: 150 },
+          title: null,
+          xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
+          yAxis: { min: 0, title: null },
+          tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+          plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+          legend: { enabled: false },
+          credits: { enabled: false },
+          series: [
+            { name: 'TP', data: [<%= semester.student_hours_tp %>, <%= semester.planned_student_hours_tp %>] }, 
+            { name: 'TD', data: [<%= semester.student_hours_td %>, <%= semester.planned_student_hours_td %>] }, 
+            { name: 'CM', data: [<%= semester.student_hours_cm %>, <%= semester.planned_student_hours_cm %>] }
+            ]
+      });
+  });
+  </script>
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -38,52 +59,19 @@
           <script type="text/javascript">
             $(function () {
               $('#summary-<%= teaching_module.id %>').highcharts({
-                  chart: { 
-                    type: 'bar',
-                    height: 80
-                  },
+                  chart: { type: 'bar', height: 80 },
                   title: null,
-                  xAxis: { 
-                    categories: ['PPN', 'Planifié'],
-                    tickWidth: 0
-                  },
-                  yAxis: {
-                      min: 0,
-                      max: 60,
-                      title: null,
-                      gridLineWidth: 0,
-                      labels: {
-                        enabled: false
-                      }
-                  },
-                  tooltip: {
-                    backgroundColor: 'white',
-                    valueSuffix: ' heures'
-                  },
-                  plotOptions: {
-                    series: {
-                      stacking: 'normal',
-                      dataLabels: {
-                          enabled: false
-                      }
-                    }
-                  },
-                  legend: {
-                    enabled: false
-                  },
-                  credits: {
-                      enabled: false
-                  },
-                  series: [{
-                      name: 'TP',
-                      data: [<%= teaching_module.hours_tp %>, <%= teaching_module.planned_student_hours_tp %>]
-                  }, {
-                      name: 'TD',
-                      data: [<%= teaching_module.hours_td %>, <%= teaching_module.planned_student_hours_td %>]
-                  }, {
-                      name: 'CM',
-                      data: [<%= teaching_module.hours_cm %>, <%= teaching_module.planned_student_hours_cm %>]
-                  }]
+                  xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
+                  yAxis: { min: 0, max: 60, title: null, gridLineWidth: 0, labels: { enabled: false } },
+                  tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+                  plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+                  legend: { enabled: false },
+                  credits: { enabled: false },
+                  series: [
+                    { name: 'TP', data: [<%= teaching_module.hours_tp %>, <%= teaching_module.planned_student_hours_tp %>] }, 
+                    { name: 'TD', data: [<%= teaching_module.hours_td %>, <%= teaching_module.planned_student_hours_td %>] }, 
+                    { name: 'CM', data: [<%= teaching_module.hours_cm %>, <%= teaching_module.planned_student_hours_cm %>] }
+                    ]
               });
           });
           </script>
