@@ -41,7 +41,19 @@ class Involvement < ActiveRecord::Base
   end
 
   def student_hours
-    ( hours_cm + (multiplier_td/GROUPS_TD)*hours_td + (multiplier_tp/GROUPS_TP)*hours_tp ).round(2)
+    student_hours_cm + student_hours_td + student_hours_tp
+  end
+
+  def student_hours_cm
+    hours_cm
+  end
+
+  def student_hours_td
+    multiplier_td / GROUPS_TD * hours_td
+  end
+
+  def student_hours_tp
+    (multiplier_tp / GROUPS_TP * hours_tp).round(2)
   end
 
   def teacher_hours

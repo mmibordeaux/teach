@@ -66,15 +66,15 @@ class TeachingModule < ActiveRecord::Base
   end
 
   def planned_student_hours_cm
-    involvements.collect(&:hours_cm).sum.round(2)
+    involvements.collect(&:student_hours_cm).sum.round(2)
   end
 
   def planned_student_hours_td
-    involvements.collect(&:hours_td).sum.round(2)
+    involvements.collect(&:student_hours_td).sum.round(2)
   end
 
   def planned_student_hours_tp
-    involvements.collect(&:hours_tp).sum.round(2)
+    involvements.collect(&:student_hours_tp).sum.round(2)
   end
 
   def to_s
