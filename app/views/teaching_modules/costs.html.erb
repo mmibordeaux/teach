@@ -1,19 +1,43 @@
 <h1>Coûts</h1>
-<p>
-  CM : <%= Semester.planned_student_hours_cm_costs.round %>€<br/>
-  TD : <%= Semester.planned_student_hours_td_costs.round %>€<br/>
-  TP : <%= Semester.planned_student_hours_tp_costs.round %>€<br/>
-  Total : <%= Semester.planned_student_hours_costs.round %>€<br/>
-</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Coût CM</th>
+      <th>Coût TP</th>
+      <th>Coût TD</th>
+      <th>Coût total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= Semester.planned_student_hours_cm_costs.round %>€</td>
+      <td><%= Semester.planned_student_hours_td_costs.round %>€</td>
+      <td><%= Semester.planned_student_hours_tp_costs.round %>€</td>
+      <td><%= Semester.planned_student_hours_costs.round %>€</td>
+    </tr>
+  </tbody>
+<table>
 
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>
-  <p>
-    CM : <%= semester.planned_student_hours_cm_costs.round %>€<br/>
-    TD : <%= semester.planned_student_hours_td_costs.round %>€<br/>
-    TP : <%= semester.planned_student_hours_tp_costs.round %>€<br/>
-    Total : <%= semester.planned_student_hours_costs.round %>€<br/>
-  </p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Coût CM</th>
+        <th>Coût TP</th>
+        <th>Coût TD</th>
+        <th>Coût total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= semester.planned_student_hours_cm_costs.round %>€</td>
+        <td><%= semester.planned_student_hours_td_costs.round %>€</td>
+        <td><%= semester.planned_student_hours_tp_costs.round %>€</td>
+        <td><%= semester.planned_student_hours_costs.round %>€</td>
+      </tr>
+    </tbody>
+  <table>
   <table class="table table-hover">
     <thead>
       <tr>
