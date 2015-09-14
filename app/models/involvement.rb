@@ -77,10 +77,10 @@ class Involvement < ActiveRecord::Base
   end
 
   # Costs
-  
+
   COST_RATIO_CM = 1.5
   COST_RATIO_TD = 1
-  COST_RATIO_TP = 0.75
+  COST_RATIO_TP = 0.66
 
   COST_HOUR_PRIVATE = 58.31
   COST_HOUR_PUBLIC = 42.96
@@ -102,7 +102,7 @@ class Involvement < ActiveRecord::Base
   end
 
   def cost_hour
-    COST_HOUR_PRIVATE
+    user.public ? COST_HOUR_PUBLIC : COST_HOUR_PRIVATE
   end
 
   def to_s
