@@ -22,13 +22,6 @@ class Involvement < ActiveRecord::Base
   GROUPS_TD = 2.0
   GROUPS_TP = 3.0
 
-  COST_RATIO_CM = 1.5
-  COST_RATIO_TD = 1
-  COST_RATIO_TP = 0.75
-
-  COST_HOUR_PRIVATE = 58.31
-  COST_HOUR_PUBLIC = 42.96
-
   before_validation :check_hours
 
   def self.student_hours
@@ -84,24 +77,31 @@ class Involvement < ActiveRecord::Base
   end
 
   # Costs
+  
+  COST_RATIO_CM = 1.5
+  COST_RATIO_TD = 1
+  COST_RATIO_TP = 0.75
+
+  COST_HOUR_PRIVATE = 58.31
+  COST_HOUR_PUBLIC = 42.96
 
   def teacher_hours_cm_costs
-    teacher_hours_cm * COST_RATIO_CM * cost
+    teacher_hours_cm * COST_RATIO_CM * cost_hour
   end
 
   def teacher_hours_td_costs
-    teacher_hours_td * COST_RATIO_TD * cost
+    teacher_hours_td * COST_RATIO_TD * cost_hour
   end
 
   def teacher_hours_tp_costs
-    teacher_hours_tp * COST_RATIO_TP * cost
+    teacher_hours_tp * COST_RATIO_TP * cost_hour
   end
 
   def teacher_hours_costs
     teacher_hours_cm_costs + teacher_hours_td_costs + teacher_hours_tp_costs
   end
 
-  def cost
+  def cost_hour
     COST_HOUR_PRIVATE
   end
 
