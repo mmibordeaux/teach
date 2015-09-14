@@ -1,4 +1,10 @@
 <h1>Coûts</h1>
+<p>
+  CM : <%= Semester.planned_student_hours_cm_costs.round %>€<br/>
+  TD : <%= Semester.planned_student_hours_td_costs.round %>€<br/>
+  TP : <%= Semester.planned_student_hours_tp_costs.round %>€<br/>
+  Total : <%= Semester.planned_student_hours_costs.round %>€<br/>
+</p>
 
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>

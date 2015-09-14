@@ -12,6 +12,22 @@ class Semester < ActiveRecord::Base
 
   has_many :teaching_modules
 
+  def self.planned_student_hours_cm_costs
+    all.collect(&:planned_student_hours_cm_costs).sum
+  end
+
+  def self.planned_student_hours_td_costs
+    all.collect(&:planned_student_hours_td_costs).sum
+  end
+
+  def self.planned_student_hours_tp_costs
+    all.collect(&:planned_student_hours_tp_costs).sum
+  end
+
+  def self.planned_student_hours_costs
+    all.collect(&:planned_student_hours_costs).sum
+  end
+
   def student_hours
     teaching_modules.collect(&:student_hours).sum
   end
