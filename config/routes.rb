@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resources :objectives
   resources :keywords
   resources :competencies
-  get 'teaching_modules/summary' => 'teaching_modules#summary', as: 'summary'
+  get 'teaching_modules/summary' => 'teaching_modules#summary', as: 'teaching_modules_summary'
+  get 'teaching_modules/costs' => 'teaching_modules#costs', as: 'teaching_modules_costs'
   resources :teaching_modules
   resources :teaching_categories
   resources :teaching_subjects

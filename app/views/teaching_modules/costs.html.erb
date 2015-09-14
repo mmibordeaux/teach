@@ -1,0 +1,39 @@
+<h1>Coûts</h1>
+
+<% @semesters.each do |semester| %>
+  <h2><%= semester %></h2>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Interventions</th>
+        <th>Coût CM</th>
+        <th>Coût TP</th>
+        <th>Coût TD</th>
+        <th>Coût total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% semester.teaching_modules.each do |teaching_module| %>
+        <tr>
+          <td><%= link_to teaching_module.full_name, teaching_module %></td>
+          <td>
+            <% teaching_module.involvements.each do |involvement| %>
+              <%= involvement.user %>
+              CM <%= involvement.hours_cm %>
+              TD <%= involvement.hours_td %>
+              TP <%= involvement.hours_tp %>
+              <%= "(#{involvement.description})" unless involvement.description.nil? or involvement.description.empty? %>
+              <br/>
+            <% end %>
+          </td>
+          <td><%= teaching_module.planned_student_hours_cm_costs.round %> €</td>
+          <td><%= teaching_module.planned_student_hours_td_costs.round %> €</td>
+          <td><%= teaching_module.planned_student_hours_tp_costs.round %> €</td>
+          <td><%= teaching_module.planned_student_hours_costs.round %> €</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

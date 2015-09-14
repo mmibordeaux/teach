@@ -9,6 +9,14 @@ class TeachingModulesController < ApplicationController
     @teacher_hours = Involvement.teacher_hours
   end
 
+  def summary
+    @semesters = Semester.all
+  end
+
+  def costs
+    @semesters = Semester.all
+  end
+
   # GET /teaching_modules/1
   # GET /teaching_modules/1.json
   def show
@@ -61,10 +69,6 @@ class TeachingModulesController < ApplicationController
       format.html { redirect_to teaching_modules_url, notice: 'Teaching module was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def summary
-    @semesters = Semester.all
   end
 
   private
