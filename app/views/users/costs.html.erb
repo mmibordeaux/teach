@@ -1,0 +1,23 @@
+<h1>Récapitulatif</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="min-width: 200px">Nom</th>
+      <th>Coût CM</th>
+      <th>Coût TD</th>
+      <th>Coût TP</th>
+      <th>Coût total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user %></td>
+        <td><%= user.teacher_hours_cm_costs.round %>€</td>
+        <td><%= user.teacher_hours_td_costs.round %>€</td>
+        <td><%= user.teacher_hours_tp_costs.round %>€</td>
+        <td><%= user.teacher_hours_costs.round %>€</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

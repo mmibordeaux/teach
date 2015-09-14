@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :teaching_units
   resources :semesters
   get 'users/summary' => 'users#summary', as: 'users_summary'
+  get 'users/costs' => 'users#costs', as: 'users_costs'
   resources :users
   get 'parse' => 'application#parse'
   root 'fields#index'

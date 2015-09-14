@@ -7,6 +7,17 @@ class UsersController < ApplicationController
     @users = User.all.order(:last_name, :first_name)
   end
 
+  def summary
+    @users = User.all.order(:last_name, :first_name)
+    @teacher_hours = Involvement.teacher_hours
+    @tenured_teacher_hours = Involvement.tenured_teacher_hours
+    @untenured_teacher_hours = Involvement.untenured_teacher_hours
+  end
+
+  def costs
+    @users = User.all.order(:last_name, :first_name)
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
@@ -59,13 +70,6 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def summary
-    @users = User.all.order(:last_name, :first_name)
-    @teacher_hours = Involvement.teacher_hours
-    @tenured_teacher_hours = Involvement.tenured_teacher_hours
-    @untenured_teacher_hours = Involvement.untenured_teacher_hours
   end
 
   private

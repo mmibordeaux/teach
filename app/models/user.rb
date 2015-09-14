@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   def student_hours
     involvements.collect(&:student_hours).sum
   end
-  
+
   def hours_delta
     unless teacher_hours.nil? or hours.nil?
       return teacher_hours - hours
@@ -51,6 +51,24 @@ class User < ActiveRecord::Base
     hours_delta >= 0
   end
 
+  # Costs
+
+  def teacher_hours_cm_costs
+    involvements.collect(&:teacher_hours_cm_costs).sum
+  end
+  
+  def teacher_hours_td_costs
+    involvements.collect(&:teacher_hours_td_costs).sum
+  end
+  
+  def teacher_hours_tp_costs
+    involvements.collect(&:teacher_hours_tp_costs).sum
+  end
+  
+  def teacher_hours_costs
+    involvements.collect(&:teacher_hours_costs).sum
+  end
+  
   def to_s
     "#{first_name} #{last_name}"
   end
