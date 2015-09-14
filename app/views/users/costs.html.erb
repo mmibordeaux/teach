@@ -12,7 +12,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user %></td>
+        <td><%= link_to user, user %></td>
         <td><%= user.teacher_hours_cm_costs.round %>€</td>
         <td><%= user.teacher_hours_td_costs.round %>€</td>
         <td><%= user.teacher_hours_tp_costs.round %>€</td>
