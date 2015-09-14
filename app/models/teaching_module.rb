@@ -24,13 +24,6 @@
 
 class TeachingModule < ActiveRecord::Base
 
-  COST_RATIO_CM = 1.5
-  COST_RATIO_TD = 1
-  COST_RATIO_TP = 0.75
-
-  COST_HOUR_PRIVATE = 58.31
-  COST_HOUR_PUBLIC = 42.96
-
   belongs_to :teaching_unit
   belongs_to :teaching_subject
   belongs_to :teaching_category
@@ -73,6 +66,8 @@ class TeachingModule < ActiveRecord::Base
     student_hours_delta < -30
   end
 
+  # Planned student hours
+
   def planned_student_hours_cm
     involvements.collect(&:student_hours_cm).sum.round(2)
   end
@@ -85,20 +80,22 @@ class TeachingModule < ActiveRecord::Base
     involvements.collect(&:student_hours_tp).sum.round(2)
   end
 
-  def planned_student_hours_cm_costs
-    planned_student_hours_cm * COST_RATIO_CM * COST_HOUR_PRIVATE
+  # Costs
+
+  def planned_teacher_hours_costs
+    involvements.collect(&:teacher_hours_costs).sum.round(2)
+  end
+
+  def planned_teacher_hours_cm_costs
+    involvements.collect(&:teacher_hours_cm_costs).sum.round(2)
   end 
 
-  def planned_student_hours_td_costs
-    planned_student_hours_td * COST_RATIO_TD * COST_HOUR_PRIVATE
+  def planned_teacher_hours_td_costs
+    involvements.collect(&:teacher_hours_td_costs).sum.round(2)
   end
 
-  def planned_student_hours_tp_costs
-    planned_student_hours_tp * COST_RATIO_TP * COST_HOUR_PRIVATE
-  end
-
-  def planned_student_hours_costs
-    planned_student_hours_cm_costs + planned_student_hours_td_costs + planned_student_hours_tp_costs
+  def planned_teacher_hours_tp_costs
+    involvements.collect(&:teacher_hours_tp_costs).sum.round(2)
   end
 
   def to_s

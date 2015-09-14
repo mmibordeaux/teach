@@ -12,20 +12,20 @@ class Semester < ActiveRecord::Base
 
   has_many :teaching_modules
 
-  def self.planned_student_hours_cm_costs
-    all.collect(&:planned_student_hours_cm_costs).sum
+  def self.planned_teacher_hours_cm_costs
+    all.collect(&:planned_teacher_hours_cm_costs).sum
   end
 
-  def self.planned_student_hours_td_costs
-    all.collect(&:planned_student_hours_td_costs).sum
+  def self.planned_teacher_hours_td_costs
+    all.collect(&:planned_teacher_hours_td_costs).sum
   end
 
-  def self.planned_student_hours_tp_costs
-    all.collect(&:planned_student_hours_tp_costs).sum
+  def self.planned_teacher_hours_tp_costs
+    all.collect(&:planned_teacher_hours_tp_costs).sum
   end
 
-  def self.planned_student_hours_costs
-    all.collect(&:planned_student_hours_costs).sum
+  def self.planned_teacher_hours_costs
+    all.collect(&:planned_teacher_hours_costs).sum
   end
 
   def student_hours
@@ -56,20 +56,20 @@ class Semester < ActiveRecord::Base
     teaching_modules.collect(&:planned_student_hours_tp).sum.round(2)
   end
 
-  def planned_student_hours_cm_costs
-    teaching_modules.collect(&:planned_student_hours_cm_costs).sum
+  def planned_teacher_hours_cm_costs
+    teaching_modules.collect(&:planned_teacher_hours_cm_costs).sum
   end
 
-  def planned_student_hours_td_costs
-    teaching_modules.collect(&:planned_student_hours_td_costs).sum
+  def planned_teacher_hours_td_costs
+    teaching_modules.collect(&:planned_teacher_hours_td_costs).sum
   end
 
-  def planned_student_hours_tp_costs
-    teaching_modules.collect(&:planned_student_hours_tp_costs).sum
+  def planned_teacher_hours_tp_costs
+    teaching_modules.collect(&:planned_teacher_hours_tp_costs).sum
   end
 
-  def planned_student_hours_costs
-    teaching_modules.collect(&:planned_student_hours_costs).sum
+  def planned_teacher_hours_costs
+    teaching_modules.collect(&:planned_teacher_hours_costs).sum
   end
 
   def to_s

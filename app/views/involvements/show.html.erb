@@ -1,7 +1,14 @@
 <h1><%= @involvement %></h1>
 <p>Module: <%= @involvement.teaching_module %></p>
 <p>User: <%= @involvement.user %></p>
-<p>CM: <%= @involvement.hours_cm %>, TD: <%= @involvement.hours_td %>, TP: <%= @involvement.hours_tp %></p>
-<p>Heures étudiant: <%= @involvement.student_hours %>, heures enseignant: <%= @involvement.teacher_hours %></p>
+<p>
+  CM: <%= @involvement.hours_cm %> (<%= @involvement.teacher_hours_cm_costs.round %>€)<br/>
+  TD: <%= @involvement.hours_td %> (<%= @involvement.teacher_hours_td_costs.round %>€)<br/>
+  TP: <%= @involvement.hours_tp %> (<%= @involvement.teacher_hours_tp_costs.round %>€)
+</p>
+<p>
+  Heures étudiant: <%= @involvement.student_hours.round %><br/>
+  Heures enseignant: <%= @involvement.teacher_hours.round %>
+</p>
 
 <%= link_to 'Edit', edit_involvement_path(@involvement) %>
