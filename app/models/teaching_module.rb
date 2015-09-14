@@ -31,7 +31,6 @@ class TeachingModule < ActiveRecord::Base
   COST_HOUR_PRIVATE = 58.31
   COST_HOUR_PUBLIC = 42.96
 
-
   belongs_to :teaching_unit
   belongs_to :teaching_subject
   belongs_to :teaching_category
