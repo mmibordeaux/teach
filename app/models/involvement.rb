@@ -80,7 +80,8 @@ class Involvement < ActiveRecord::Base
 
   COST_RATIO_CM = 1.5
   COST_RATIO_TD = 1
-  COST_RATIO_TP = 0.66
+  #COST_RATIO_TP = 0.66
+  COST_RATIO_TP = 1
 
   COST_HOUR_PRIVATE = 58.31
   COST_HOUR_PUBLIC = 42.96
