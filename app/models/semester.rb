@@ -28,6 +28,14 @@ class Semester < ActiveRecord::Base
     all.collect(&:planned_teacher_hours_costs).sum
   end
 
+  # Expected
+
+  def expected_student_hours
+    teaching_modules.collect(&:expected_student_hours).sum
+  end
+
+  # Legacy methods, should be planned or expected
+
   def student_hours
     teaching_modules.collect(&:student_hours).sum
   end
@@ -44,17 +52,25 @@ class Semester < ActiveRecord::Base
     teaching_modules.collect(&:hours_tp).sum.round(2)
   end
 
+  # Planned
+
+  def planned_student_hours
+    teaching_modules.collect(&:planned_student_hours).sum
+  end
+
   def planned_student_hours_cm
-    teaching_modules.collect(&:planned_student_hours_cm).sum.round(2)
+    teaching_modules.collect(&:planned_student_hours_cm).sum
   end
 
   def planned_student_hours_td
-    teaching_modules.collect(&:planned_student_hours_td).sum.round(2)
+    teaching_modules.collect(&:planned_student_hours_td).sum
   end
 
   def planned_student_hours_tp
     teaching_modules.collect(&:planned_student_hours_tp).sum.round(2)
   end
+
+  # Costs
 
   def planned_teacher_hours_cm_costs
     teaching_modules.collect(&:planned_teacher_hours_cm_costs).sum

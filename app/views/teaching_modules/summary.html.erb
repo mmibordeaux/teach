@@ -2,7 +2,7 @@
 
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>
-  <p><%= semester.student_hours %> heures planifiées (étudiant)</p>
+  <p>Heures étudiant : <%= semester.planned_student_hours.round %> planifiées / <%= semester.expected_student_hours.round %> PPN</p>
   <div id="semester-<%= semester.id %>"></div></td>
   <script type="text/javascript">
     $(function () {
@@ -29,8 +29,7 @@
       <tr>
         <th>Nom</th>
         <th>Interventions</th>
-        <th>Heures planifiées</th>
-        <th>Heures PPN</th>
+        <th>Heures étudiant: Planifié / PPN</th>
         <th>Variation</th>
         <th>Récapitulatif</th>
       </tr>
@@ -49,8 +48,7 @@
               <br/>
             <% end %>
           </td>
-          <td><%= teaching_module.student_hours %></td>
-          <td><%= teaching_module.hours %></td>
+          <td><%= teaching_module.planned_student_hours.round %> / <%= teaching_module.expected_student_hours.round %></td>
           <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
                       <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
             <%= teaching_module.student_hours_delta.round %> %
