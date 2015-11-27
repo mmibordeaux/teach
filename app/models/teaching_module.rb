@@ -66,6 +66,12 @@ class TeachingModule < ActiveRecord::Base
     student_hours_delta < -30
   end
 
+  # Expected student hours
+
+  def expected_student_hours
+    hours_cm + hours_td + hours_tp
+  end
+
   # Planned student hours
 
   def planned_student_hours_cm
@@ -96,6 +102,14 @@ class TeachingModule < ActiveRecord::Base
 
   def planned_teacher_hours_tp_costs
     involvements.collect(&:teacher_hours_tp_costs).sum.round(2)
+  end
+
+  def cost_per_student_hour
+    if expected_student_hours == 0
+      0
+    else
+      (planned_teacher_hours_costs / expected_student_hours * 1.0).round(2)
+    end
   end
 
   def to_s
