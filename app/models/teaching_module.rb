@@ -86,6 +86,10 @@ class TeachingModule < ActiveRecord::Base
     involvements.collect(&:student_hours_tp).sum.round(2)
   end
 
+  def planned_student_hours
+    planned_student_hours_cm + planned_student_hours_td + planned_student_hours_tp
+  end
+
   # Costs
 
   def planned_teacher_hours_costs

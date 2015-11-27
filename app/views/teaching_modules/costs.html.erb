@@ -46,7 +46,7 @@
         <th>Coût TD</th>
         <th>Coût TP</th>
         <th>Coût total</th>
-        <th>Heures étudiant PPN</th>
+        <th>Heures étudiant: Planifié / PPN</th>
         <th>Coût / heure étudiant</th>
       </tr>
     </thead>
@@ -58,7 +58,7 @@
           <td><%= teaching_module.planned_teacher_hours_td_costs.round %>€</td>
           <td><%= teaching_module.planned_teacher_hours_tp_costs.round %>€</td>
           <td><%= teaching_module.planned_teacher_hours_costs.round %>€</td>
-          <td><%= teaching_module.expected_student_hours %></td>
+          <td><%= teaching_module.planned_student_hours.round %> / <%= teaching_module.expected_student_hours %></td>
           <td><%= teaching_module.cost_per_student_hour %>€</td>
         </tr>
       <% end %>
