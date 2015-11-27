@@ -33,6 +33,27 @@
 <%= render partial: 'keywords/inline_list', locals: {keywords: @teaching_module.keywords} %>
 
 <h2>Heures</h2>
+<div id="hours"></div></td>
+  <script type="text/javascript">
+    $(function () {
+      $('#hours').highcharts({
+          chart: { type: 'bar', height: 150 },
+          title: null,
+          xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
+          yAxis: { min: 0, title: null },
+          tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+          plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+          legend: { enabled: false },
+          credits: { enabled: false },
+          series: [
+            { name: 'TP', data: [<%= @teaching_module.hours_tp %>, <%= @teaching_module.planned_student_hours_tp %>] }, 
+            { name: 'TD', data: [<%= @teaching_module.hours_td %>, <%= @teaching_module.planned_student_hours_td %>] }, 
+            { name: 'CM', data: [<%= @teaching_module.hours_cm %>, <%= @teaching_module.planned_student_hours_cm %>] }
+            ]
+      });
+  });
+  </script>
+
 <p><%= @teaching_module.student_hours %>h étudiant / <%= @teaching_module.hours %>h prévues au PPN</p>
 <%= link_to 'Planifier une personne', new_involvement_path(teaching_module_id: @teaching_module.id) %>
 <%= render partial: 'involvements/table', locals: {involvements: @teaching_module.involvements} %>
