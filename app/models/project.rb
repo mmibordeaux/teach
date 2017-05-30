@@ -13,9 +13,9 @@
 
 class Project < ActiveRecord::Base
 
-  has_many :fields_projects
+  has_many :fields_projects, dependent: :destroy
   has_many :fields, through: :fields_projects
-  has_many :projects_semesters
+  has_many :projects_semesters, dependent: :destroy
   has_many :semesters, through: :projects_semesters
   has_and_belongs_to_many :users
   belongs_to :user
