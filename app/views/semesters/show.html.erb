@@ -3,20 +3,14 @@
 <h1><%= @semester %></h1>
 <%= link_to 'Edit', edit_semester_path(@semester) %>
 
-<div class="row">
-  <div class="col-md-6">
-    <%#= pie_chart @semester.teaching_modules.group(:teaching_category).sum(:hours) %>
-    <p>Heures par catégorie</p>
-  </div>
-</div>
-
 <h3><%= @semester.teaching_modules.count %> modules</h3>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Code</th>
       <th>Nom</th>
-      <th>Heure</th>
+      <th>Heures étudiant planifiées</th>
+      <th>Delta d'heures</th>
       <th>Unité</th>
       <th>Categorie</th>
     </tr>
@@ -26,7 +20,8 @@
       <tr>
         <td><%= link_to teaching_module.code, teaching_module %></td>
         <td><%= link_to teaching_module.label, teaching_module %></td>
-        <td><%= teaching_module.hours %></td>
+        <td><%= teaching_module.student_hours.round %></td>
+        <td><%= number_to_percentage teaching_module.student_hours_delta, precision: 0 %></td>
         <td><%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %></td>
         <td><%= link_to teaching_module.teaching_category, teaching_module.teaching_category %></td>
       </tr>
