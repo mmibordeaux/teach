@@ -27,6 +27,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
+      <% next if user.no_hours? %>
       <tr>
         <td><%= link_to user, user %></td>
         <td><%= user.teacher_hours %></td>
