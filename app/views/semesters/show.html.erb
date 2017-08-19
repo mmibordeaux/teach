@@ -2,6 +2,27 @@
 
 <h1><%= @semester %></h1>
 <%= link_to 'Edit', edit_semester_path(@semester) %>
+<p>Heures étudiant : <%= @semester.planned_student_hours.round %> planifiées / <%= @semester.expected_student_hours.round %> PPN</p>
+<div id="semester-<%= @semester.id %>"></div></td>
+<script type="text/javascript">
+  $(function () {
+    $('#semester-<%= @semester.id %>').highcharts({
+        chart: { type: 'bar', height: 150 },
+        title: null,
+        xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
+        yAxis: { min: 0, title: null },
+        tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+        plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+        legend: { enabled: false },
+        credits: { enabled: false },
+        series: [
+          { name: 'TP', data: [<%= @semester.student_hours_tp %>, <%= @semester.planned_student_hours_tp %>] }, 
+          { name: 'TD', data: [<%= @semester.student_hours_td %>, <%= @semester.planned_student_hours_td %>] }, 
+          { name: 'CM', data: [<%= @semester.student_hours_cm %>, <%= @semester.planned_student_hours_cm %>] }
+          ]
+    });
+});
+</script>
 
 <h3><%= @semester.teaching_modules.count %> modules</h3>
 <table class="table table-hover">
