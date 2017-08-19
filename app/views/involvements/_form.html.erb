@@ -1,14 +1,20 @@
 <%= semantic_form_for @involvement do |f| %>
   <%= f.inputs do %>
-    <%= f.input :teaching_module, label: 'Module' %>
-    <%= f.input :user, label: 'Personne' %>
-    <%= f.input :description %>
-    <p>Toutes les heures sont en heures étudiants</p>
-    <%= f.input :hours_cm, label: 'Heures de cours magistraux (CM)' %>
-    <%= f.input :hours_td, label: 'Heures de travaux dirigés (TD)' %>
-    <%= f.input :multiplier_td, label: 'Groupes concernés par les heures de TD' %>
-    <%= f.input :hours_tp, label: 'Heures de travaux pratiques (TP)' %>
-    <%= f.input :multiplier_tp, label: 'Groupes concernés par les heures de TP' %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :teaching_module, label: 'Module' %>
+        <%= f.input :user, label: 'Personne' %>
+        <%= f.input :description, input_html: { rows: 3 } %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :hours_cm, label: 'Heures de cours magistraux (CM)' %>
+        <%= f.input :hours_td, label: 'Heures de travaux dirigés (TD)' %>
+        <%= f.input :multiplier_td, label: 'Groupes concernés par les heures de TD' %>
+        <%= f.input :hours_tp, label: 'Heures de travaux pratiques (TP)' %>
+        <%= f.input :multiplier_tp, label: 'Groupes concernés par les heures de TP' %>
+        <p>Toutes les heures sont en heures étudiants</p>
+      </div>
+    </div>
   <% end %>
   <%= f.actions %>
 <% end %>

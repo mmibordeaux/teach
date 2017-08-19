@@ -44,7 +44,7 @@ class InvolvementsController < ApplicationController
   def update
     respond_to do |format|
       if @involvement.update(involvement_params)
-        format.html { redirect_to @involvement, notice: 'Involvement was successfully updated.' }
+        format.html { redirect_to @involvement.teaching_module, notice: 'Involvement was successfully updated.' }
         format.json { render :show, status: :ok, location: @involvement }
       else
         format.html { render :edit }
