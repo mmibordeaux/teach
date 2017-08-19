@@ -20,7 +20,7 @@ class Involvement < ActiveRecord::Base
   belongs_to :user
 
   GROUPS_TD = 2.0
-  GROUPS_TP = 3.0
+  GROUPS_TP = 4.0
 
   before_validation :check_hours
 
@@ -80,8 +80,8 @@ class Involvement < ActiveRecord::Base
 
   COST_RATIO_CM = 1.5
   COST_RATIO_TD = 1
-  #COST_RATIO_TP = 0.66
-  COST_RATIO_TP = 1
+  COST_RATIO_TP = 0.66
+  # COST_RATIO_TP = 1
 
   COST_HOUR_PRIVATE = 58.31
   COST_HOUR_PUBLIC = 42.96
@@ -112,10 +112,9 @@ class Involvement < ActiveRecord::Base
 
   protected
 
-    def check_hours
-      self.hours_cm ||= 0
-      self.hours_td ||= 0
-      self.hours_tp ||= 0
-    end
-
+  def check_hours
+    self.hours_cm ||= 0
+    self.hours_td ||= 0
+    self.hours_tp ||= 0
+  end
 end

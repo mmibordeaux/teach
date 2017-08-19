@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :fields
 
-  STUDENTS_HOURS = 1600
+  STUDENTS_HOURS = 1800
   BUDGET = 100000
   PER_HOUR_PRICE = 60
   EXTRA_HOURS = BUDGET / PER_HOUR_PRICE
