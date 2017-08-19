@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th>Number</th>
+      <th>Heures étudiants PPN</th>
+      <th>Heures étudiants planifiées</th>
     </tr>
   </thead>
 
@@ -13,6 +15,8 @@
     <% @semesters.each do |semester| %>
       <tr>
         <td><%= link_to semester, semester %></td>
+        <td><%= semester.expected_student_hours.round %></td>
+        <td><%= semester.planned_student_hours.round %></td>
       </tr>
     <% end %>
   </tbody>
