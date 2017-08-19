@@ -4,15 +4,15 @@
   <tbody>
     <tr>
       <td>Heures enseignant planifiées</td>
-      <td><%= @teacher_hours %></td>
+      <td><%= @teacher_hours.round %></td>
     </tr>
     <tr>
       <td>dont titulaires</td>
-      <td><%= @tenured_teacher_hours %></td>
+      <td><%= @tenured_teacher_hours.round %></td>
     </tr>
     <tr>
       <td>dont vacataires</td>
-      <td><%= @untenured_teacher_hours %></td>
+      <td><%= @untenured_teacher_hours.round %></td>
     </tr>
   </tbody>
 </table>
