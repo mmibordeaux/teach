@@ -1,7 +1,7 @@
 <h1>Maquette</h1>
 
 <% @semesters.each do |semester| %>
-  <h2><%= semester %></h2>
+  <h2><%= link_to semester, semester %></h2>
   <p>Heures étudiant : <%= semester.planned_student_hours.round %> planifiées / <%= semester.expected_student_hours.round %> PPN</p>
   <div id="semester-<%= semester.id %>"></div></td>
   <script type="text/javascript">
@@ -28,51 +28,21 @@
     <thead>
       <tr>
         <th>Nom</th>
-        <th>Interventions</th>
-        <th>Heures étudiant: Planifié / PPN</th>
+        <th>Heures étudiant planifiées</th>
+        <th>Heures étudiant PPN</th>
         <th>Variation</th>
-        <th>Récapitulatif</th>
       </tr>
     </thead>
     <tbody>
       <% semester.teaching_modules.each do |teaching_module| %>
         <tr>
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
-          <td>
-            <% teaching_module.involvements.each do |involvement| %>
-              <%= involvement.user %>
-              CM <%= involvement.hours_cm %>
-              TD <%= involvement.hours_td %>
-              TP <%= involvement.hours_tp %>
-              <%= "(#{involvement.description})" unless involvement.description.nil? or involvement.description.empty? %>
-              <br/>
-            <% end %>
-          </td>
-          <td><%= teaching_module.planned_student_hours.round %> / <%= teaching_module.expected_student_hours.round %></td>
+          <td><%= teaching_module.planned_student_hours.round %></td>
+          <td><%= teaching_module.expected_student_hours.round %></td>
           <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
                       <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
             <%= teaching_module.student_hours_delta.round %> %
           </td>
-          <td width="300" style="padding: 0"><div id="summary-<%= teaching_module.id %>"></div></td>
-          <script type="text/javascript">
-            $(function () {
-              $('#summary-<%= teaching_module.id %>').highcharts({
-                  chart: { type: 'bar', height: 80 },
-                  title: null,
-                  xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
-                  yAxis: { min: 0, max: 60, title: null, gridLineWidth: 0, labels: { enabled: false } },
-                  tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
-                  plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
-                  legend: { enabled: false },
-                  credits: { enabled: false },
-                  series: [
-                    { name: 'TP', data: [<%= teaching_module.hours_tp %>, <%= teaching_module.planned_student_hours_tp %>] }, 
-                    { name: 'TD', data: [<%= teaching_module.hours_td %>, <%= teaching_module.planned_student_hours_td %>] }, 
-                    { name: 'CM', data: [<%= teaching_module.hours_cm %>, <%= teaching_module.planned_student_hours_cm %>] }
-                    ]
-              });
-          });
-          </script>
         </tr>
       <% end %>
     </tbody>
