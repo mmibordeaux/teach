@@ -1,9 +1,5 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @teaching_subject %></h1>
 <p>Ce sujet appartient à l'<%= link_to @teaching_subject.teaching_unit, @teaching_subject.teaching_unit %></p>
-
-<%= column_chart @teaching_subject.teaching_modules.group(:semester).sum(:hours) %>
 
 <h2><%= @teaching_subject.teaching_modules.count %> modules</h2>
 

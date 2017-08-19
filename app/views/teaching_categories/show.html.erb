@@ -2,13 +2,6 @@
 
 <h1><%= @teaching_category %></h1>
 
-<div class="row">
-  <div class="col-md-4">
-    <%= column_chart @teaching_category.teaching_modules.group(:semester).sum(:hours) %>
-    <p>Heures par semestres</p>
-  </div>
-</div>
-
 <h2>Modules</h2>
 <table class="table table-hover">
   <thead>
