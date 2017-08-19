@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :fields
   has_many :involvements, dependent: :destroy
   has_many :teaching_modules_involved, through: :involvements
-  has_many :projects_managed, foreign_key: :user_id, class: Project, dependent: :nullify
+  has_many :projects_managed, foreign_key: :user_id, class_name: Project, dependent: :nullify
 
   accepts_nested_attributes_for :teaching_modules
   accepts_nested_attributes_for :projects

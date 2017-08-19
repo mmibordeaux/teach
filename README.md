@@ -1,5 +1,7 @@
 # mmibordeaux
 
+[![Code Climate](https://codeclimate.com/github/arnaudlevy/mmibordeaux/badges/gpa.svg)](https://codeclimate.com/github/arnaudlevy/mmibordeaux)
+
 ## Viz
     https://github.com/mbostock/d3/wiki/Gallery
     http://mlvl.github.io/Hierarchie/#/
