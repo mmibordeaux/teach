@@ -5,11 +5,13 @@ class KeywordsController < ApplicationController
   # GET /keywords.json
   def index
     @keywords = Keyword.all
+    @title = 'Mots-clés'
   end
 
   # GET /keywords/1
   # GET /keywords/1.json
   def show
+    @title = @keyword
   end
 
   # GET /keywords/new
