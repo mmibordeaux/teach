@@ -5,11 +5,13 @@ class FieldsController < ApplicationController
   # GET /fields.json
   def index
     @fields = Field.root.sorted
+    @title = 'Champs'
   end
 
   # GET /fields/1
   # GET /fields/1.json
   def show
+    @title = @field
   end
 
   # GET /fields/new

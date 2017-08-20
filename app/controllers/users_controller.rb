@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all.order(:last_name, :first_name)
+    @title = 'Equipe'
   end
 
   def summary
@@ -12,15 +13,18 @@ class UsersController < ApplicationController
     @teacher_hours = Involvement.teacher_hours
     @tenured_teacher_hours = Involvement.tenured_teacher_hours
     @untenured_teacher_hours = Involvement.untenured_teacher_hours
+    @title = 'Services'
   end
 
   def costs
     @users = User.all.order(:last_name, :first_name)
+    @title = 'Coûts'
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @title = @user.to_s
   end
 
   # GET /users/new

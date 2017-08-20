@@ -7,10 +7,12 @@ class TeachingModulesController < ApplicationController
     @teaching_modules = TeachingModule.all.order(:semester_id)
     @student_hours = Involvement.student_hours
     @teacher_hours = Involvement.teacher_hours
+    @title = 'Modules'
   end
 
   def summary
     @semesters = Semester.all
+    @title = 'Maquette'
   end
 
   def costs
@@ -20,6 +22,7 @@ class TeachingModulesController < ApplicationController
   # GET /teaching_modules/1
   # GET /teaching_modules/1.json
   def show
+    @title = @teaching_module.full_name
   end
 
   # GET /teaching_modules/new

@@ -11,6 +11,7 @@
       <th>TP</th>
       <th>Heures enseignant</th>
       <th>Note</th>
+      <th>Projet</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -27,6 +28,7 @@
       <td><%= involvement.hours_tp %></td>
       <td><%= involvement.teacher_hours %></td>
       <td><%= simple_format involvement.description %></td>
+      <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
       <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' %></td>
     </tr>
   <% end %>

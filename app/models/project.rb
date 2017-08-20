@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
   has_many :fields, through: :fields_projects
   has_many :projects_semesters, dependent: :destroy
   has_many :semesters, through: :projects_semesters
+  has_many :involvements
   has_and_belongs_to_many :users
   belongs_to :user
   
@@ -39,8 +40,33 @@ class Project < ActiveRecord::Base
     list
   end
 
+  def student_hours
+    sum_involvements :student_hours
+  end
+
+  def student_hours_cm
+    sum_involvements :student_hours_cm
+  end
+
+  def student_hours_td
+    sum_involvements :student_hours_td
+  end
+
+  def student_hours_tp
+    sum_involvements :student_hours_tp
+  end
+
+  def teacher_hours
+    sum_involvements :teacher_hours
+  end
+
   def to_s
     "#{label}"
   end
 
+  protected
+
+  def sum_involvements(key)
+    involvements.collect(&key).sum.round
+  end
 end

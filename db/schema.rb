@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820085423) do
+ActiveRecord::Schema.define(version: 20170820125442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20170820085423) do
     t.integer  "multiplier_td",      default: 2
     t.integer  "multiplier_tp",      default: 3
     t.integer  "groups_tp",          default: 3
+    t.integer  "project_id"
   end
 
   create_table "jobs", force: :cascade do |t|

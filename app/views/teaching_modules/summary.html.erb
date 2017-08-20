@@ -1,6 +1,3 @@
-<% content_for :title, "Maquette" %>
-<h1>Maquette</h1>
-
 <% @semesters.each do |semester| %>
   <h2><%= link_to semester, semester %></h2>
   <p>Heures étudiant : <%= semester.planned_student_hours.round %> planifiées / <%= semester.expected_student_hours.round %> PPN</p>

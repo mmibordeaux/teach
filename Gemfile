@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 gem 'rails', '4.2.9'
-gem 'pg'
+gem 'pg', '0.20.0'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'font-awesome-rails'

@@ -7,6 +7,15 @@ ul
   list-style-position: inside
   padding-left: 0
 
+.navbar-default
+  background: none
+  border: none
+  text-transform: uppercase
+  font-weight: bold
+  .navbar-nav > li > a
+    color: white
+    font-size: 12px
+
 .abstract 
   background: #eee
   padding: 20px
@@ -47,3 +56,19 @@ ul
   background: red
 .hours-above 
   background: orange
+
+.jumbotron
+  color: white
+  margin-top: -100px
+  text-align: center
+  padding: 150px 0 100px
+  background-size: cover
+  background-attachment: fixed
+  background-image: asset-url('headers/default.jpg')
+  background-position: center
+  &.projects
+    background-image: asset-url('headers/projects.jpg')
+  &.teaching_modules
+    background-image: asset-url('headers/teaching_modules.jpg')
+  &.users
+    background-image: asset-url('headers/users.jpg')

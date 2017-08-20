@@ -1,19 +1,31 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= @project.label %></h1>
 <%= link_to 'Edit', edit_project_path(@project) %>
-<%= simple_format @project.description %>
-
-<h2>Semestres</h2>
-<%= render partial: 'semesters/inline_list', locals: {semesters: @project.semesters} %>
-
-<h2>Champs</h2>
-<%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
-
-<h2>Personnes impliquées</h2>
-<p>Responsable : <%= link_to @project.user, @project.user unless @project.user.nil? %></p>
-<%= render partial: 'users/inline_list', locals: {users: @project.users} %>
-
-<h2>Modules</h2>
-<p>Nous pouvons intégrer des notes de ce projet dans les modules suivants</p>
-<%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
+<div class="row">
+  <div class="col-md-4">
+    <h2>Description</h2>
+    <%= simple_format @project.description %>
+    <h2>Semestres</h2>
+    <%= render partial: 'semesters/inline_list', locals: {semesters: @project.semesters} %>
+  </div>
+  <div class="col-md-4">
+    <h2>Champs concernés</h2>
+    <%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
+    <h2>Modules concernés</h2>
+    <p>Nous pouvons intégrer des notes de ce projet dans les modules suivants</p>
+    <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
+  </div>
+  <div class="col-md-4">
+    <h2>Personnes impliquées</h2>
+    <p>Responsable : <%= link_to @project.user, @project.user unless @project.user.nil? %></p>
+    <%= render partial: 'users/inline_list', locals: {users: @project.users} %>
+  </div>
+</div>
+<h2>Heures planifiées</h2>
+<p>
+Heures étudiants : <%= @project.student_hours %>
+(CM <%= @project.student_hours_cm %>
+TD <%= @project.student_hours_td %>
+TP <%= @project.student_hours_tp %>)
+<br/>
+Heures enseignants : <%= @project.teacher_hours %>
+</p>
+<%= render partial: 'involvements/table', locals: {involvements: @project.involvements} %>

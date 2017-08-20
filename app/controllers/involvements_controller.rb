@@ -71,6 +71,6 @@ class InvolvementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def involvement_params
-      params.require(:involvement).permit(:teaching_module_id, :user_id, :hours_cm, :hours_td, :hours_tp, :description, :multiplier_td, :multiplier_tp, :groups_tp)
+      params.require(:involvement).permit(:teaching_module_id, :user_id, :project_id, :hours_cm, :hours_td, :hours_tp, :description, :multiplier_td, :multiplier_tp, :groups_tp)
     end
 end

@@ -5,11 +5,13 @@ class SemestersController < ApplicationController
   # GET /semesters.json
   def index
     @semesters = Semester.all
+    @title = 'Semestres'
   end
 
   # GET /semesters/1
   # GET /semesters/1.json
   def show
+    @title = @semester
   end
 
   # GET /semesters/new

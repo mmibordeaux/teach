@@ -14,6 +14,7 @@
 #  multiplier_td      :integer          default(2)
 #  multiplier_tp      :integer          default(3)
 #  groups_tp          :integer          default(3)
+#  project_id         :integer
 #
 
 require 'test_helper'

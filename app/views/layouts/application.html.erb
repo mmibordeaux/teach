@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "MMI Bordeaux" %></title>
+    <title><%= @title.nil? ? 'MMI Bordeaux' : @title %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= favicon_link_tag 'favicon.png', :rel => 'shortcut icon' %>
     <%= javascript_include_tag "application" %>
   </head>
   <body>
-
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -44,11 +43,12 @@
         </div>
       </div>
     </div>
-
+    <div class="jumbotron <%= controller_name %>">
+      <h1><%= @title %></h1>
+    </div>
     <div class="container">
       <%= bootstrap_flash %>
       <%= yield %>
     </div>
-
   </body>
 </html>

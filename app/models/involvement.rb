@@ -14,11 +14,13 @@
 #  multiplier_td      :integer          default(2)
 #  multiplier_tp      :integer          default(3)
 #  groups_tp          :integer          default(3)
+#  project_id         :integer
 #
 
 class Involvement < ActiveRecord::Base
   belongs_to :teaching_module
   belongs_to :user
+  belongs_to :project
 
   GROUPS_TD = 2.0
   GROUPS_TP = 4.0

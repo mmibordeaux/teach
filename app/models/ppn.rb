@@ -1,4 +1,4 @@
-class PPN
+class Ppn
 
   def self.parse
     doc = Nokogiri::HTML(HTML)

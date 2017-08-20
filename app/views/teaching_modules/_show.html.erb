@@ -66,15 +66,44 @@
 </script>
 <p><%= @teaching_module.student_hours %>h étudiant / <%= @teaching_module.hours %>h prévues au PPN</p>
 <%= link_to 'Planifier une personne', new_involvement_path(teaching_module_id: @teaching_module.id) %>
-<%= render partial: 'involvements/table', locals: {involvements: @teaching_module.involvements} %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Personne</th>
+      <th>Heures étudiant total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th>Projet</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @teaching_module.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.user, involvement.user %></td>
+      <td><%= involvement.student_hours %></td>
+      <td><%= involvement.hours_cm %></td>
+      <td><%= involvement.hours_td %></td>
+      <td><%= involvement.hours_tp %></td>
+      <td><%= involvement.teacher_hours %></td>
+      <td><%= simple_format involvement.description %></td>
+      <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
+      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
 <div class="row">
   <div class="col-md-6">
-    <h2>Champs</h2>
+    <h2>Champs concernés</h2>
     <%= render partial: 'fields/inline_list', locals: {fields: @teaching_module.fields} %>
   </div>
   <div class="col-md-6">
-    <h2>Projets</h2>
+    <h2>Projets possibles</h2>
     <%= render partial: 'projects/inline_list', locals: {projects: @teaching_module.projects} %>
   </div>
 </div>
