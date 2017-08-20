@@ -56,7 +56,8 @@ class Involvement < ActiveRecord::Base
   end
 
   def student_hours_tp
-    ( 1.0 * multiplier_tp / groups_tp * hours_tp).round(2)
+    divider = groups_tp.nil? ? GROUPS_TP : groups_tp
+    ( 1.0 * multiplier_tp / divider * hours_tp).round(2)
   end
 
   # Teacher hours
