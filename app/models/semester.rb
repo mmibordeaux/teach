@@ -88,6 +88,10 @@ class Semester < ActiveRecord::Base
     teaching_modules.collect(&:planned_teacher_hours_costs).sum
   end
 
+  def delta_student_hours
+    planned_student_hours - expected_student_hours
+  end
+
   def to_s
     "S#{number}"
   end

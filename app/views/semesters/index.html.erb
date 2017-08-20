@@ -7,6 +7,7 @@
       <th>Number</th>
       <th>Heures étudiants PPN</th>
       <th>Heures étudiants planifiées</th>
+      <th>Delta</th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
         <td><%= link_to semester, semester %></td>
         <td><%= semester.expected_student_hours.round %></td>
         <td><%= semester.planned_student_hours.round %></td>
+        <td><%= semester.delta_student_hours.round %></td>
       </tr>
     <% end %>
   </tbody>
