@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914110130) do
+ActiveRecord::Schema.define(version: 20170820085423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150914110130) do
     t.integer  "hours_tp",           default: 0
     t.integer  "multiplier_td",      default: 2
     t.integer  "multiplier_tp",      default: 3
+    t.integer  "groups_tp",          default: 3
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -80,14 +81,6 @@ ActiveRecord::Schema.define(version: 20150914110130) do
     t.integer  "teaching_module_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-  end
-
-  create_table "models", force: :cascade do |t|
-    t.string   "FieldsJob"
-    t.integer  "field_id"
-    t.integer  "job_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "objectives", force: :cascade do |t|

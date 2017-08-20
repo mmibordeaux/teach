@@ -3,14 +3,14 @@ ruby '2.4.1'
 
 gem 'rails', '4.2.9'
 gem 'pg'
+gem 'bootstrap-sass'
 gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
+gem 'font-awesome-rails'
+gem 'therubyracer'
 gem 'jquery-rails'
 gem 'jbuilder'
 gem 'unicorn'
 gem 'nokogiri'
-gem 'twitter-bootstrap-rails'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem 'd3_rails'
@@ -20,6 +20,7 @@ gem 'highcharts-rails'
 group :development do
   gem 'byebug'
   gem 'spring'
+  gem 'annotate'
 end
 
 group :production do

@@ -7,14 +7,18 @@
         <%= f.input :description, input_html: { rows: 3 } %>
       </div>
       <div class="col-md-8">
-        <%= f.input :hours_cm, label: 'Heures de cours magistraux (CM)' %>
+        <h4>Cours magistraux (CM)</h4>
+        <%= f.input :hours_cm, label: 'Heures' %>
+        <h4>Travaux dirigés (TD)</h4>
         <div class="row">
-          <div class="col-md-6"><%= f.input :hours_td, label: 'Heures de travaux dirigés (TD)' %></div>
-          <div class="col-md-6"><%= f.input :multiplier_td, label: 'Groupes concernés par les heures de TD' %></div>
+          <div class="col-md-6"><%= f.input :hours_td, label: 'Heures' %></div>
+          <div class="col-md-6"><%= f.input :multiplier_td, label: 'données à x groupes' %></div>
         </div>
+        <h4>Travaux pratiques (TP)</h4>
         <div class="row">
-          <div class="col-md-6"><%= f.input :hours_tp, label: 'Heures de travaux pratiques (TP)' %></div>
-          <div class="col-md-6"><%= f.input :multiplier_tp, label: 'Groupes concernés par les heures de TP' %></div>
+          <div class="col-md-4"><%= f.input :hours_tp, label: 'Heures' %></div>
+          <div class="col-md-4"><%= f.input :multiplier_tp, label: 'données à x groupes' %></div>
+          <div class="col-md-4"><%= f.input :groups_tp, label: 'sur x groupes' %></div>
         </div>
         <p>Toutes les heures sont en heures étudiants</p>
       </div>

@@ -13,6 +13,7 @@
 #  hours_tp           :integer          default(0)
 #  multiplier_td      :integer          default(2)
 #  multiplier_tp      :integer          default(3)
+#  groups_tp          :integer          default(3)
 #
 
 class Involvement < ActiveRecord::Base
@@ -51,11 +52,11 @@ class Involvement < ActiveRecord::Base
   end
 
   def student_hours_td
-    multiplier_td / GROUPS_TD * hours_td
+    1.0 * multiplier_td / GROUPS_TD * hours_td
   end
 
   def student_hours_tp
-    (multiplier_tp / GROUPS_TP * hours_tp).round(2)
+    ( 1.0 * multiplier_tp / groups_tp * hours_tp).round(2)
   end
 
   # Teacher hours

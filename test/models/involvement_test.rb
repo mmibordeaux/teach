@@ -13,6 +13,7 @@
 #  hours_tp           :integer          default(0)
 #  multiplier_td      :integer          default(2)
 #  multiplier_tp      :integer          default(3)
+#  groups_tp          :integer          default(3)
 #
 
 require 'test_helper'
