@@ -59,10 +59,12 @@ class TeachingModule < ActiveRecord::Base
   end
 
   def student_hours_above_threshold?
+    return false if expected_student_hours.zero?
     student_hours_delta > 30
   end
 
   def student_hours_below_threshold?
+    return false if expected_student_hours.zero?
     student_hours_delta < -30
   end
 
