@@ -5,6 +5,7 @@ class CompetenciesController < ApplicationController
   # GET /competencies.json
   def index
     @competencies = Competency.all
+    @title = 'Compétences'
   end
 
   # GET /competencies/1

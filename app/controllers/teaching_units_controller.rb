@@ -5,6 +5,7 @@ class TeachingUnitsController < ApplicationController
   # GET /teaching_units.json
   def index
     @teaching_units = TeachingUnit.all
+    @title = 'Unités d\'enseignement'
   end
 
   # GET /teaching_units/1

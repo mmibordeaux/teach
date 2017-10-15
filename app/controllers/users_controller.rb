@@ -14,11 +14,12 @@ class UsersController < ApplicationController
     @tenured_teacher_hours = Involvement.tenured_teacher_hours
     @untenured_teacher_hours = Involvement.untenured_teacher_hours
     @title = 'Services'
+    @subtitle = 'Répartition des heures du point de vue enseignant'
   end
 
   def costs
     @users = User.all.order(:last_name, :first_name)
-    @title = 'Coûts'
+    @title = 'Budget par intervenant'
   end
 
   # GET /users/1

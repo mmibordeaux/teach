@@ -37,10 +37,7 @@
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
           <td><%= teaching_module.planned_student_hours.round %></td>
           <td><%= teaching_module.expected_student_hours.round %></td>
-          <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
-                      <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
-            <%= teaching_module.student_hours_delta.round %> %
-          </td>
+          <%= render 'application/td_percent', percent: teaching_module.student_hours_delta %>
         </tr>
       <% end %>
     </tbody>

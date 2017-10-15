@@ -1,0 +1,18 @@
+<% if percent %>
+  <% 
+  if percent < -30
+    color_class = 'btn-danger'
+  elsif percent < 0
+    color_class = 'btn-warning'
+  elsif percent < 30
+    color_class = 'btn-success'
+  else 
+    color_class = 'btn-info'
+  end
+  %>
+  <td class="<%= color_class %>">
+    <%= percent.round %> %
+  </td>
+<% else %>
+  <td>NA</td>
+<% end %>

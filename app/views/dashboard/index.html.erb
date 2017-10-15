@@ -1,0 +1,32 @@
+<div class="row">
+  <% @semesters.each do |semester| %>
+    <div class="col-md-3">
+      <h2><%= link_to semester, semester %></h2>
+      <span class="label label-default">Maquette <%= semester.planned_student_hours.round %></span>
+      <span class="label label-default">PPN <%= semester.expected_student_hours.round %></span>
+      <span class="label label-<%= semester.delta_student_hours < 0 ? 'danger' : 'success' %>">
+        Delta <%= semester.delta_student_hours.round %>
+      </span>
+      <div id="semester-<%= semester.id %>"></div></td>
+      <script type="text/javascript">
+        $(function () {
+          $('#semester-<%= semester.id %>').highcharts({
+              chart: { type: 'column', height: 200, margin: 0 },
+              title: false,
+              xAxis: { categories: ['PPN', 'Planifié'], lineWidth: 4 },
+              yAxis: { min: 0, title: false },
+              tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+              plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+              legend: { enabled: false },
+              credits: { enabled: false },
+              series: [
+                { name: 'TP', data: [<%= semester.student_hours_tp %>, <%= semester.planned_student_hours_tp %>] }, 
+                { name: 'TD', data: [<%= semester.student_hours_td %>, <%= semester.planned_student_hours_td %>] }, 
+                { name: 'CM', data: [<%= semester.student_hours_cm %>, <%= semester.planned_student_hours_cm %>] }
+              ]
+          });
+      });
+      </script>
+    </div>
+  <% end %>
+</div>

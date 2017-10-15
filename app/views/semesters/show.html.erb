@@ -1,5 +1,23 @@
-<%= link_to 'Edit', edit_semester_path(@semester) %>
-<p>Heures étudiant : <%= @semester.planned_student_hours.round %> planifiées / <%= @semester.expected_student_hours.round %> PPN</p>
+<div class="row">
+  <div class="col-md-3">
+    <div class="btn btn-block btn-default">
+      <h2>Maquette <%= @semester.planned_student_hours.round %></h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="btn btn-block btn-default">
+      <h2>PPN <%= @semester.expected_student_hours.round %></h2>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="btn btn-block btn-<%= @semester.delta_student_hours < 0 ? 'danger' : 'success' %>">
+      <h2>Delta <%= @semester.delta_student_hours.round %></h2>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
 <div id="semester-<%= @semester.id %>"></div></td>
 <script type="text/javascript">
   $(function () {
@@ -9,7 +27,7 @@
         xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
         yAxis: { min: 0, title: null },
         tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
-        plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+        plotOptions: { series: { stacking: 'normal', groupPadding: 0, dataLabels: { enabled: false } } },
         legend: { enabled: false },
         credits: { enabled: false },
         series: [
@@ -21,9 +39,11 @@
 });
 </script>
 
+<hr/>
+
 <h3><%= @semester.teaching_modules.count %> modules</h3>
 
-<table class="table table-hover">
+<table class="table">
   <thead>
     <tr>
       <th>Nom</th>
@@ -38,10 +58,7 @@
       <tr>
         <td><%= link_to teaching_module.full_name, teaching_module %></td>
         <td><%= teaching_module.planned_student_hours.round %> / <%= teaching_module.expected_student_hours.round %></td>
-        <td class=" <%= 'hours-above' if teaching_module.student_hours_above_threshold? %>
-                    <%= 'hours-below' if teaching_module.student_hours_below_threshold? %>">
-          <%= teaching_module.student_hours_delta.round %> %
-        </td>
+        <%= render 'application/td_percent', percent: teaching_module.student_hours_delta %>
         <td width="300" style="padding: 0"><div id="summary-<%= teaching_module.id %>"></div></td>
         <script type="text/javascript">
           $(function () {
@@ -51,7 +68,7 @@
                 xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
                 yAxis: { min: 0, max: 60, title: null, gridLineWidth: 0, labels: { enabled: false } },
                 tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
-                plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+                plotOptions: { series: { stacking: 'normal', groupPadding: 0, dataLabels: { enabled: false } } },
                 legend: { enabled: false },
                 credits: { enabled: false },
                 series: [

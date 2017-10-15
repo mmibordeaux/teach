@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   resources :teaching_categories
   resources :teaching_subjects
   resources :teaching_units
-  resources :semesters
+  resources :semesters, only: [:index, :show]
   get 'users/summary' => 'users#summary', as: 'users_summary'
   get 'users/costs' => 'users#costs', as: 'users_costs'
   resources :users
   get 'parse' => 'application#parse'
-  root 'fields#index'
+  root 'dashboard#index'
 end

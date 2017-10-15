@@ -5,6 +5,7 @@ class ObjectivesController < ApplicationController
   # GET /objectives.json
   def index
     @objectives = Objective.all
+    @title = 'Objectifs'
   end
 
   # GET /objectives/1

@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
     @title = 'Projets'
+    @subtitle = 'Démarche pédagogique favorisant la transversalité'
   end
 
   # GET /projects/1

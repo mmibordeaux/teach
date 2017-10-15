@@ -6,6 +6,7 @@ class FieldsController < ApplicationController
   def index
     @fields = Field.root.sorted
     @title = 'Champs'
+    @subtitle = 'Structuration par domaines des enseignements et des métiers'
   end
 
   # GET /fields/1

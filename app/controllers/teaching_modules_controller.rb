@@ -13,10 +13,12 @@ class TeachingModulesController < ApplicationController
   def summary
     @semesters = Semester.all
     @title = 'Maquette'
+    @subtitle = 'Répartition des heures du point de vue étudiant'
   end
 
   def costs
     @semesters = Semester.all
+    @title = 'Budget par module'
   end
 
   # GET /teaching_modules/1

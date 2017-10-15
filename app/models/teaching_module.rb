@@ -51,6 +51,7 @@ class TeachingModule < ActiveRecord::Base
   end
 
   def student_hours_delta
+    return 0 if expected_student_hours.zero?
     result = 0
     unless hours == 0
       result = student_hours * 1.0 / hours * 1.0
