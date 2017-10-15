@@ -17,10 +17,12 @@ class InvolvementsController < ApplicationController
     @involvement = Involvement.new
     @involvement.user_id = params[:user_id] if params.include? :user_id
     @involvement.teaching_module_id = params[:teaching_module_id] if params.include? :teaching_module_id
+    @title = 'Planifier une intervention'
   end
 
   # GET /involvements/1/edit
   def edit
+    @title = 'Modifier une planification'
   end
 
   # POST /involvements
@@ -56,9 +58,10 @@ class InvolvementsController < ApplicationController
   # DELETE /involvements/1
   # DELETE /involvements/1.json
   def destroy
+    teaching_module = @involvement.teaching_module
     @involvement.destroy
     respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Involvement was successfully destroyed.' }
+      format.html { redirect_to teaching_module, notice: 'Involvement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

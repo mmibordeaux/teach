@@ -1,6 +1,4 @@
-<h1>Modifier une planification</h1>
-
 <%= render 'form' %>
 <br/>
-<%= link_to 'Supprimer cette planification', involvement_path(@involvement), method: :delete, data: {confirm: "Sûr?"}  %>
+<%= link_to 'Supprimer cette planification', involvement_path(@involvement), method: :delete, data: {confirm: "Sûr?"}, class: 'btn btn-danger'  %>
 <br/>
