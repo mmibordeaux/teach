@@ -1,8 +1,4 @@
 class TeachingModulesController < ApplicationController
-  before_action :set_teaching_module, only: [:show, :edit, :update, :destroy]
-
-  # GET /teaching_modules
-  # GET /teaching_modules.json
   def index
     @teaching_modules = TeachingModule.all.order(:semester_id)
     @student_hours = Involvement.student_hours
@@ -21,24 +17,18 @@ class TeachingModulesController < ApplicationController
     @title = 'Budget par module'
   end
 
-  # GET /teaching_modules/1
-  # GET /teaching_modules/1.json
   def show
     @title = @teaching_module.full_name
   end
 
-  # GET /teaching_modules/new
   def new
     @teaching_module = TeachingModule.new
   end
 
-  # GET /teaching_modules/1/edit
   def edit
     @title = @teaching_module.full_name
   end
 
-  # POST /teaching_modules
-  # POST /teaching_modules.json
   def create
     @teaching_module = TeachingModule.new(teaching_module_params)
 
@@ -53,8 +43,6 @@ class TeachingModulesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teaching_modules/1
-  # PATCH/PUT /teaching_modules/1.json
   def update
     respond_to do |format|
       if @teaching_module.update(teaching_module_params)
@@ -67,8 +55,6 @@ class TeachingModulesController < ApplicationController
     end
   end
 
-  # DELETE /teaching_modules/1
-  # DELETE /teaching_modules/1.json
   def destroy
     @teaching_module.destroy
     respond_to do |format|
@@ -78,13 +64,8 @@ class TeachingModulesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_teaching_module
-      @teaching_module = TeachingModule.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def teaching_module_params
-      params.require(:teaching_module).permit(:code, :label, :objectives, :content, :how_to, :what_next, :hours, :semester_id, :teaching_subject_id, :teaching_unit_id, :teaching_category_id, :user_id, :coefficient, field_ids: [] )
-    end
+  def teaching_module_params
+    params.require(:teaching_module).permit(:code, :label, :objectives, :content, :how_to, :what_next, :hours, :semester_id, :teaching_subject_id, :teaching_unit_id, :teaching_category_id, :user_id, :coefficient, field_ids: [] )
+  end
 end

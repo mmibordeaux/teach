@@ -1,29 +1,19 @@
 class TeachingUnitsController < ApplicationController
-  before_action :set_teaching_unit, only: [:show, :edit, :update, :destroy]
-
-  # GET /teaching_units
-  # GET /teaching_units.json
   def index
     @teaching_units = TeachingUnit.all
     @title = 'Unités d\'enseignement'
   end
 
-  # GET /teaching_units/1
-  # GET /teaching_units/1.json
   def show
   end
 
-  # GET /teaching_units/new
   def new
     @teaching_unit = TeachingUnit.new
   end
 
-  # GET /teaching_units/1/edit
   def edit
   end
 
-  # POST /teaching_units
-  # POST /teaching_units.json
   def create
     @teaching_unit = TeachingUnit.new(teaching_unit_params)
 
@@ -38,8 +28,6 @@ class TeachingUnitsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teaching_units/1
-  # PATCH/PUT /teaching_units/1.json
   def update
     respond_to do |format|
       if @teaching_unit.update(teaching_unit_params)
@@ -52,8 +40,6 @@ class TeachingUnitsController < ApplicationController
     end
   end
 
-  # DELETE /teaching_units/1
-  # DELETE /teaching_units/1.json
   def destroy
     @teaching_unit.destroy
     respond_to do |format|
@@ -63,13 +49,8 @@ class TeachingUnitsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_teaching_unit
-      @teaching_unit = TeachingUnit.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def teaching_unit_params
-      params.require(:teaching_unit).permit(:number)
-    end
+  def teaching_unit_params
+    params.require(:teaching_unit).permit(:number)
+  end
 end

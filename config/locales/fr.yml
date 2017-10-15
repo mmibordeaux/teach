@@ -1,0 +1,21 @@
+fr:
+  activerecord:
+    models:
+      user: 'Utilisateur'
+      field: 'Champ'
+    attributes:
+      user:
+        first_name: 'Prénom'
+        last_name: 'Nom'
+        hours: 'Heures de service'
+        public: 'Fonctionnaire'
+        tenured: 'Titulaire'
+        teaching_modules: 'Responsable des modules'
+        projects: 'Impliqué(e) dans les projets'
+        fields: 'Concerné(e) par les champs'
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: 'Cet email est invalide'

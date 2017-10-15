@@ -10,4 +10,4 @@
   <%= @competency.teaching_module_id %>
 </p>
 
-<%= link_to 'Edit', edit_competency_path(@competency) %>
+<%= link_to 'Edit', edit_competency_path(@competency) if can? :edit, @competency %>

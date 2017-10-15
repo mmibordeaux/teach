@@ -17,7 +17,7 @@
         <td><%= objective %></td>
         <td><%= objective.teaching_module %></td>
         <td><%= link_to 'Show', objective %></td>
-        <td><%= link_to 'Edit', edit_objective_path(objective) %></td>
+        <td><%= link_to 'Edit', edit_objective_path(objective) if can? :edit, objective %></td>
       </tr>
     <% end %>
   </tbody>

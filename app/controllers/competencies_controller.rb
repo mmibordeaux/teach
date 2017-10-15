@@ -1,29 +1,19 @@
 class CompetenciesController < ApplicationController
-  before_action :set_competency, only: [:show, :edit, :update, :destroy]
-
-  # GET /competencies
-  # GET /competencies.json
   def index
     @competencies = Competency.all
     @title = 'Compétences'
   end
 
-  # GET /competencies/1
-  # GET /competencies/1.json
   def show
   end
 
-  # GET /competencies/new
   def new
     @competency = Competency.new
   end
 
-  # GET /competencies/1/edit
   def edit
   end
 
-  # POST /competencies
-  # POST /competencies.json
   def create
     @competency = Competency.new(competency_params)
 
@@ -38,8 +28,6 @@ class CompetenciesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /competencies/1
-  # PATCH/PUT /competencies/1.json
   def update
     respond_to do |format|
       if @competency.update(competency_params)
@@ -52,8 +40,6 @@ class CompetenciesController < ApplicationController
     end
   end
 
-  # DELETE /competencies/1
-  # DELETE /competencies/1.json
   def destroy
     @competency.destroy
     respond_to do |format|
@@ -63,13 +49,8 @@ class CompetenciesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_competency
-      @competency = Competency.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def competency_params
-      params.require(:competency).permit(:label, :teaching_module_id)
-    end
+  def competency_params
+    params.require(:competency).permit(:label, :teaching_module_id)
+  end
 end

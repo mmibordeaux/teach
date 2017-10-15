@@ -1,7 +1,5 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Planification</h1>
-<%= link_to 'Nouvelle planification', new_involvement_path %>
+<%= link_to 'Nouvelle planification', new_involvement_path if can? :create, Involvement %>
 
 <table class="table table-hover">
   <thead>
@@ -20,16 +18,16 @@
   <tbody>
     <% @involvements.each do |involvement| %>
       <tr>
-        <td><%= involvement.project_id %></td>
-        <td><%= involvement.user_id %></td>
+        <td><%= involvement.project %></td>
+        <td><%= involvement.user %></td>
         <td><%= involvement.hours_cm %></td>
-        <td><%= involvement.hours_tm %></td>
+        <td><%= involvement.hours_td %></td>
         <td><%= involvement.hours_tp %></td>
         <td><%= involvement.student_hours %></td>
         <td><%= involvement.teacher_hours %></td>
         <td><%= link_to 'Show', involvement %></td>
-        <td><%= link_to 'Edit', edit_involvement_path(involvement) %></td>
-        <td><%= link_to 'Destroy', involvement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_involvement_path(involvement) if can? :edit, involvement %></td>
+        <td><%= link_to 'Destroy', involvement, method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, involvement %></td>
       </tr>
     <% end %>
   </tbody>

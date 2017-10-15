@@ -18,5 +18,5 @@
 </div>
 
 <h1><%= @projects.count %> projets</h1>
-<%= link_to 'Nouveau projet', new_project_path %>
+<%= link_to 'Nouveau projet', new_project_path if can? :create, Project %>
 <%= render partial: 'table', locals: {projects: @projects} %>

@@ -39,7 +39,7 @@
     });
 });
 </script>
-<%= link_to 'Planifier une intervention', new_involvement_path(teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' %>
+<%= link_to 'Planifier une intervention', new_involvement_path(teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
 <table class="table">
   <thead>
     <tr>
@@ -65,7 +65,7 @@
       <td><%= involvement.teacher_hours %></td>
       <td style="max-width: 200px"><%= simple_format involvement.description %></td>
       <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
-      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' %></td>
+      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
     </tr>
   <% end %>
   </tbody>
@@ -77,7 +77,7 @@
     <ul class="list">
       <li>Unité : <%= link_to @teaching_module.teaching_unit, @teaching_module.teaching_unit %></li>
       <li>Semestre : <%= link_to @teaching_module.semester, @teaching_module.semester %></li>
-      <li>Semestre : Catégorie : <%= link_to @teaching_module.teaching_category, @teaching_module.teaching_category %></li>
+      <li>Catégorie : <%= link_to @teaching_module.teaching_category, @teaching_module.teaching_category %></li>
       <li>Sujet : <%= link_to @teaching_module.teaching_subject, @teaching_module.teaching_subject %></li>
       <li>Durée : <%= @teaching_module.hours %> heures</li>
       <li>Coefficient : <%= @teaching_module.coefficient %></li>

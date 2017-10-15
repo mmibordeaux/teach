@@ -24,7 +24,7 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :recoverable, :validatable, :rememberable, :trackable
 
   default_scope { order('last_name, first_name') }
 

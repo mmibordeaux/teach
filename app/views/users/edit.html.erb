@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 <br/>
-<%= link_to 'Supprimer cet utilisateur', user_path(@user), method: :delete, data: {confirm: "Sûr?"}  %>
+<%= link_to 'Supprimer cet utilisateur', user_path(@user), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger'   %>
 <br/>

@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Métiers</h1>
-<%= link_to 'Nouveau métier', new_job_path %>
+<%= link_to 'Nouveau métier', new_job_path if can? :create, Job %>
 
 <table class="table table-hover">
   <thead>

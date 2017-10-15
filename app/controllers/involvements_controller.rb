@@ -1,18 +1,11 @@
 class InvolvementsController < ApplicationController
-  before_action :set_involvement, only: [:show, :edit, :update, :destroy]
-
-  # GET /involvements
-  # GET /involvements.json
   def index
     @involvements = Involvement.all
   end
 
-  # GET /involvements/1
-  # GET /involvements/1.json
   def show
   end
 
-  # GET /involvements/new
   def new
     @involvement = Involvement.new
     @involvement.user_id = params[:user_id] if params.include? :user_id
@@ -20,13 +13,10 @@ class InvolvementsController < ApplicationController
     @title = 'Planifier une intervention'
   end
 
-  # GET /involvements/1/edit
   def edit
     @title = 'Modifier une planification'
   end
 
-  # POST /involvements
-  # POST /involvements.json
   def create
     @involvement = Involvement.new(involvement_params)
 
@@ -41,8 +31,6 @@ class InvolvementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /involvements/1
-  # PATCH/PUT /involvements/1.json
   def update
     respond_to do |format|
       if @involvement.update(involvement_params)
@@ -55,8 +43,6 @@ class InvolvementsController < ApplicationController
     end
   end
 
-  # DELETE /involvements/1
-  # DELETE /involvements/1.json
   def destroy
     teaching_module = @involvement.teaching_module
     @involvement.destroy
@@ -67,13 +53,8 @@ class InvolvementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_involvement
-      @involvement = Involvement.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def involvement_params
-      params.require(:involvement).permit(:teaching_module_id, :user_id, :project_id, :hours_cm, :hours_td, :hours_tp, :description, :multiplier_td, :multiplier_tp, :groups_tp)
-    end
+  def involvement_params
+    params.require(:involvement).permit(:teaching_module_id, :user_id, :project_id, :hours_cm, :hours_td, :hours_tp, :description, :multiplier_td, :multiplier_tp, :groups_tp)
+  end
 end

@@ -4,5 +4,5 @@
 
 <h1><%= @fields.count %> champs</h1>
 
-<%= link_to 'Nouveau champ', new_field_path %>
+<%= link_to 'Nouveau champ', new_field_path if can? :create, Field %>
 <%= render partial: 'table', locals: {fields: @fields} %>

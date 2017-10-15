@@ -1,29 +1,19 @@
 class ObjectivesController < ApplicationController
-  before_action :set_objective, only: [:show, :edit, :update, :destroy]
-
-  # GET /objectives
-  # GET /objectives.json
   def index
     @objectives = Objective.all
     @title = 'Objectifs'
   end
 
-  # GET /objectives/1
-  # GET /objectives/1.json
   def show
   end
 
-  # GET /objectives/new
   def new
     @objective = Objective.new
   end
 
-  # GET /objectives/1/edit
   def edit
   end
 
-  # POST /objectives
-  # POST /objectives.json
   def create
     @objective = Objective.new(objective_params)
 
@@ -38,8 +28,6 @@ class ObjectivesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /objectives/1
-  # PATCH/PUT /objectives/1.json
   def update
     respond_to do |format|
       if @objective.update(objective_params)
@@ -52,8 +40,6 @@ class ObjectivesController < ApplicationController
     end
   end
 
-  # DELETE /objectives/1
-  # DELETE /objectives/1.json
   def destroy
     @objective.destroy
     respond_to do |format|
@@ -63,13 +49,8 @@ class ObjectivesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_objective
-      @objective = Objective.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def objective_params
-      params.require(:objective).permit(:label, :teaching_module_id)
-    end
+  def objective_params
+    params.require(:objective).permit(:label, :teaching_module_id)
+  end
 end

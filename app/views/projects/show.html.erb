@@ -1,4 +1,4 @@
-<%= link_to 'Edit', edit_project_path(@project) %>
+<%= link_to 'Edit', edit_project_path(@project) if can? :edit, @project %>
 <div class="row">
   <div class="col-md-4">
     <h2>Description</h2>
@@ -14,18 +14,53 @@
     <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
   </div>
   <div class="col-md-4">
+    <h2>Responsable</h2>
+    <p><%= link_to @project.user, @project.user unless @project.user.nil? %></p>
     <h2>Personnes impliquées</h2>
-    <p>Responsable : <%= link_to @project.user, @project.user unless @project.user.nil? %></p>
     <%= render partial: 'users/inline_list', locals: {users: @project.users} %>
   </div>
 </div>
 <h2>Heures planifiées</h2>
 <p>
-Heures étudiants : <%= @project.student_hours %>
-(CM <%= @project.student_hours_cm %>
-TD <%= @project.student_hours_td %>
-TP <%= @project.student_hours_tp %>)
-<br/>
-Heures enseignants : <%= @project.teacher_hours %>
+  Heures étudiants : <%= @project.student_hours %>
+  (CM <%= @project.student_hours_cm %>
+  TD <%= @project.student_hours_td %>
+  TP <%= @project.student_hours_tp %>)
+  <br/>
+  Heures enseignants : <%= @project.teacher_hours %>
 </p>
-<%= render partial: 'involvements/table', locals: {involvements: @project.involvements} %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Personne</th>
+      <th>Semestre</th>
+      <th>Code module</th>
+      <th>Nom module</th>
+      <th>Heures étudiant total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @project.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.user, involvement.user %></td>
+      <td><%= link_to involvement.teaching_module.semester, involvement.teaching_module.semester %></td>
+      <td><%= link_to involvement.teaching_module, involvement.teaching_module %></td>
+      <td><%= link_to involvement.teaching_module.label, involvement.teaching_module %></td>
+      <td><%= involvement.student_hours %></td>
+      <td><%= involvement.hours_cm %></td>
+      <td><%= involvement.hours_td %></td>
+      <td><%= involvement.hours_tp %></td>
+      <td><%= involvement.teacher_hours %></td>
+      <td><%= simple_format involvement.description %></td>
+      <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
+      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

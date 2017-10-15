@@ -17,7 +17,7 @@
         <td><%= teaching_subject.label %></td>
         <td><%= link_to teaching_subject.teaching_unit, teaching_unit_path(teaching_subject.teaching_unit) %></td>
         <td><%= link_to 'Show', teaching_subject %></td>
-        <td><%= link_to 'Edit', edit_teaching_subject_path(teaching_subject) %></td>
+        <td><%= link_to 'Edit', edit_teaching_subject_path(teaching_subject) if can? :edit, teaching_subject %></td>
       </tr>
     <% end %>
   </tbody>

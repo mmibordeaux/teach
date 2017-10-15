@@ -19,7 +19,8 @@
   <thead>
     <tr>
       <th style="min-width: 200px">Nom</th>
-      <th>Heures</th>
+      <th>Heures enseignant</th>
+      <th>Heures étudiant</th>
       <th>Service</th>
       <th>Delta heures / service</th>
     </tr>
@@ -29,9 +30,10 @@
       <% next if user.no_hours? %>
       <tr>
         <td><%= link_to user, user %></td>
-        <td><%= user.teacher_hours %></td>
+        <td><%= user.teacher_hours.round %></td>
+        <td><%= user.student_hours.round %></td>
         <td><%= user.hours %></td>
-        <td class="<%= user.hours_filled? ? '' : 'hours-warning' %>"><%= user.hours_delta %></td>
+        <td class="<%= user.hours_filled? ? '' : 'bg-danger' %>"><%= user.hours_delta %></td>
       </tr>
     <% end %>
   </tbody>
