@@ -86,8 +86,8 @@
       <td><%= link_to involvement.user, involvement.user %></td>
       <td><%= involvement.student_hours %></td>
       <td><%= involvement.hours_cm %></td>
-      <td><%= involvement.hours_td %></td>
-      <td><%= involvement.hours_tp %></td>
+      <td><%= involvement.hours_td %> <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
+      <td><%= involvement.hours_tp %> <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
       <td><%= involvement.teacher_hours %></td>
       <td><%= simple_format involvement.description %></td>
       <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
