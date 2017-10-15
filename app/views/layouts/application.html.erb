@@ -21,7 +21,7 @@
         <%= link_to root_path, class:'navbar-brand logo' do %>
           <%= image_tag 'mmi-bordeaux.png' %>
           <p>Admin</p>
-        <% end %> 
+        <% end %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to 'Admin', root_path %></li>
@@ -60,6 +60,7 @@
                 <li><%= link_to 'Mots-clés', keywords_path %></li>
               </ul>
             </li>
+            <li><%= link_to('Déconnexion', destroy_user_session_path, method: :delete) %> </li>
           </ul>
         </div>
       </div>
