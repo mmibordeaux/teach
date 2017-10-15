@@ -34,6 +34,7 @@ class TeachingModulesController < ApplicationController
 
   # GET /teaching_modules/1/edit
   def edit
+    @title = @teaching_module.full_name
   end
 
   # POST /teaching_modules

@@ -1,8 +1,14 @@
 <%= semantic_form_for @teaching_module do |f| %>
   <%= f.inputs do %>
-    <%= f.input :user, label: 'Responsable' %>
-    <%= f.input :fields, as: :check_boxes, collection: Field.not_root, label: 'Champs' %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :user, label: 'Responsable' %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :fields, as: :check_boxes, collection: Field.not_root, label: 'Champs' %>
+      </div>
+    </div>
   <% end %>
-  <%= f.actions %>
+  <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
 <% end %>
 
