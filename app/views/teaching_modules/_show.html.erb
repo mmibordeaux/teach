@@ -55,7 +55,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @teaching_module.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+  <% @teaching_module.involvements.includes(:user).reorder('users.last_name').each do |involvement| %>
     <tr>
       <td><%= link_to involvement.user, involvement.user %></td>
       <td><%= involvement.student_hours %></td>
