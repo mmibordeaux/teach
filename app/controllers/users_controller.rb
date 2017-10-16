@@ -76,7 +76,7 @@ class UsersController < ApplicationController
 
   def user_params
     parameters = params.require(:user).permit(:first_name, :last_name, :hours, :public, :tenured, :email, project_ids: [], teaching_module_ids: [], field_ids: [])
-    parameters.merge({ admin: params[:user][:admin] }) if current_user.admin?
+    parameters = parameters.merge({ admin: params[:user][:admin] }) if current_user.admin?
     parameters
   end
 end
