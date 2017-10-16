@@ -1,6 +1,8 @@
 class TeachingCategoriesController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Catégories', :teaching_categories_path
+
   def index
     @teaching_categories = TeachingCategory.all
     @title = 'Catégories'

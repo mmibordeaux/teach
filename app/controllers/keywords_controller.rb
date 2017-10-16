@@ -1,6 +1,8 @@
 class KeywordsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Mots-clés', :keywords_path
+
   def index
     @keywords = Keyword.all
     @title = 'Mots-clés'

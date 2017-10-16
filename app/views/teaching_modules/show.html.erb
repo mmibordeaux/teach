@@ -51,7 +51,7 @@
       <th>Heures enseignant</th>
       <th>Note</th>
       <th>Projet</th>
-      <th>Edit</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -65,7 +65,7 @@
       <td><%= involvement.teacher_hours %></td>
       <td style="max-width: 200px"><%= simple_format involvement.description %></td>
       <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
-      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
+      <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
     </tr>
   <% end %>
   </tbody>

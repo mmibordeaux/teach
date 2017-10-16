@@ -1,6 +1,8 @@
 class TeachingUnitsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Unités d\'enseignement', :teaching_units_path
+
   def index
     @teaching_units = TeachingUnit.all
     @title = 'Unités d\'enseignement'

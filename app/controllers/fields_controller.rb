@@ -1,6 +1,8 @@
 class FieldsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Champs', :fields_path
+
   def index
     @fields = Field.root.sorted
     @title = 'Champs'

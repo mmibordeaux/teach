@@ -1,6 +1,8 @@
 class ObjectivesController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Objectifs', :objectives_path
+
   def index
     @objectives = Objective.all
     @title = 'Objectifs'

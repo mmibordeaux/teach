@@ -1,6 +1,8 @@
 class TeachingModulesController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Modules', :teaching_modules_path
+
   def index
     @teaching_modules = TeachingModule.all.order(:semester_id)
     @student_hours = Involvement.student_hours
@@ -12,15 +14,12 @@ class TeachingModulesController < ApplicationController
     @semesters = Semester.all
     @title = 'Maquette'
     @subtitle = 'Répartition des heures du point de vue étudiant'
-  end
-
-  def costs
-    @semesters = Semester.all
-    @title = 'Budget par module'
+    add_breadcrumb 'Maquette'
   end
 
   def show
     @title = @teaching_module.full_name
+    add_breadcrumb @teaching_module, @teaching_module
   end
 
   def new

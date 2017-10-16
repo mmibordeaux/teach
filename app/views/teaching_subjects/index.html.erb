@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @teaching_subjects.count %> sujets</h1>
 
 <table class="table table-hover">
@@ -16,8 +14,8 @@
       <tr>
         <td><%= teaching_subject.label %></td>
         <td><%= link_to teaching_subject.teaching_unit, teaching_unit_path(teaching_subject.teaching_unit) %></td>
-        <td><%= link_to 'Show', teaching_subject %></td>
-        <td><%= link_to 'Edit', edit_teaching_subject_path(teaching_subject) if can? :edit, teaching_subject %></td>
+        <td><%= link_to 'Voir', teaching_subject %></td>
+        <td><%= link_to 'Modifier', edit_teaching_subject_path(teaching_subject) if can? :edit, teaching_subject %></td>
       </tr>
     <% end %>
   </tbody>

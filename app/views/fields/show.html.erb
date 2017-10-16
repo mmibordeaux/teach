@@ -2,7 +2,7 @@
   <p><%= link_to @field.parent, @field.parent %> / </p>
 <% end %>
 <h1><%= @field %></h1>
-<%= link_to 'Edit', edit_field_path(@field) if can? :edit, @field %>
+<%= link_to 'Modifier', edit_field_path(@field) if can? :edit, @field %>
 
 <h2>Sous-champs</h2>
 <%= render partial: 'table', locals: {fields: @field.children.sorted} %>

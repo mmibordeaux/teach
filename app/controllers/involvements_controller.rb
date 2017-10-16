@@ -1,6 +1,8 @@
 class InvolvementsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Planifications', :involvements_path
+
   def index
     @involvements = Involvement.all
   end

@@ -1,6 +1,8 @@
 class TeachingSubjectsController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Sujets', :teaching_subjects_path
+
   def index
     @teaching_subjects = TeachingSubject.all
     @title = 'Sujets'

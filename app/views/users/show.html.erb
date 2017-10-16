@@ -1,4 +1,4 @@
-<%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary btn-xs' if can? :edit, @user %>
+<%= link_to 'Modifier', edit_user_path(@user), class: 'btn btn-primary btn-xs' if can? :edit, @user %>
 
 <h2>Heures</h2>
 <p><%= @user.teacher_hours %> heures enseignant / <%= @user.hours %> heures de service</p>
@@ -32,7 +32,7 @@
       <td><%= involvement.teacher_hours %></td>
       <td><%= simple_format involvement.description %></td>
       <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
-      <td><%= link_to 'Edit', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+      <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
     </tr>
   <% end %>
   </tbody>

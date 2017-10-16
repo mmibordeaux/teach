@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
+  add_breadcrumb 'Equipe', :users_path
+
   def index
     @users = User.all.order(:last_name, :first_name)
     @title = 'Equipe'
@@ -13,16 +15,13 @@ class UsersController < ApplicationController
     @untenured_teacher_hours = Involvement.untenured_teacher_hours
     @title = 'Services'
     @subtitle = 'Répartition des heures du point de vue enseignant'
-  end
-
-  def costs
-    @users = User.all.order(:last_name, :first_name)
-    @title = 'Budget par intervenant'
+    add_breadcrumb 'Services'
   end
 
   def show
     @title = @user.to_s
     @subtitle = @user.email
+    add_breadcrumb @user, @user
   end
 
   def new
@@ -30,6 +29,8 @@ class UsersController < ApplicationController
   end
 
   def edit
+    add_breadcrumb @user, @user
+    add_breadcrumb 'Modifier'
   end
 
   def create

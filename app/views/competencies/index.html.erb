@@ -16,8 +16,8 @@
       <tr>
         <td><%= competency.label %></td>
         <td><%= competency.teaching_module_id %></td>
-        <td><%= link_to 'Show', competency %></td>
-        <td><%= link_to 'Edit', edit_competency_path(competency) if can? :edit, competency %></td>
+        <td><%= link_to 'Voir', competency %></td>
+        <td><%= link_to 'Modifier', edit_competency_path(competency) if can? :edit, competency %></td>
       </tr>
     <% end %>
   </tbody>
