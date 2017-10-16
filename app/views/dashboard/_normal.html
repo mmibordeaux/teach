@@ -37,6 +37,9 @@
         <span class="label label-primary"><%= involvement.teaching_module %></span>
         <span class="pull-right"><%= involvement.teaching_module.semester %></span>
       </h3>
+      <% if involvement.project %>
+        <h4>Projet: <%= involvement.project %></h4>
+      <% end %>
     </div>
     <div class="panel-body">
       <div class="row">
