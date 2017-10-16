@@ -91,3 +91,51 @@
     <% end %>
   </tbody>
 </table>
+
+<h2>Emploi du temps</h2>
+<div class="row">
+  <div class="col-md-3">
+    <div class="text-xl">Total</div>
+    <p>
+      <span class="label label-default">Etudiant</span>
+      <%= to_human_time @semester.planned_student_hours %>
+    </p>
+    <p>
+      <span class="label label-default">Enseignant</span>
+      <%= to_human_time @semester.planned_teacher_hours %>
+    </p>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl">CM</div>
+    <p>
+      <span class="label label-default">Etudiant</span>
+      <%= to_human_time @semester.planned_student_hours_cm %>
+    </p>
+    <p>
+      <span class="label label-default">Enseignant</span>
+      <%= to_human_time @semester.planned_teacher_hours_cm %>
+    </p>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl">TD</div>
+    <p>
+      <span class="label label-default">Etudiant</span>
+      <%= to_human_time @semester.planned_student_hours_td %>
+    </p>
+    <p>
+      <span class="label label-default">Enseignant</span>
+      <%= to_human_time @semester.planned_teacher_hours_td %>
+    </p>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl">TP</div>
+    <p>
+      <span class="label label-default">Etudiant</span>
+      <%= to_human_time @semester.planned_student_hours_tp %>
+    </p>
+    <p>
+      <span class="label label-default">Enseignant</span>
+      <%= to_human_time @semester.planned_teacher_hours_tp %>
+    </p>
+  </div>
+</div>
