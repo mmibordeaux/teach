@@ -58,6 +58,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset
+    @user.send_reset_password_instructions
+    redirect_to :back
+  end
+
   def destroy
     @user.destroy
     respond_to do |format|

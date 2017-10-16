@@ -18,11 +18,8 @@
         <td><%= link_to user, user %></td>
         <td>
           <%= user.email %>
-          <% if user.email.present? %>
-            <%= form_for(:user, url: password_path(:user), html: { method: :post, role: "form" }) do |f| %>
-              <%= f.hidden_field :email, value: user.email %>
-              <%= f.submit 'Envoyer l\'invitation', class: 'btn btn-primary btn-xs' %>
-            <% end %>
+          <% if current_user.admin? and user.email.present? %>
+            <%= link_to 'Envoyer l\'invitation', reset_user_path(user), class: 'btn btn-primary btn-xs', method: :post %>
           <% end %>
         </td>
         <td><%= user.public ? 'oui' : 'non' %></td>
