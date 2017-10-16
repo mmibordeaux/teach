@@ -1,10 +1,11 @@
 <p><%= @users.count %> personnes</p>
-<%= link_to 'Nouvelle personne', new_user_path if can? :create, User %>
+<%= link_to 'Nouvelle personne', new_user_path, class: 'btn btn-primary btn-xs' if can? :create, User %>
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th style="min-width: 200px">Nom</th>
+      <th>Email</th>
       <th>Fonctionnaire ?</th>
       <th>Responsable des modules</th>
       <th>Champs</th>
@@ -15,6 +16,15 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user, user %></td>
+        <td>
+          <%= user.email %>
+          <% if user.email.present? %>
+            <%= form_for(:user, url: password_path(:user), html: { method: :post, role: "form" }) do |f| %>
+              <%= f.hidden_field :email, value: user.email %>
+              <%= f.submit 'Envoyer l\'invitation', class: 'btn btn-primary btn-xs' %>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= user.public ? 'oui' : 'non' %></td>
         <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: user.teaching_modules} %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: user.fields} %></td>

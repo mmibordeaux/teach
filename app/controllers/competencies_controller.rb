@@ -1,4 +1,6 @@
 class CompetenciesController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @competencies = Competency.all
     @title = 'Compétences'

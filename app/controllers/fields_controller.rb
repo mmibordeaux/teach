@@ -1,4 +1,6 @@
 class FieldsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @fields = Field.root.sorted
     @title = 'Champs'

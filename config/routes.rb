@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   get 'users/summary' => 'users#summary', as: 'users_summary'
   get 'users/costs' => 'users#costs', as: 'users_costs'
   resources :users
-  get 'parse' => 'application#parse'
+  # get 'parse' => 'application#parse'
   root 'dashboard#index'
 end

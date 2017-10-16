@@ -1,0 +1,7 @@
+<strong><%= involvement.user %></strong><br/>
+<%= involvement.hours_cm %>h CM -
+<%= involvement.hours_td %>h TD x<%= involvement.multiplier_td %> -
+<%= involvement.hours_tp %>h TP x<%= involvement.multiplier_tp %>/<%= involvement.groups_tp %>
+<% unless involvement.description.nil? or involvement.description.empty? %>
+<br/><%= involvement.description %>
+<% end %>

@@ -1,4 +1,6 @@
 class ObjectivesController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @objectives = Objective.all
     @title = 'Objectifs'

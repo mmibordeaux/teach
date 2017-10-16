@@ -52,8 +52,32 @@ class User < ActiveRecord::Base
     involvements.collect(&:teacher_hours).sum
   end
 
+  def teacher_hours_cm
+    involvements.collect(&:teacher_hours_cm).sum
+  end
+
+  def teacher_hours_td
+    involvements.collect(&:teacher_hours_td).sum
+  end
+
+  def teacher_hours_tp
+    involvements.collect(&:teacher_hours_tp).sum
+  end
+
   def student_hours
     involvements.collect(&:student_hours).sum
+  end
+
+  def student_hours_cm
+    involvements.collect(&:student_hours_cm).sum
+  end
+
+  def student_hours_td
+    involvements.collect(&:student_hours_td).sum
+  end
+
+  def student_hours_tp
+    involvements.collect(&:student_hours_tp).sum
   end
 
   def hours_delta

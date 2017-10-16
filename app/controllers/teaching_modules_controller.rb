@@ -1,4 +1,6 @@
 class TeachingModulesController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @teaching_modules = TeachingModule.all.order(:semester_id)
     @student_hours = Involvement.student_hours

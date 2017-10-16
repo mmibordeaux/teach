@@ -1,4 +1,6 @@
 class TeachingSubjectsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @teaching_subjects = TeachingSubject.all
     @title = 'Sujets'

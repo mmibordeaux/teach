@@ -1,0 +1,76 @@
+<h2>Mon service</h2>
+<% if current_user.tenured %>
+  Je suis permanent dans l'équipe pédagogique, et mon service est de <%= current_user.hours %>h.
+<% else %>
+  Je suis vacataire.
+<% end %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="text-xl"><%= current_user.teacher_hours_cm.round %>hCM</div>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= current_user.teacher_hours_td.round %>hTD</div>
+    <strong><%= current_user.student_hours_td.round %> heures TD avec chaque étudiant</strong><br/>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= current_user.teacher_hours_tp.round %>hTP</div>
+    <strong><%= current_user.student_hours_tp.round %> heures TP avec chaque étudiant</strong><br/>
+  </div>
+  <% if current_user.tenured %>
+    <div class="col-md-3">
+      <div class="btn btn-block <%= current_user.hours_filled? ? 'btn-success' : ' btn-danger' %>">
+        <div class="text-xl"><%= current_user.hours_delta %>h</div>
+        <strong><% if current_user.hours_filled? %>Heures complémentaires<% else %>Sous-service<% end %></strong>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<hr class="spacer">
+
+<h2>Mes interventions</h2>
+<% current_user.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>
+        <%= involvement.teaching_module.label %> 
+        <span class="label label-primary"><%= involvement.teaching_module %></span>
+        <span class="pull-right"><%= involvement.teaching_module.semester %></span>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3<% if involvement.hours_cm.zero? %> text-muted <% end %>">
+          <div class="text-xl"><%= involvement.hours_cm %>h</div>
+          <strong>de cours magistral (CM)</strong><br/>
+          En classe entière, à assurer une seule fois.
+        </div>
+        <div class="col-md-3<% if involvement.hours_td.zero? %> text-muted <% end %>">
+          <div class="text-xl"><%= involvement.hours_td %>h</div>
+          <strong>de travaux dirigés (TD)</strong><br/>
+          <% if involvement.hours_td > 0 %>
+            En demi-groupe, à assurer <%= involvement.multiplier_td %> fois.<br/>
+            Cela fait donc un total de <%= involvement.teacher_hours_td %>h d'enseignement en TD.
+          <% end %>
+        </div>
+        <div class="col-md-3<% if involvement.hours_tp.zero? %> text-muted <% end %>">
+          <div class="text-xl"><%= involvement.hours_tp %>h</div>
+          <strong>de travaux pratiques (TP)</strong><br/>
+          <% if involvement.hours_tp > 0 %>
+            Avec <%= involvement.multiplier_tp %> groupes, à assurer <%= involvement.groups_tp %> fois.<br/>
+            Cela fait donc un total de <%= involvement.teacher_hours_tp %>h d'enseignement en TP.
+          <% end %>
+        </div>
+        <div class="col-md-3">
+          <h4><%= involvement.teaching_module.user %></h4>
+          <p>Responsable du module</p>
+          <hr>
+          <% involvement.teaching_module.involvements.where.not(user: current_user).each do |involvement| %>
+            <%= render 'involvements/short', involvement: involvement %><br/>
+            <hr>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

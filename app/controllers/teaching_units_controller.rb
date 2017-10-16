@@ -1,4 +1,6 @@
 class TeachingUnitsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @teaching_units = TeachingUnit.all
     @title = 'Unités d\'enseignement'

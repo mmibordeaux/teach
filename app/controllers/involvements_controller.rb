@@ -1,4 +1,6 @@
 class InvolvementsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @involvements = Involvement.all
   end
