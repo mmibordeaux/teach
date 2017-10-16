@@ -1,23 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :jobs
-  resources :involvements
-  resources :projects
-  resources :fields
-  resources :objectives
-  resources :keywords
-  resources :competencies
   get 'teaching_modules/summary' => 'teaching_modules#summary', as: 'teaching_modules_summary'
-  get 'teaching_modules/costs' => 'teaching_modules#costs', as: 'teaching_modules_costs'
-  resources :teaching_modules
-  resources :teaching_categories
-  resources :teaching_subjects
-  resources :teaching_units
-  resources :semesters, only: [:index, :show]
   get 'users/summary' => 'users#summary', as: 'users_summary'
-  get 'users/costs' => 'users#costs', as: 'users_costs'
-  resources :users
   post 'users/:id/reset' => 'users#reset', as: 'reset_user'
+  get 'budgets/users' => 'budgets#users', as: 'budgets_users'
+  get 'budgets/teaching_modules' => 'budgets#teaching_modules', as: 'budgets_teaching_modules'
   # get 'parse' => 'application#parse'
+  resources :users, :jobs, :involvements, :projects, :fields, :objectives, :keywords, :competencies, :teaching_modules, :teaching_categories, :teaching_subjects, :teaching_units
+  resources :semesters, only: [:index, :show]
   root 'dashboard#index'
 end
