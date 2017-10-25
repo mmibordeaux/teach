@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    add_breadcrumb 'Nouvelle personne'
   end
 
   def edit
