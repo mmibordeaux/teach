@@ -10,6 +10,7 @@
 #  kind               :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  student_hours      :float
 #
 
 class Event < ActiveRecord::Base
@@ -20,4 +21,17 @@ class Event < ActiveRecord::Base
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
 
   enum kind: [:cm, :td, :tp]
+
+  before_save :compute_student_hours
+
+  alias_attribute :teacher_hours, :duration
+
+  protected
+
+  def compute_student_hours
+    groups = 1.0
+    groups = Involvement::GROUPS_TD if td?
+    groups = Involvement::GROUPS_TP if tp?
+    self.student_hours = self.duration / groups
+  end
 end

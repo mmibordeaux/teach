@@ -37,7 +37,7 @@ class Involvement < ActiveRecord::Base
   delegate :expected_student_hours, to: :teaching_module 
 
   GROUPS_TD = 2.0
-  GROUPS_TP = 4.0
+  GROUPS_TP = 3.0
 
   before_validation :check_hours
   before_save :denormalize

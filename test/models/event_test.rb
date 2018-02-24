@@ -10,6 +10,7 @@
 #  kind               :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  student_hours      :float
 #
 
 require 'test_helper'

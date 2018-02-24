@@ -25,7 +25,7 @@
               data: [
                 <%= semester.student_hours_tp %>, 
                 <%= @promotion.involvements.in_semester(semester).sum(:student_hours_tp) %>,
-                <%= @promotion.events.tp.in_semester(semester).sum(:duration) %>
+                <%= @promotion.events.tp.in_semester(semester).sum(:student_hours) %>
                 ]
               }, 
             { 
@@ -33,7 +33,7 @@
               data: [
                 <%= semester.student_hours_td %>, 
                 <%= @promotion.involvements.in_semester(semester).sum(:student_hours_td) %>,
-                <%= @promotion.events.td.in_semester(semester).sum(:duration) %>
+                <%= @promotion.events.td.in_semester(semester).sum(:student_hours) %>
                 ] 
               }, 
             { 
@@ -41,7 +41,7 @@
               data: [
                 <%= semester.student_hours_cm %>, 
                 <%= @promotion.involvements.in_semester(semester).sum(:student_hours_cm) %>,
-                <%= @promotion.events.cm.in_semester(semester).sum(:duration) %>
+                <%= @promotion.events.cm.in_semester(semester).sum(:student_hours) %>
               ] 
             }
             ]
@@ -84,9 +84,9 @@
           <%= render 'application/td_delta', value: maquette, reference: ppn %>
           <td>
             <%= edt %>
-            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:duration) %>
-            / <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:duration) %>
-            / <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:duration) %>)
+            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:student_hours) %>
+            / <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:student_hours) %>
+            / <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours) %>)
             </td>
           <%= render 'application/td_delta', value: edt, reference: maquette %>
         </tr>
@@ -138,7 +138,7 @@
         <td><%= event.teaching_module %></td>
         <td><%= event.kind.to_s.upcase %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
-        <td><%= event.duration %></td>
+        <td><%= event.student_hours %></td>
         <td>
           <% event.users.each do |user| %>
             <%= link_to user, user %>
