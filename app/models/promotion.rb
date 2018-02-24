@@ -71,7 +71,7 @@ class Promotion < ActiveRecord::Base
         e.users << user unless user.nil?
       end
       # Compute hours now that users are set
-      event.save
+      e.save
     end
     events.reload
   end
