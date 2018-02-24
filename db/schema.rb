@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015165838) do
+ActiveRecord::Schema.define(version: 20180224102331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20171015165838) do
     t.integer  "hours_cm"
     t.integer  "hours_td"
     t.integer  "hours_tp"
+    t.string   "calendar_url"
   end
 
   create_table "teaching_subjects", force: :cascade do |t|

@@ -20,6 +20,7 @@
 #  hours_cm             :integer
 #  hours_td             :integer
 #  hours_tp             :integer
+#  calendar_url         :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

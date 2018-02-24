@@ -14,6 +14,7 @@ gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'cancancan'
 gem 'breadcrumbs_on_rails'
+gem 'icalendar'
 
 # Front
 gem 'bootstrap-sass'

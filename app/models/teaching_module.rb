@@ -20,6 +20,7 @@
 #  hours_cm             :integer
 #  hours_td             :integer
 #  hours_tp             :integer
+#  calendar_url         :string
 #
 
 class TeachingModule < ActiveRecord::Base
@@ -135,6 +136,12 @@ class TeachingModule < ActiveRecord::Base
     else
       (planned_teacher_hours_costs / expected_student_hours * 1.0).round(2)
     end
+  end
+
+  def calendar_events
+    require 'open-uri'
+    cal_file = open calendar_url
+    Icalendar::Parser.new(cal_file).parse.first.events
   end
 
   def to_s
