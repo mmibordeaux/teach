@@ -69,7 +69,7 @@
         <% 
         ppn = teaching_module.expected_student_hours.round
         maquette = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
-        edt = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours)
+        edt = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours).round
         %>
         <tr>
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
@@ -88,9 +88,9 @@
           <%= render 'application/td_delta', value: maquette, reference: ppn %>
           <td>
             <%= edt %>
-            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:student_hours) %> /
-            <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:student_hours) %> /
-            <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours) %>)
+            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:student_hours).round %> /
+            <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:student_hours).round %> /
+            <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours).round %>)
             </td>
           <%= render 'application/td_delta', value: edt, reference: maquette %>
         </tr>

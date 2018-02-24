@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
+# Infrastructure
+gem 'pg', '0.20.0'
+gem 'puma'
+gem 'sendgrid-ruby'
+
 # Back
 gem 'rails', '4.2.9'
-gem 'pg', '0.20.0'
-gem 'unicorn'
 gem 'nokogiri'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
-gem 'sendgrid-ruby'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
