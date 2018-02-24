@@ -6,7 +6,11 @@
 
 <% @semesters.each do |semester| %>
   <h2><%= link_to semester, semester %></h2>
-  <p>Heures étudiant : <%= @promotion.involvements.in_semester(semester).sum(:student_hours).round %> planifiées / <%= semester.expected_student_hours.round %> PPN</p>
+  <p>
+    <%= semester.expected_student_hours.round %> PPN /
+    <%= @promotion.involvements.in_semester(semester).sum(:student_hours).round %> maquette / 
+    <%= @promotion.events.in_semester(semester).sum(:student_hours).round %> EDT
+  </p>
   <div id="semester-<%= semester.id %>"></div></td>
   <script type="text/javascript">
     $(function () {
@@ -71,22 +75,22 @@
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
           <td>
             <%= ppn %>
-            (<%= teaching_module.hours_cm %>
-            / <%= teaching_module.hours_td %>
-            / <%= teaching_module.hours_tp %>)
+            (<%= teaching_module.hours_cm %> /
+            <%= teaching_module.hours_td %> /
+            <%= teaching_module.hours_tp %>)
           </td>
           <td>
             <%= maquette %>
-            (<%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_cm).round %>
-            / <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_td).round %>
-            / <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_tp).round %>)
+            (<%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_cm).round %> /
+            <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_td).round %> /
+            <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_tp).round %>)
           </td>
           <%= render 'application/td_delta', value: maquette, reference: ppn %>
           <td>
             <%= edt %>
-            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:student_hours) %>
-            / <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:student_hours) %>
-            / <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours) %>)
+            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:student_hours) %> /
+            <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:student_hours) %> /
+            <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours) %>)
             </td>
           <%= render 'application/td_delta', value: edt, reference: maquette %>
         </tr>
