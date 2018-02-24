@@ -24,14 +24,13 @@ class Event < ActiveRecord::Base
 
   before_save :compute_student_hours
 
-  alias_attribute :teacher_hours, :duration
-
   protected
 
   def compute_student_hours
     groups = 1.0
     groups = Involvement::GROUPS_TD if td?
     groups = Involvement::GROUPS_TP if tp?
-    self.student_hours = self.duration / groups
+    self.teacher_hours = self.duration * users.count
+    self.student_hours = self.teacher_hours / groups
   end
 end
