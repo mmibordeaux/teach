@@ -42,6 +42,12 @@
 
 <h2>Heures EDT</h2>
 
+<p>
+  <%= @user.events.cm.sum :teacher_hours %> CM
+  / <%= @user.events.td.sum :teacher_hours %> TD
+  / <%= @user.events.tp.sum :teacher_hours %> TP
+</p>
+
 <table class="table">
   <thead>
     <tr>
