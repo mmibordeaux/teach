@@ -69,7 +69,7 @@
         <% 
         ppn = teaching_module.expected_student_hours.round
         maquette = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
-        edt = @promotion.events.where(teaching_module: teaching_module).sum(:duration)
+        edt = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours)
         %>
         <tr>
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
