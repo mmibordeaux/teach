@@ -11,6 +11,7 @@
 
 class Promotion < ActiveRecord::Base
   has_many :involvements
+  has_many :events
 
   default_scope { order(:year) }
 
@@ -37,6 +38,35 @@ class Promotion < ActiveRecord::Base
     require 'open-uri'
     cal_file = open calendar_url
     Icalendar::Parser.new(cal_file).parse.first.events
+  end
+
+  def sync_events
+    events.destroy_all
+    calendar_events.each do |event|
+      date = event.dtstart
+      duration = (event.dtend - date) / 60 / 60
+      teaching_module = nil
+      hashtags = event.description.scan(/#(\w+)/).flatten
+      kind = Event.kinds[:cm] # default
+      hashtags.each do |hashtag|
+        case hashtag.downcase
+        when 'cm'
+          kind = Event.kinds[:cm]
+        when 'td'
+          kind = Event.kinds[:td]
+        when 'tp'
+          kind = Event.kinds[:tp]
+        else
+          teaching_module = TeachingModule.where(code: hashtag.upcase).first 
+        end
+      end
+      Event.create promotion: self,
+        duration: duration,
+        date: date,
+        kind: kind,
+        teaching_module: teaching_module
+    end
+    events.reload
   end
 
   def to_s

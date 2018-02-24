@@ -14,6 +14,7 @@ class PromotionsController < ApplicationController
     @semesters = Semester.all
     @subtitle = 'Répartition des heures du point de vue étudiant'
     add_breadcrumb @promotion
+    @promotion.sync_events
   end
 
   def new

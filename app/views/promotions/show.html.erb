@@ -13,16 +13,37 @@
       $('#semester-<%= semester.id %>').highcharts({
           chart: { type: 'bar', height: 150 },
           title: null,
-          xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
+          xAxis: { categories: ['PPN', 'Planifié', 'EDT'], tickWidth: 0 },
           yAxis: { min: 0, title: null },
           tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
           plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
           legend: { enabled: false },
           credits: { enabled: false },
           series: [
-            { name: 'TP', data: [<%= semester.student_hours_tp %>, <%= @promotion.involvements.in_semester(semester).sum(:student_hours_tp) %>] }, 
-            { name: 'TD', data: [<%= semester.student_hours_td %>, <%= @promotion.involvements.in_semester(semester).sum(:student_hours_td) %>] }, 
-            { name: 'CM', data: [<%= semester.student_hours_cm %>, <%= @promotion.involvements.in_semester(semester).sum(:student_hours_cm) %>] }
+            { 
+              name: 'TP', 
+              data: [
+                <%= semester.student_hours_tp %>, 
+                <%= @promotion.involvements.in_semester(semester).sum(:student_hours_tp) %>,
+                <%= @promotion.events.tp.in_semester(semester).sum(:duration) %>
+                ]
+              }, 
+            { 
+              name: 'TD', 
+              data: [
+                <%= semester.student_hours_td %>, 
+                <%= @promotion.involvements.in_semester(semester).sum(:student_hours_td) %>,
+                <%= @promotion.events.td.in_semester(semester).sum(:duration) %>
+                ] 
+              }, 
+            { 
+              name: 'CM', 
+              data: [
+                <%= semester.student_hours_cm %>, 
+                <%= @promotion.involvements.in_semester(semester).sum(:student_hours_cm) %>,
+                <%= @promotion.events.cm.in_semester(semester).sum(:duration) %>
+              ] 
+            }
             ]
       });
   });
@@ -44,7 +65,7 @@
         <% 
         ppn = teaching_module.expected_student_hours.round
         maquette = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
-        edt = 0
+        edt = @promotion.events.where(teaching_module: teaching_module).sum(:duration)
         %>
         <tr>
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
@@ -63,9 +84,9 @@
           <%= render 'application/td_delta', value: maquette, reference: ppn %>
           <td>
             <%= edt %>
-            (0
-            / 0
-            / 0)
+            (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:duration) %>
+            / <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:duration) %>
+            / <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:duration) %>)
             </td>
           <%= render 'application/td_delta', value: edt, reference: maquette %>
         </tr>
@@ -74,7 +95,7 @@
   </table>
 <% end %>
 
-<h2>Heures Google Calendar</h2>
+<h2>Evénements Google Calendar bruts</h2>
 
 <table class="table">
   <thead>
@@ -94,6 +115,29 @@
         <td><%= event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join ', ' %></td>
         <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
         <td><%= (event.dtend - event.dtstart) / 60 / 60 %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Evénements Google Calendar importés</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Durée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotion.events.each do |event| %>
+      <tr>
+        <td><%= event.teaching_module %></td>
+        <td><%= event.kind.to_s.upcase %></td>
+        <td><%= event.date.strftime "%d/%m/%Y" %></td>
+        <td><%= event.duration %></td>
       </tr>
     <% end %>
   </tbody>

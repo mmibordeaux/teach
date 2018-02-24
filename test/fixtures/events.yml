@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id                 :integer          not null, primary key
+#  date               :date
+#  duration           :float
+#  teaching_module_id :integer
+#  promotion_id       :integer
+#  kind               :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-02-24
+  duration: 1.5
+  teaching_module_id: 
+  promotion_id: 
+  kind: 1
+
+two:
+  date: 2018-02-24
+  duration: 1.5
+  teaching_module_id: 
+  promotion_id: 
+  kind: 1

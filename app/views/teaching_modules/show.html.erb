@@ -34,9 +34,27 @@
         legend: { enabled: false },
         credits: { enabled: false },
         series: [
-          { name: 'TP', data: [<%= @teaching_module.hours_tp %>, <%= @teaching_module.planned_student_hours_tp %>] }, 
-          { name: 'TD', data: [<%= @teaching_module.hours_td %>, <%= @teaching_module.planned_student_hours_td %>] }, 
-          { name: 'CM', data: [<%= @teaching_module.hours_cm %>, <%= @teaching_module.planned_student_hours_cm %>] }
+          { 
+            name: 'TP', 
+            data: [
+              <%= @teaching_module.hours_tp %>, 
+              <%= @teaching_module.planned_student_hours_tp %>
+            ] 
+          }, 
+          { 
+            name: 'TD', 
+            data: [
+              <%= @teaching_module.hours_td %>, 
+              <%= @teaching_module.planned_student_hours_td %>
+            ] 
+          }, 
+          { 
+            name: 'CM', 
+            data: [
+              <%= @teaching_module.hours_cm %>, 
+              <%= @teaching_module.planned_student_hours_cm %>
+              ] 
+            }
           ]
     });
 });
@@ -45,6 +63,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Promotion</th>
       <th>Personne</th>
       <th>Heures étudiant total</th>
       <th>CM</th>
@@ -59,6 +78,7 @@
   <tbody>
   <% @teaching_module.involvements.includes(:user).reorder('users.last_name').each do |involvement| %>
     <tr>
+      <td><%= link_to involvement.promotion, involvement.promotion %></td>
       <td><%= link_to involvement.user, involvement.user %></td>
       <td><%= involvement.student_hours %></td>
       <td><%= involvement.hours_cm %></td>
