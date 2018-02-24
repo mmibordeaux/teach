@@ -70,6 +70,8 @@ class Promotion < ActiveRecord::Base
         user = User.where(email: email).first
         e.users << user unless user.nil?
       end
+      # Compute hours now that users are set
+      event.save
     end
     events.reload
   end
