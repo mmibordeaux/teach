@@ -16,6 +16,14 @@
 #  groups_tp          :integer          default(3)
 #  project_id         :integer
 #  promotion_id       :integer
+#  teacher_hours_cm   :float            default(0.0), not null
+#  teacher_hours_td   :float            default(0.0), not null
+#  teacher_hours_tp   :float            default(0.0), not null
+#  teacher_hours      :float            default(0.0), not null
+#  student_hours_cm   :float            default(0.0), not null
+#  student_hours_td   :float            default(0.0), not null
+#  student_hours_tp   :float            default(0.0), not null
+#  student_hours      :float            default(0.0), not null
 #
 
 class Involvement < ActiveRecord::Base
@@ -26,10 +34,13 @@ class Involvement < ActiveRecord::Base
 
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
 
+  delegate :expected_student_hours, to: :teaching_module 
+
   GROUPS_TD = 2.0
   GROUPS_TP = 4.0
 
   before_validation :check_hours
+  before_save :denormalize
 
   def self.student_hours
     all.collect(&:student_hours).sum.round(2)
@@ -45,43 +56,6 @@ class Involvement < ActiveRecord::Base
 
   def self.untenured_teacher_hours
     teacher_hours - tenured_teacher_hours
-  end
-
-  # Student hours
-
-  def student_hours
-    student_hours_cm + student_hours_td + student_hours_tp
-  end
-
-  def student_hours_cm
-    hours_cm
-  end
-
-  def student_hours_td
-    1.0 * multiplier_td / GROUPS_TD * hours_td
-  end
-
-  def student_hours_tp
-    divider = groups_tp.nil? ? GROUPS_TP : groups_tp
-    ( 1.0 * multiplier_tp / divider * hours_tp).round(2)
-  end
-
-  # Teacher hours
-
-  def teacher_hours
-    teacher_hours_cm + teacher_hours_td + teacher_hours_tp
-  end
-
-  def teacher_hours_cm
-    hours_cm
-  end
-
-  def teacher_hours_td
-    hours_td * multiplier_td
-  end
-
-  def teacher_hours_tp
-    hours_tp * multiplier_tp
   end
 
   # Costs
@@ -124,5 +98,20 @@ class Involvement < ActiveRecord::Base
     self.hours_cm ||= 0
     self.hours_td ||= 0
     self.hours_tp ||= 0
+  end
+
+  def denormalize
+    # Teacher hours
+    self.teacher_hours_cm = hours_cm
+    self.teacher_hours_td = hours_td * multiplier_td
+    self.teacher_hours_tp = hours_tp * multiplier_tp
+    self.teacher_hours = self.teacher_hours_cm + self.teacher_hours_td + self.teacher_hours_tp
+
+    # Student hours
+    self.student_hours_cm = hours_cm
+    self.student_hours_td = 1.0 * multiplier_td / GROUPS_TD * hours_td
+    divider = groups_tp.nil? ? GROUPS_TP : groups_tp
+    self.student_hours_tp = ( 1.0 * multiplier_tp / divider * hours_tp).round(2)
+    self.student_hours = self.student_hours_cm + self.student_hours_td + self.student_hours_tp
   end
 end

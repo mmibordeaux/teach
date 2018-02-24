@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224145027) do
+ActiveRecord::Schema.define(version: 20180224153610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20180224145027) do
     t.integer  "teaching_module_id"
     t.integer  "user_id"
     t.integer  "hours_cm",           default: 0
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.text     "description"
     t.integer  "hours_td",           default: 0
     t.integer  "hours_tp",           default: 0
@@ -70,6 +70,14 @@ ActiveRecord::Schema.define(version: 20180224145027) do
     t.integer  "groups_tp",          default: 3
     t.integer  "project_id"
     t.integer  "promotion_id"
+    t.float    "teacher_hours_cm",   default: 0.0, null: false
+    t.float    "teacher_hours_td",   default: 0.0, null: false
+    t.float    "teacher_hours_tp",   default: 0.0, null: false
+    t.float    "teacher_hours",      default: 0.0, null: false
+    t.float    "student_hours_cm",   default: 0.0, null: false
+    t.float    "student_hours_td",   default: 0.0, null: false
+    t.float    "student_hours_tp",   default: 0.0, null: false
+    t.float    "student_hours",      default: 0.0, null: false
   end
 
   add_index "involvements", ["promotion_id"], name: "index_involvements_on_promotion_id", using: :btree

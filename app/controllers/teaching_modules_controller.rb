@@ -10,13 +10,6 @@ class TeachingModulesController < ApplicationController
     @title = 'Modules'
   end
 
-  def summary
-    @semesters = Semester.all
-    @title = 'Maquette'
-    @subtitle = 'Répartition des heures du point de vue étudiant'
-    add_breadcrumb 'Maquette'
-  end
-
   def show
     @title = @teaching_module.full_name
     add_breadcrumb @teaching_module, @teaching_module

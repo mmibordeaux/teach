@@ -1,5 +1,79 @@
 <%= link_to 'Edit', edit_promotion_path(@promotion), class: 'btn btn-primary btn-xs' if can? :edit, @promotion %>
 
+<p>Toute cette page est exprimée en heures étudiant, sous la forme "Heures totales (heures CM / heures TD / heures TP)</p>
+
+
+
+<% @semesters.each do |semester| %>
+  <h2><%= link_to semester, semester %></h2>
+  <p>Heures étudiant : <%= @promotion.involvements.in_semester(semester).sum(:student_hours).round %> planifiées / <%= semester.expected_student_hours.round %> PPN</p>
+  <div id="semester-<%= semester.id %>"></div></td>
+  <script type="text/javascript">
+    $(function () {
+      $('#semester-<%= semester.id %>').highcharts({
+          chart: { type: 'bar', height: 150 },
+          title: null,
+          xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
+          yAxis: { min: 0, title: null },
+          tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+          plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+          legend: { enabled: false },
+          credits: { enabled: false },
+          series: [
+            { name: 'TP', data: [<%= semester.student_hours_tp %>, <%= @promotion.involvements.in_semester(semester).sum(:student_hours_tp) %>] }, 
+            { name: 'TD', data: [<%= semester.student_hours_td %>, <%= @promotion.involvements.in_semester(semester).sum(:student_hours_td) %>] }, 
+            { name: 'CM', data: [<%= semester.student_hours_cm %>, <%= @promotion.involvements.in_semester(semester).sum(:student_hours_cm) %>] }
+            ]
+      });
+  });
+  </script>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>PPN</th>
+        <th>Maquette</th>
+        <th>PPN vs Maquette</th>
+        <th>EDT</th>
+        <th>Maquette vs EDT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% semester.teaching_modules.each do |teaching_module| %>
+        <% 
+        ppn = teaching_module.expected_student_hours.round
+        maquette = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
+        edt = 0
+        %>
+        <tr>
+          <td><%= link_to teaching_module.full_name, teaching_module %></td>
+          <td>
+            <%= ppn %>
+            (<%= teaching_module.hours_cm %>
+            / <%= teaching_module.hours_td %>
+            / <%= teaching_module.hours_tp %>)
+          </td>
+          <td>
+            <%= maquette %>
+            (<%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_cm).round %>
+            / <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_td).round %>
+            / <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_tp).round %>)
+          </td>
+          <%= render 'application/td_delta', value: maquette, reference: ppn %>
+          <td>
+            <%= edt %>
+            (0
+            / 0
+            / 0)
+            </td>
+          <%= render 'application/td_delta', value: edt, reference: maquette %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
 <h2>Heures Google Calendar</h2>
 
 <table class="table">
@@ -24,49 +98,3 @@
     <% end %>
   </tbody>
 </table>
-
-<% @semesters.each do |semester| %>
-  <h2><%= link_to semester, semester %></h2>
-  <p>Heures étudiant : <%= @promotion.involvements.in_semester(semester).collect(&:student_hours).sum.round %> planifiées / <%= semester.expected_student_hours.round %> PPN</p>
-  <div id="semester-<%= semester.id %>"></div></td>
-  <script type="text/javascript">
-    $(function () {
-      $('#semester-<%= semester.id %>').highcharts({
-          chart: { type: 'bar', height: 150 },
-          title: null,
-          xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
-          yAxis: { min: 0, title: null },
-          tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
-          plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
-          legend: { enabled: false },
-          credits: { enabled: false },
-          series: [
-            { name: 'TP', data: [<%= @promotion.involvements.in_semester(semester).collect(&:student_hours_tp).sum %>, <%= semester.planned_student_hours_tp %>] }, 
-            { name: 'TD', data: [<%= @promotion.involvements.in_semester(semester).collect(&:student_hours_td).sum %>, <%= semester.planned_student_hours_td %>] }, 
-            { name: 'CM', data: [<%= @promotion.involvements.in_semester(semester).collect(&:student_hours_cm).sum %>, <%= semester.planned_student_hours_cm %>] }
-            ]
-      });
-  });
-  </script>
-
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Heures étudiant planifiées</th>
-        <th>Heures étudiant PPN</th>
-        <th>Variation</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% semester.teaching_modules.each do |teaching_module| %>
-        <tr>
-          <td><%= link_to teaching_module.full_name, teaching_module %></td>
-          <td><%= @promotion.involvements.where(teaching_module: teaching_module).collect(&:student_hours).sum.round %></td>
-          <td><%= teaching_module.expected_student_hours.round %></td>
-          <%= render 'application/td_percent', percent: teaching_module.student_hours_delta %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
