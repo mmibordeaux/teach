@@ -11,6 +11,8 @@
 
 class Promotion < ActiveRecord::Base
 
+  default_scope { order(:year) }
+
   def calendar_events
     return [] if calendar_url.blank?
     require 'open-uri'
