@@ -67,6 +67,6 @@ class TeachingModulesController < ApplicationController
   private
 
   def teaching_module_params
-    params.require(:teaching_module).permit(:code, :label, :objectives, :content, :how_to, :what_next, :hours, :semester_id, :teaching_subject_id, :teaching_unit_id, :teaching_category_id, :user_id, :coefficient, :calendar_url, field_ids: [] )
+    params.require(:teaching_module).permit(:code, :label, :objectives, :content, :how_to, :what_next, :hours, :semester_id, :teaching_subject_id, :teaching_unit_id, :teaching_category_id, :user_id, :coefficient, field_ids: [] )
   end
 end

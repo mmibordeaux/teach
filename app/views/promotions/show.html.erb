@@ -1,0 +1,26 @@
+<%= link_to 'Edit', edit_promotion_path(@promotion), class: 'btn btn-primary btn-xs' if can? :edit, @promotion %>
+
+<h2>Heures Google Calendar</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Cours</th>
+      <th>Description</th>
+      <th>Personnes</th>
+      <th>Date</th>
+      <th>Heures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotion.calendar_events.each do |event| %>
+      <tr>
+        <td><%= event.summary %></td>
+        <td><%= event.description %></td>
+        <td><%= event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join ', ' %></td>
+        <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
+        <td><%= (event.dtend - event.dtstart) / 60 / 60 %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

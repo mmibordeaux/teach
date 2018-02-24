@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :promotions
   devise_for :users
   get 'teaching_modules/summary' => 'teaching_modules#summary', as: 'teaching_modules_summary'
   get 'users/summary' => 'users#summary', as: 'users_summary'

@@ -1,0 +1,17 @@
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotions.each do |promotion| %>
+      <tr>
+        <td><%= link_to promotion, promotion %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Promotion', new_promotion_path, class: 'btn btn-primary btn-xs' if can? :create, Promotion %>

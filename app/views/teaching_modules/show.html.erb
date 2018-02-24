@@ -20,7 +20,7 @@
 
 <hr/>
 
-<h2>Heures maquette</h2>
+<h2>Heures</h2>
 <div id="hours"></div></td>
 <script type="text/javascript">
   $(function () {
@@ -70,31 +70,6 @@
       <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
     </tr>
   <% end %>
-  </tbody>
-</table>
-
-<h2>Heures emploi du temps</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Cours</th>
-      <th>Description</th>
-      <th>Personnes</th>
-      <th>Date</th>
-      <th>Heures</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teaching_module.calendar_events.each do |event| %>
-      <tr>
-        <td><%= event.summary %></td>
-        <td><%= event.description %></td>
-        <td><%= event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join ', ' %></td>
-        <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
-        <td><%= (event.dtend - event.dtstart) / 60 / 60 %></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>
 

@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: promotions
+#
+#  id           :integer          not null, primary key
+#  year         :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  calendar_url :string
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+
+two:
+  year: 1
