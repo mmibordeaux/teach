@@ -60,11 +60,16 @@ class Promotion < ActiveRecord::Base
           teaching_module = TeachingModule.where(code: hashtag.upcase).first 
         end
       end
-      Event.create promotion: self,
+      e = Event.create promotion: self,
         duration: duration,
         date: date,
         kind: kind,
         teaching_module: teaching_module
+      event.attendee.each do |attendee| 
+        email = attendee.to_s.remove 'mailto:'
+        user = User.where(email: email).first
+        e.users << user unless user.nil?
+      end
     end
     events.reload
   end

@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   has_many :teaching_modules
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :fields
+  has_and_belongs_to_many :events, dependent: :destroy
   has_many :involvements, dependent: :destroy
   has_many :teaching_modules_involved, through: :involvements
   has_many :projects_managed, foreign_key: :user_id, class_name: Project, dependent: :nullify

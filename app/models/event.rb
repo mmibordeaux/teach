@@ -15,6 +15,7 @@
 class Event < ActiveRecord::Base
   belongs_to :teaching_module
   belongs_to :promotion
+  has_and_belongs_to_many :users
   
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
 

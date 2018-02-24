@@ -129,6 +129,7 @@
       <th>Type</th>
       <th>Date</th>
       <th>Durée</th>
+      <th>Personnes</th>
     </tr>
   </thead>
   <tbody>
@@ -138,6 +139,11 @@
         <td><%= event.kind.to_s.upcase %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
         <td><%= event.duration %></td>
+        <td>
+          <% event.users.each do |user| %>
+            <%= link_to user, user %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

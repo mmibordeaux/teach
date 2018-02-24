@@ -1,11 +1,12 @@
 <%= link_to 'Modifier', edit_user_path(@user), class: 'btn btn-primary btn-xs' if can? :edit, @user %>
 
-<h2>Heures</h2>
+<h2>Heures maquette</h2>
 <p><%= @user.teacher_hours %> heures enseignant / <%= @user.hours %> heures de service</p>
 <%= link_to 'Planifier un module', new_involvement_path(user_id: @user.id) if can? :create, Involvement %>
 <table class="table">
   <thead>
     <tr>
+      <th>Promotion</th>
       <th>Semestre</th>
       <th>Code module</th>
       <th>Nom module</th>
@@ -22,6 +23,7 @@
   <tbody>
   <% @user.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
     <tr>
+      <td><%= link_to involvement.promotion, involvement.promotion %></td>
       <td><%= link_to involvement.teaching_module.semester, involvement.teaching_module.semester %></td>
       <td><%= link_to involvement.teaching_module, involvement.teaching_module %></td>
       <td><%= link_to involvement.teaching_module.label, involvement.teaching_module %></td>
@@ -35,6 +37,31 @@
       <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
     </tr>
   <% end %>
+  </tbody>
+</table>
+
+<h2>Heures EDT</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Promotion</th>
+      <th>Module</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Durée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.events.each do |event| %>
+      <tr>
+        <td><%= link_to event.promotion, event.promotion %></td>
+        <td><%= link_to event.teaching_module, event.teaching_module %></td>
+        <td><%= event.kind.to_s.upcase %></td>
+        <td><%= event.date.strftime "%d/%m/%Y" %></td>
+        <td><%= event.duration %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
