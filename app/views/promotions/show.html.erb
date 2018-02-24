@@ -130,9 +130,10 @@
   <thead>
     <tr>
       <th>Module</th>
-      <th>Type</th>
       <th>Date</th>
-      <th>Durée</th>
+      <th>Type</th>
+      <th>Heures étudiants</th>
+      <th>Heures enseignant</th>
       <th>Personnes</th>
     </tr>
   </thead>
@@ -140,9 +141,10 @@
     <% @promotion.events.each do |event| %>
       <tr>
         <td><%= event.teaching_module %></td>
-        <td><%= event.kind.to_s.upcase %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
+        <td><%= event.kind.to_s.upcase %></td>
         <td><%= event.student_hours %></td>
+        <td><%= event.teacher_hours %></td>
         <td>
           <% event.users.each do |user| %>
             <%= link_to user, user %>
