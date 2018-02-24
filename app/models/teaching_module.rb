@@ -139,6 +139,7 @@ class TeachingModule < ActiveRecord::Base
   end
 
   def calendar_events
+    return [] if calendar_url.blank?
     require 'open-uri'
     cal_file = open calendar_url
     Icalendar::Parser.new(cal_file).parse.first.events
