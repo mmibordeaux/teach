@@ -15,6 +15,7 @@
 #  multiplier_tp      :integer          default(3)
 #  groups_tp          :integer          default(3)
 #  project_id         :integer
+#  promotion_id       :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

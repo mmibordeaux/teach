@@ -11,6 +11,8 @@ class PromotionsController < ApplicationController
 
   def show
     @title = @promotion.to_s
+    @semesters = Semester.all
+    @subtitle = 'Répartition des heures du point de vue étudiant'
     add_breadcrumb @promotion
   end
 

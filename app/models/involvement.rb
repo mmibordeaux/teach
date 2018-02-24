@@ -15,12 +15,16 @@
 #  multiplier_tp      :integer          default(3)
 #  groups_tp          :integer          default(3)
 #  project_id         :integer
+#  promotion_id       :integer
 #
 
 class Involvement < ActiveRecord::Base
   belongs_to :teaching_module
   belongs_to :user
   belongs_to :project
+  belongs_to :promotion
+
+  scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
 
   GROUPS_TD = 2.0
   GROUPS_TP = 4.0

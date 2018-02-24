@@ -59,6 +59,6 @@ class InvolvementsController < ApplicationController
   private
 
   def involvement_params
-    params.require(:involvement).permit(:teaching_module_id, :user_id, :project_id, :hours_cm, :hours_td, :hours_tp, :description, :multiplier_td, :multiplier_tp, :groups_tp)
+    params.require(:involvement).permit(:teaching_module_id, :user_id, :project_id, :promotion_id, :hours_cm, :hours_td, :hours_tp, :description, :multiplier_td, :multiplier_tp, :groups_tp)
   end
 end
