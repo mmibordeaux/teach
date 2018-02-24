@@ -43,9 +43,9 @@
 <h2>Heures EDT</h2>
 
 <p>
-  <%= @user.events.cm.sum :teacher_hours %> CM
-  / <%= @user.events.td.sum :teacher_hours %> TD
-  / <%= @user.events.tp.sum :teacher_hours %> TP
+  <%= @user.events.cm.sum :duration %> CM
+  / <%= @user.events.td.sum :duration %> TD
+  / <%= @user.events.tp.sum :duration %> TP
 </p>
 
 <table class="table">
@@ -55,8 +55,7 @@
       <th>Module</th>
       <th>Type</th>
       <th>Date</th>
-      <th>Heures enseignant</th>
-      <th>Heures étudiant</th>
+      <th>Heures</th>
     </tr>
   </thead>
   <tbody>
@@ -66,8 +65,7 @@
         <td><%= link_to event.teaching_module, event.teaching_module %></td>
         <td><%= event.kind.to_s.upcase %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
-        <td><%= event.teacher_hours %></td>
-        <td><%= event.student_hours %></td>
+        <td><%= event.duration %></td>
       </tr>
     <% end %>
   </tbody>
