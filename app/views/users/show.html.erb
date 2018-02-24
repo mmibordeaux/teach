@@ -24,9 +24,9 @@
   <% @user.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
     <tr>
       <td><%= link_to involvement.promotion, involvement.promotion %></td>
-      <td><%= link_to involvement.teaching_module.semester, involvement.teaching_module.semester %></td>
-      <td><%= link_to involvement.teaching_module, involvement.teaching_module %></td>
-      <td><%= link_to involvement.teaching_module.label, involvement.teaching_module %></td>
+      <td><%= link_to involvement.teaching_module.semester, involvement.teaching_module.semester unless involvement.teaching_module.nil? %></td>
+      <td><%= link_to involvement.teaching_module, involvement.teaching_module unless involvement.teaching_module.nil? %></td>
+      <td><%= link_to involvement.teaching_module.label, involvement.teaching_module unless involvement.teaching_module.nil? %></td>
       <td><%= involvement.student_hours %></td>
       <td><%= involvement.hours_cm %></td>
       <td><%= involvement.hours_td %></td>
