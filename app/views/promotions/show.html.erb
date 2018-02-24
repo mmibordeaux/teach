@@ -116,7 +116,7 @@
       <tr>
         <td><%= event.summary %></td>
         <td><%= event.description %></td>
-        <td><%= event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join ', ' %></td>
+        <td><%= event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join '<br>' %></td>
         <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
         <td><%= (event.dtend - event.dtstart) / 60 / 60 %></td>
       </tr>
