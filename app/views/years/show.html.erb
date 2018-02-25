@@ -1,6 +1,39 @@
 La promotion <%= @year.first_year_promotion %> est en première année.
 La promotion <%= @year.second_year_promotion %> est en seconde année.
 
+<h2>Services</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="min-width: 200px">Nom</th>
+      <th>Service</th>
+      <th>Maquette</th>
+      <th>Delta maquette / service</th>
+      <th>EDT</th>
+      <th>Delta EDT / service</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @year.users.each do |user| %>
+      <%
+      service = user.hours
+      planned = @year.planned_teacher_hours_for(user)
+      scheduled = @year.scheduled_teacher_hours_for(user)
+      %>
+      <tr>
+        <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
+        <td><%= service.round unless service.nil? %></td>
+        <td><%= planned.round %></td>
+        <%= render 'application/td_delta', value: planned, reference: service %>
+        <td><%= scheduled.round %></td>
+        <%= render 'application/td_delta', value: scheduled, reference: service %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 <h2>Maquette</h2>
 
 <table class="table">

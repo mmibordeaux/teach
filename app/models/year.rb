@@ -51,6 +51,18 @@ class Year < ActiveRecord::Base
     Event.where('date >= ? AND date < ?', from, to)
   end
 
+  def users
+    involvements.collect(&:user).uniq.sort_by { |user| user.last_name }
+  end
+
+  def planned_teacher_hours_for(user)
+    user.involvements.where(promotion: promotions).sum(:teacher_hours)
+  end
+
+  def scheduled_teacher_hours_for(user)
+    user.events.where('date >= ? AND date < ?', from, to).sum(:duration)
+  end
+
   def to_s
     "#{year-1} - #{year}"
   end

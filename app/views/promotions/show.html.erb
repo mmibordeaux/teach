@@ -67,32 +67,32 @@
     <tbody>
       <% semester.teaching_modules.each do |teaching_module| %>
         <% 
-        ppn = teaching_module.expected_student_hours.round
-        maquette = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
-        edt = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours).round
+        program = teaching_module.expected_student_hours.round
+        planned = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
+        scheduled = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours).round
         %>
         <tr>
           <td><%= link_to teaching_module.full_name, teaching_module %></td>
           <td>
-            <%= ppn %>
+            <%= program %>
             (<%= teaching_module.hours_cm %> /
             <%= teaching_module.hours_td %> /
             <%= teaching_module.hours_tp %>)
           </td>
           <td>
-            <%= maquette %>
+            <%= planned %>
             (<%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_cm).round %> /
             <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_td).round %> /
             <%= @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours_tp).round %>)
           </td>
-          <%= render 'application/td_delta', value: maquette, reference: ppn %>
+          <%= render 'application/td_delta', value: planned, reference: program %>
           <td>
-            <%= edt %>
+            <%= scheduled %>
             (<%= @promotion.events.cm.where(teaching_module: teaching_module).sum(:student_hours).round %> /
             <%= @promotion.events.td.where(teaching_module: teaching_module).sum(:student_hours).round %> /
             <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours).round %>)
             </td>
-          <%= render 'application/td_delta', value: edt, reference: maquette %>
+          <%= render 'application/td_delta', value: scheduled, reference: planned %>
         </tr>
       <% end %>
     </tbody>

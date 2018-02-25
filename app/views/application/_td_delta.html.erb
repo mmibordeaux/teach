@@ -1,4 +1,4 @@
 <%
-percent = 100.0 * (value - reference) / reference unless reference.zero?
+percent = 100.0 * (value - reference) / reference unless reference.to_f.zero?
 %>
 <%= render 'application/td_percent', percent: percent %>
