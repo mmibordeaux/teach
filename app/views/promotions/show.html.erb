@@ -132,6 +132,7 @@
       <th>Module</th>
       <th>Date</th>
       <th>Type</th>
+      <th>Heures</th>
       <th>Heures étudiants</th>
       <th>Heures enseignant</th>
       <th>Personnes</th>
@@ -143,6 +144,7 @@
         <td><%= event.teaching_module %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
         <td><%= event.kind.to_s.upcase %></td>
+        <td><%= event.duration %></td>
         <td><%= event.student_hours %></td>
         <td><%= event.teacher_hours %></td>
         <td>
