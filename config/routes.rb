@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :users, :jobs, :involvements, :projects, :fields, :objectives, :keywords, :competencies, :teaching_modules, :teaching_categories, :teaching_subjects, :teaching_units, :promotions
   resources :semesters, only: [:index, :show]
   resources :years, only: [:index, :show] do 
-    get 'users/:id' => 'year#user', as: :user
+    get 'users/:id' => 'years#user', as: :user
   end
   root 'dashboard#index'
 end
