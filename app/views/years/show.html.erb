@@ -1,5 +1,6 @@
-La promotion <%= @year.first_year_promotion %> est en première année.
-La promotion <%= @year.second_year_promotion %> est en seconde année.
+La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion %> est en première année.<br>
+La promotion <%= link_to @year.second_year_promotion, @year.second_year_promotion %> est en seconde année.<br>
+Pour actualiser l'EDT, cliquez sur la promotion concernée.
 
 <h2>Services</h2>
 
@@ -9,9 +10,9 @@ La promotion <%= @year.second_year_promotion %> est en seconde année.
       <th style="min-width: 200px">Nom</th>
       <th>Service</th>
       <th>Maquette</th>
-      <th>Delta maquette / service</th>
+      <th>Delta service / maquette</th>
       <th>EDT</th>
-      <th>Delta EDT / service</th>
+      <th>Delta maquette / EDT</th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +28,7 @@ La promotion <%= @year.second_year_promotion %> est en seconde année.
         <td><%= planned.round %></td>
         <%= render 'application/td_delta', value: planned, reference: service %>
         <td><%= scheduled.round %></td>
-        <%= render 'application/td_delta', value: scheduled, reference: service %>
+        <%= render 'application/td_delta', value: scheduled, reference: planned %>
       </tr>
     <% end %>
   </tbody>
