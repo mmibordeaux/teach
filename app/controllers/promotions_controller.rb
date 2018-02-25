@@ -10,11 +10,11 @@ class PromotionsController < ApplicationController
   end
 
   def show
+    @promotion.sync_events
     @title = @promotion.to_s
     @semesters = Semester.all
     @subtitle = 'Répartition des heures du point de vue étudiant'
     add_breadcrumb @promotion
-    @promotion.sync_events
   end
 
   def new

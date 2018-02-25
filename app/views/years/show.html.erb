@@ -1,0 +1,73 @@
+La promotion <%= @year.first_year_promotion %> est en première année.
+La promotion <%= @year.second_year_promotion %> est en seconde année.
+
+<h2>Maquette</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Promotion</th>
+      <th>Code</th>
+      <th>Module</th>
+      <th>Heures étudiant total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th>Projet</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @year.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.promotion, involvement.promotion %></td>
+      <td><%= link_to involvement.teaching_module, involvement.teaching_module unless involvement.teaching_module.nil? %></td>
+      <td><%= link_to involvement.teaching_module.label, involvement.teaching_module unless involvement.teaching_module.nil? %></td>
+      <td><%= involvement.student_hours %></td>
+      <td><%= involvement.hours_cm %></td>
+      <td><%= involvement.hours_td %></td>
+      <td><%= involvement.hours_tp %></td>
+      <td><%= involvement.teacher_hours %></td>
+      <td><%= simple_format involvement.description %></td>
+      <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
+      <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h2>EDT</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Heures</th>
+      <th>Heures étudiants</th>
+      <th>Heures enseignant</th>
+      <th>Personnes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @year.events.each do |event| %>
+      <tr>
+        <td><%= event.teaching_module %></td>
+        <td><%= event.date.strftime "%d/%m/%Y" %></td>
+        <td><%= event.kind.to_s.upcase %></td>
+        <td><%= event.duration %></td>
+        <td><%= event.student_hours %></td>
+        <td><%= event.teacher_hours %></td>
+        <td>
+          <% event.users.each do |user| %>
+            <%= link_to user, user %><br>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,4 +1,4 @@
-<h2>Mon service</h2>
+<h2>Mon service <%= @year %></h2>
 <% if current_user.tenured %>
   Je suis permanent dans l'équipe pédagogique, et mon service est de <%= current_user.hours %>h.
 <% else %>

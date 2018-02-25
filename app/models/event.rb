@@ -11,6 +11,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  student_hours      :float
+#  teacher_hours      :float
 #
 
 class Event < ActiveRecord::Base

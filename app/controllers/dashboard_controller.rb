@@ -3,5 +3,6 @@ class DashboardController < ApplicationController
   	@title = 'Tableau de bord'
   	@subtitle = '<strong>mmi admin</strong> • L\'outil d\'organisation des enseignements de MMI Bordeaux'
     @semesters = Semester.all
+    @year = Year.current
   end
 end
