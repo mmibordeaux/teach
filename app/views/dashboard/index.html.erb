@@ -6,21 +6,22 @@
 <% end %>
 <div class="row">
   <div class="col-md-3">
-    <div class="text-xl"><%= current_user.teacher_hours_cm.round %>hCM</div>
+    <div class="text-xl"><%= @year.planned_teacher_hours_for(current_user, :hours_cm).round %>hCM</div>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= current_user.teacher_hours_td.round %>hTD</div>
+    <div class="text-xl"><%= @year.planned_teacher_hours_for(current_user, :hours_td).round %>hTD</div>
     <strong><%= current_user.student_hours_td.round %> heures TD avec chaque étudiant</strong><br/>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= current_user.teacher_hours_tp.round %>hTP</div>
+    <div class="text-xl"><%= @year.planned_teacher_hours_for(current_user, :hours_tp).round %>hTP</div>
     <strong><%= current_user.student_hours_tp.round %> heures TP avec chaque étudiant</strong><br/>
   </div>
   <% if current_user.tenured %>
+    <% delta = @year.planned_delta_for(current_user) %>
     <div class="col-md-3">
-      <div class="btn btn-block <%= current_user.hours_filled? ? 'btn-success' : ' btn-danger' %>">
-        <div class="text-xl"><%= current_user.hours_delta %>h</div>
-        <strong><% if current_user.hours_filled? %>Heures complémentaires<% else %>Sous-service<% end %></strong>
+      <div class="btn btn-block <%= delta >= 0 ? 'btn-success' : ' btn-danger' %>">
+        <div class="text-xl"><%= delta.round %>h</div>
+        <strong><% if delta >= 0 %>Heures complémentaires<% else %>Sous-service<% end %></strong>
       </div>
     </div>
   <% end %>
@@ -28,8 +29,8 @@
 
 <hr class="spacer">
 
-<h2>Mes interventions</h2>
-<% current_user.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+<h2>Mes interventions (maquette)</h2>
+<% @year.involvements_for(current_user).includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3>

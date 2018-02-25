@@ -61,9 +61,17 @@ class Year < ActiveRecord::Base
   def users
     involvements.collect(&:user).uniq.sort_by { |user| user.last_name }
   end
+  
+  def involvements_for(user)
+    involvements.where(user: user)
+  end
 
-  def planned_teacher_hours_for(user)
-    involvements_for(user).sum(:teacher_hours)
+  def events_for(user)
+    user.events.where('date >= ? AND date < ?', from, to)
+  end
+
+  def planned_teacher_hours_for(user, kind = :teacher_hours)
+    involvements_for(user).sum(kind)
   end
 
   def scheduled_teacher_hours_for(user)
@@ -72,6 +80,10 @@ class Year < ActiveRecord::Base
 
   def planned_teaching_modules_for(user)
     involvements_for(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
+  end
+
+  def planned_delta_for(user)
+    planned_teacher_hours_for(user) - user.hours
   end
 
   def scheduled_teaching_modules_for(user)
@@ -97,15 +109,5 @@ class Year < ActiveRecord::Base
 
   def to_s
     "#{year-1} - #{year}"
-  end
-
-  protected
-
-  def involvements_for(user)
-    involvements.where(user: user)
-  end
-
-  def events_for(user)
-    user.events.where('date >= ? AND date < ?', from, to)
   end
 end
