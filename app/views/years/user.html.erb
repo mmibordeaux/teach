@@ -1,0 +1,54 @@
+<h2>Maquette</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Module</th>
+      <th>Total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @year.planned_teaching_modules_for(@user).each do |teaching_module| %>
+      <tr>
+        <td><%= teaching_module.code %></td>
+        <td><%= teaching_module.label %></td>
+        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user) %></td>
+        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :hours_cm) %></td>
+        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :hours_td) %></td>
+        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :hours_tp) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h2>Service</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Module</th>
+      <th>Total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @year.scheduled_teaching_modules_for(@user).each do |teaching_module| %>
+      <tr>
+        <td><%= teaching_module.code %></td>
+        <td><%= teaching_module.label %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user) %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_cm) %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_td) %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_tp) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
