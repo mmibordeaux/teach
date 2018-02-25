@@ -27,10 +27,11 @@ class Event < ActiveRecord::Base
   protected
 
   def compute_student_hours
+    users_count = users.any? ? users.count : 1
+    self.teacher_hours = self.duration * users_count
     groups = 1.0
     groups = Involvement::GROUPS_TD if td?
     groups = Involvement::GROUPS_TP if tp?
-    self.teacher_hours = self.duration * users.count
     self.student_hours = self.teacher_hours / groups
   end
 end
