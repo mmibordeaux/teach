@@ -44,7 +44,15 @@ class Year < ActiveRecord::Base
   end
 
   def involvements
-    Involvement.where(promotion: promotions)
+    first_year_promotion_id = first_year_promotion.nil? ? 0 : first_year_promotion.id
+    first_year_module_ids = TeachingModule.where(semester_id: [1, 2]).pluck(:id)
+    second_year_promotion_id = second_year_promotion.nil? ? 0 : second_year_promotion.id
+    second_year_module_ids = TeachingModule.where(semester_id: [3, 4]).pluck(:id)
+    Involvement
+      .where('(promotion_id = ? AND teaching_module_id IN (?)) 
+        OR (promotion_id = ? AND teaching_module_id IN (?))', 
+        first_year_promotion_id, first_year_module_ids,
+        second_year_promotion_id, second_year_module_ids)
   end
 
   def events
