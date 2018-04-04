@@ -5,32 +5,33 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
 
 <h2>Projets</h2>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Semestre</th>
-      <th>Atelier</th>
-      <th style="min-width: 200px">Nom</th>
-      <th>Description</th>
-      <th>Responsable</th>
-      <th>Personnes impliquées</th>
-      <th>Champs</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @year.projects.each do |project| %>
+<% Semester.all.each do |semester| %>
+  <h3><%= semester %></h3>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= project.semesters.join(', ') %></td>
-        <td><%= project.position %></td>
-        <td><%= link_to project, project %></td>
-        <td><%= simple_format project.description %></td>
-        <td><%= project.user %></td>
-        <td><%= project.users.map { |user| user.to_s }.join(', ') %></td>
-        <td><%= project.fields.map { |field| field.to_s }.join(', ') %></td>
+        <th>Atelier</th>
+        <th style="min-width: 200px">Nom</th>
+        <th>Description</th>
+        <th>Responsable</th>
+        <th>Personnes impliquées</th>
+        <th>Champs</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @year.projects.joins(:semesters).where(semesters: { id: semester }).each do |project| %>
+        <tr>
+          <td><%= project.position %></td>
+          <td><%= link_to project, project %></td>
+          <td><%= simple_format project.description %></td>
+          <td><%= project.user %></td>
+          <td><%= project.users.map { |user| user.to_s }.join(', ') %></td>
+          <td><%= project.fields.map { |field| field.to_s }.join(', ') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 
 <h2>Services</h2>
