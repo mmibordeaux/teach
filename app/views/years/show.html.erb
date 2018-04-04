@@ -2,6 +2,7 @@ La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion 
 La promotion <%= link_to @year.second_year_promotion, @year.second_year_promotion %> est en seconde année.<br>
 Pour actualiser l'EDT, cliquez sur la promotion concernée.
 
+
 <h2>Projets</h2>
 
 <table class="table table-hover">
@@ -20,7 +21,7 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
       <tr>
         <td><%= project.position %></td>
         <td><%= link_to project, project %></td>
-        <td><%= project.description %></td>
+        <td><%= simple_format project.description %></td>
         <td><%= project.user %></td>
         <td><%= project.users.map { |user| user.to_s }.join(', ') %></td>
         <td><%= project.fields.map { |field| field.to_s }.join(', ') %></td>
