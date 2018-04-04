@@ -10,15 +10,17 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @title = @project.to_s
+    @title = "#{@project}"
     add_breadcrumb @project, @project
   end
 
   def new
+    @title = 'Nouveau projet'
     @project = Project.new
   end
 
   def edit
+    @title = "#{@project} - Modifier"
     add_breadcrumb @project, @project
     add_breadcrumb 'Modifier'
   end
