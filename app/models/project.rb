@@ -9,6 +9,7 @@
 #  description :text
 #  position    :integer
 #  user_id     :integer
+#  year_id     :integer
 #
 
 class Project < ActiveRecord::Base
@@ -20,6 +21,7 @@ class Project < ActiveRecord::Base
   has_many :involvements
   has_and_belongs_to_many :users
   belongs_to :user
+  belongs_to :year
   
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :fields

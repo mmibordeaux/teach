@@ -9,6 +9,7 @@
 #  description :text
 #  position    :integer
 #  user_id     :integer
+#  year_id     :integer
 #
 
 require 'test_helper'

@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-6">
         <%= f.input :user, label: 'Responsable' %>
+        <%= f.input :code_apogee %>
       </div>
       <div class="col-md-6">
         <%= f.input :fields, as: :check_boxes, collection: Field.not_root, label: 'Champs' %>

@@ -10,6 +10,8 @@
 
 class Year < ActiveRecord::Base
 
+  has_many :projects
+
   def self.create_necessary
     year = Date.today.year
     where(year: year).first_or_create

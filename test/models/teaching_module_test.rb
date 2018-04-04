@@ -20,6 +20,7 @@
 #  hours_cm             :integer
 #  hours_td             :integer
 #  hours_tp             :integer
+#  code_apogee          :string
 #
 
 require 'test_helper'

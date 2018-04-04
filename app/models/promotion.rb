@@ -40,42 +40,6 @@ class Promotion < ActiveRecord::Base
     Icalendar::Parser.new(cal_file).parse.first.events
   end
 
-  def sync_events
-    events.destroy_all
-    calendar_events.each do |event|
-      date = event.dtstart
-      duration = (event.dtend - date) / 60 / 60
-      teaching_module = nil
-      hashtags = event.description.scan(/#(\w+)/).flatten
-      kind = Event.kinds[:cm] # default
-      hashtags.each do |hashtag|
-        case hashtag.downcase
-        when 'cm'
-          kind = Event.kinds[:cm]
-        when 'td'
-          kind = Event.kinds[:td]
-        when 'tp'
-          kind = Event.kinds[:tp]
-        else
-          teaching_module = TeachingModule.where(code: hashtag.upcase).first 
-        end
-      end
-      e = Event.create promotion: self,
-        duration: duration,
-        date: date,
-        kind: kind,
-        teaching_module: teaching_module
-      event.attendee.each do |attendee| 
-        email = attendee.to_s.remove 'mailto:'
-        user = User.where(email: email).first
-        e.users << user unless user.nil?
-      end
-      # Compute hours now that users are set
-      e.save
-    end
-    events.reload
-  end
-
   def to_s
     "MMI #{year}"
   end

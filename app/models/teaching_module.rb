@@ -20,6 +20,7 @@
 #  hours_cm             :integer
 #  hours_td             :integer
 #  hours_tp             :integer
+#  code_apogee          :string
 #
 
 class TeachingModule < ActiveRecord::Base
@@ -40,6 +41,7 @@ class TeachingModule < ActiveRecord::Base
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields
 
+  scope :with_code, -> (code) { where('code ILIKE ? OR code_apogee ILIKE ?', code, code) }
   default_scope { order('code') }
 
   def teacher_hours

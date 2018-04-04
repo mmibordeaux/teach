@@ -25,6 +25,47 @@ class Event < ActiveRecord::Base
 
   before_save :compute_student_hours
 
+  def self.sync(promotion)
+    promotion.events.destroy_all
+    promotion.calendar_events.each do |calendar_event|
+      create_with calendar_event, promotion
+    end
+    promotion.events.reload
+  end
+
+  def self.create_with(calendar_event, promotion)
+    date = calendar_event.dtstart
+    duration = (calendar_event.dtend - date) / 60 / 60
+    teaching_module = nil
+    hashtags = calendar_event.description.scan(/#(\w+)/).flatten
+    kind = Event.kinds[:cm] # default
+    hashtags.each do |hashtag|
+      case hashtag.downcase
+      when 'cm'
+        kind = Event.kinds[:cm]
+      when 'td'
+        kind = Event.kinds[:td]
+      when 'tp'
+        kind = Event.kinds[:tp]
+      else
+        teaching_module = TeachingModule.with_code(hashtag).first
+      end
+    end
+    event = Event.create promotion: promotion,
+      duration: duration,
+      date: date,
+      kind: kind,
+      teaching_module: teaching_module
+    calendar_event.attendee.each do |attendee| 
+      email = attendee.to_s.remove 'mailto:'
+      user = User.where(email: email).first
+      event.users << user unless user.nil?
+    end
+    # Compute hours now that users are set
+    event.save
+    event
+  end
+
   protected
 
   def compute_student_hours

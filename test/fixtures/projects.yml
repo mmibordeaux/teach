@@ -9,6 +9,7 @@
 #  description :text
 #  position    :integer
 #  user_id     :integer
+#  year_id     :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180225073648) do
+ActiveRecord::Schema.define(version: 20180404064349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,7 +131,10 @@ ActiveRecord::Schema.define(version: 20180225073648) do
     t.text     "description"
     t.integer  "position"
     t.integer  "user_id"
+    t.integer  "year_id"
   end
+
+  add_index "projects", ["year_id"], name: "index_projects_on_year_id", using: :btree
 
   create_table "projects_semesters", force: :cascade do |t|
     t.integer  "project_id"
@@ -182,6 +185,7 @@ ActiveRecord::Schema.define(version: 20180225073648) do
     t.integer  "hours_cm"
     t.integer  "hours_td"
     t.integer  "hours_tp"
+    t.string   "code_apogee"
   end
 
   create_table "teaching_subjects", force: :cascade do |t|
@@ -229,4 +233,5 @@ ActiveRecord::Schema.define(version: 20180225073648) do
   add_foreign_key "events", "promotions"
   add_foreign_key "events", "teaching_modules"
   add_foreign_key "involvements", "promotions"
+  add_foreign_key "projects", "years"
 end
