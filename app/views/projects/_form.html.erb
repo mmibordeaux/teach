@@ -1,20 +1,22 @@
 <%= semantic_form_for @project do |f| %>
   <%= f.inputs do %>
-  <div class="row">
-    <div class="col-md-4">
-      <%= f.input :label %>
-      <%= f.input :year, include_blank: false, collection: Year.order(year: :desc) %>
-      <%= f.input :user, label: 'Responsable' %>
-      <%= f.input :description %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :label %>
+        <%= f.input :year, include_blank: false, collection: Year.order(year: :desc) %>
+        <%= f.input :user, label: 'Responsable' %>
+        <%= f.input :description, input_html: { rows: 5 } %>
+        <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :position, label: 'Atelier' %>
+        <%= f.input :semesters, as: :check_boxes, label: 'Semestres' %>
+        <%= f.input :fields, as: :check_boxes, label: 'Champs', collection: Field.not_root %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :users, as: :check_boxes, label: 'Personnes impliquées'  %>
+      </div>
     </div>
-    <div class="col-md-4">
-      <%= f.input :position, label: 'Atelier' %>
-      <%= f.input :semesters, as: :check_boxes, label: 'Semestres' %>
-      <%= f.input :fields, as: :check_boxes, label: 'Champs', collection: Field.not_root %>
-    </div>
-    <div class="col-md-4">
-      <%= f.input :users, as: :check_boxes, label: 'Personnes impliquées'  %>
-    </div>
-    <% end %>
-  <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
+    <%= f.input :objectives, as: :check_boxes, member_label: :objective_with_module %>
+  <% end %>
 <% end %>

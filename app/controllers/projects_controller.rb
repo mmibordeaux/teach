@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
 
   def show
     @title = "#{@project}"
+    @subtitle = "#{@project.description}"
     add_breadcrumb @project, @project
   end
 
@@ -62,6 +63,6 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:label, :description, :position, :user_id, :year_id, field_ids: [], semester_ids: [], user_ids: [])
+    params.require(:project).permit(:label, :description, :position, :user_id, :year_id, field_ids: [], semester_ids: [], user_ids: [], objective_ids: [])
   end
 end

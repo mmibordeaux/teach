@@ -10,7 +10,13 @@
 #
 
 class Objective < ActiveRecord::Base
+
+  has_and_belongs_to_many :projects
   belongs_to :teaching_module
+
+  def objective_with_module
+    "#{teaching_module}: #{self}"
+  end
 
   def to_s
     "#{label}"

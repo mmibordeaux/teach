@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
   has_many :semesters, through: :projects_semesters
   has_many :involvements
   has_and_belongs_to_many :users
+  has_and_belongs_to_many :objectives
   belongs_to :user
   belongs_to :year
   
