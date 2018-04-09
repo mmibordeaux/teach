@@ -11,6 +11,7 @@
 class Semester < ActiveRecord::Base
 
   has_many :teaching_modules
+  has_many :objectives, through: :teaching_modules
 
   def self.planned_teacher_hours_cm_costs
     all.collect(&:planned_teacher_hours_cm_costs).sum

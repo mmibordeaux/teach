@@ -29,6 +29,8 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :projects_semesters, allow_destroy: true
   accepts_nested_attributes_for :semesters
 
+  scope :in_semester, -> (semester) { joins(:semesters).where(semesters: { id: semester } ) }
+
   default_scope { order('position') }
 
   # Modules though fields, filtered by semesters

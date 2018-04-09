@@ -85,6 +85,7 @@ class Involvement < ActiveRecord::Base
   end
 
   def cost_hour
+    return 0 if user.nil?
     user.public ? COST_HOUR_PUBLIC : COST_HOUR_PRIVATE
   end
 

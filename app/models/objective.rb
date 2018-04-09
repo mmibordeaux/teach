@@ -18,8 +18,15 @@ class Objective < ActiveRecord::Base
     "#{teaching_module}: #{self}"
   end
 
+  def covered_in_year_by_projects(year)
+    year.projects.joins(:objectives).where(objectives: { id: self })
+  end
+
+  def covered_in_year?(year)
+    covered_in_year_by_projects(year).any?
+  end
+
   def to_s
     "#{label}"
   end
-  
 end

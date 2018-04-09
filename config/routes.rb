@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :semesters, only: [:index, :show]
   resources :years, only: [:index, :show] do 
     get 'users/:id' => 'years#user', as: :user
+    get 'semesters/:id' => 'semesters#show_in_year', as: :semester
   end
   root 'dashboard#index'
 end

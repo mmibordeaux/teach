@@ -11,6 +11,7 @@
 class Year < ActiveRecord::Base
 
   has_many :projects
+  has_many :objectives, through: :projects
 
   def self.create_necessary
     year = Date.today.year

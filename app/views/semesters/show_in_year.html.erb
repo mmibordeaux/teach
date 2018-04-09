@@ -1,0 +1,70 @@
+<h2>Projets</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Atelier</th>
+      <th style="min-width: 200px">Nom</th>
+      <th>Description</th>
+      <th>Responsable</th>
+      <th>Personnes impliquées</th>
+      <th>Champs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.position %></td>
+        <td><%= link_to project, project %></td>
+        <td><%= simple_format project.description %></td>
+        <td><%= project.user %></td>
+        <td><%= project.users.map { |user| user.to_s }.join(', ') %></td>
+        <td><%= project.fields.map { |field| field.to_s }.join(', ') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Couverture des objectifs du PPN</h2>
+
+<div id="covering"></div></td>
+<script type="text/javascript">
+  $(function () {
+    $('#covering').highcharts({
+        chart: { type: 'bar', height: 150 },
+        title: null,
+        xAxis: { categories: ['Objectifs'], tickWidth: 0 },
+        yAxis: { min: 0, title: null },
+        credits: { enabled: false },
+        plotOptions: { series: { stacking: 'normal' } },
+        series: [
+          { name: 'Objectifs non couverts', data: [ <%= @objectives_not_covered.count %> ] },
+          { name: 'Objectifs couverts', data: [ <%= @objectives_covered.count %> ] }
+        ]
+    });
+});
+</script>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="400">Module</th>
+      <th>Objectif</th>
+      <th width="200">Projets</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @objectives.each do |objective| %>
+      <tr class="<%= 'bg-danger' unless objective.covered_in_year?(@year) %>">
+        <td><%= objective.teaching_module.full_name %></td>
+        <td><%= objective %></td>
+        <td>
+          <ul class="list-inline">
+            <% objective.covered_in_year_by_projects(@year).each do |project| %>
+              <li><%= link_to project, project %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
