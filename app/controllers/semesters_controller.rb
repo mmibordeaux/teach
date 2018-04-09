@@ -23,6 +23,7 @@ class SemestersController < ApplicationController
     @objectives_not_covered = @objectives - @objectives_covered
     @title = "#{@semester}" 
     @subtitle = "#{@year}"
+    add_breadcrumb 'Années', years_path
     add_breadcrumb @year, @year
     add_breadcrumb @semester
   end
