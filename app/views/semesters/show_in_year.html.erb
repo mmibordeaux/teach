@@ -37,6 +37,7 @@
         yAxis: { min: 0, title: null },
         credits: { enabled: false },
         plotOptions: { series: { stacking: 'normal' } },
+        colors: ['#ff2222', '#22cc22'],
         series: [
           { name: 'Objectifs non couverts', data: [ <%= @objectives_not_covered.count %> ] },
           { name: 'Objectifs couverts', data: [ <%= @objectives_covered.count %> ] }
@@ -58,11 +59,15 @@
         <td><%= objective.teaching_module.full_name %></td>
         <td><%= objective %></td>
         <td>
-          <ul class="list-inline">
-            <% objective.covered_in_year_by_projects(@year).each do |project| %>
-              <li><%= link_to project, project %></li>
-            <% end %>
-          </ul>
+          <% if objective.covered_in_year?(@year) %>
+            <ul class="list-inline">
+              <% objective.covered_in_year_by_projects(@year).each do |project| %>
+                <li><%= link_to project, project %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            Aucun projet
+          <% end %>
         </td>
       </tr>
     <% end %>
