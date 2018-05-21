@@ -6,6 +6,7 @@
 //= require highcharts/highcharts-more
 //= require chartkick
 //= require sunburst
+//= require timeline/timeline-min
 //= require_self
 
 jQuery(function() {

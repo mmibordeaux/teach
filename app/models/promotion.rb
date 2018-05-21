@@ -27,8 +27,8 @@ class Promotion < ActiveRecord::Base
     [first_year, second_year]
   end
 
-  def projects(semester)
-    semester.projects.where(year: years)
+  def projects(semester=nil)
+    semester.nil? ? Project.where(year: years) : semester.projects.where(year: years)
   end
 
   # Planned student hours
