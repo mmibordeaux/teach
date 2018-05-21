@@ -14,20 +14,16 @@
 
 class Project < ActiveRecord::Base
 
-  has_many :fields_projects, dependent: :destroy
-  has_many :fields, through: :fields_projects
-  has_many :projects_semesters, dependent: :destroy
-  has_many :semesters, through: :projects_semesters
   has_many :involvements
+  has_and_belongs_to_many :fields
+  has_and_belongs_to_many :semesters
   has_and_belongs_to_many :users
   has_and_belongs_to_many :objectives
   belongs_to :user
   belongs_to :year
   
-  accepts_nested_attributes_for :fields_projects, allow_destroy: true
-  accepts_nested_attributes_for :fields
-  accepts_nested_attributes_for :projects_semesters, allow_destroy: true
-  accepts_nested_attributes_for :semesters
+  accepts_nested_attributes_for :fields, allow_destroy: true
+  accepts_nested_attributes_for :semesters, allow_destroy: true
 
   scope :in_semester, -> (semester) { joins(:semesters).where(semesters: { id: semester } ) }
 

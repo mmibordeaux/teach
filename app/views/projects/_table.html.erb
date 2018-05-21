@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th style="min-width: 200px">Label</th>
+      <th>Année</th>
       <th>Semestres</th>
       <th>Champs</th>
       <th>Responsable</th>
@@ -14,6 +15,7 @@
     <% projects.each do |project| %>
       <tr>
         <td><%= link_to project, project %></td>
+        <td><%= link_to project.year, project.year %></td>
         <td><%= render partial: 'semesters/inline_list', locals: {semesters: project.semesters} %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: project.fields} %></td>
         <td><%= link_to project.user, project.user unless project.user.nil? %></td>

@@ -1,22 +1,3 @@
-<div class="projects-timeline">
-  <table>
-    <tr>
-      <th></th>
-      <% Semester.all.each do |semester| %>
-        <th><%= semester %></td>
-      <% end %>
-    </tr>
-  <% @projects.each do |project| %>
-    <tr>
-      <td><%= link_to project, project %></td>
-      <% Semester.all.each do |semester| %>
-        <td<% if project.semesters.include?(semester) %> class="active" <% end %>><span></span></td>
-      <% end %>
-    </tr>
-  <% end %>
-  </table>
-</div>
-
 <h1><%= @projects.count %> projets</h1>
 <%= link_to 'Nouveau projet', new_project_path if can? :create, Project %>
 <%= render partial: 'table', locals: {projects: @projects} %>

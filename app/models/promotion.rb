@@ -15,6 +15,22 @@ class Promotion < ActiveRecord::Base
 
   default_scope { order(:year) }
 
+  def first_year
+    Year.where(year: year-2).first
+  end
+
+  def second_year
+    Year.where(year: year-1).first
+  end
+
+  def years
+    [first_year, second_year]
+  end
+
+  def projects(semester)
+    semester.projects.where(year: years)
+  end
+
   # Planned student hours
 
   def planned_student_hours_cm

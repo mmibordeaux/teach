@@ -3,9 +3,40 @@
 <p>Toute cette page est exprimée en heures étudiant, sous la forme "Heures totales (heures CM / heures TD / heures TP)</p>
 
 
-
 <% @semesters.each do |semester| %>
   <h2><%= link_to semester, semester %></h2>
+  
+  <h3>Projets</h3>
+  <%
+  projects = @promotion.projects(semester)
+  positions = projects.pluck(:position)
+  %>
+  <table class="timeline table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <% positions.each do |position| %>
+          <th><%= position %></td>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @promotion.projects(semester).each do |project| %>
+        <tr>
+          <td><%= link_to project, project %></td>
+          <% positions.each do |position| %>
+            <% if project.position == position %>
+              <td class="active"><%= link_to project do %><span></span><% end %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h3>Heures</h3>
   <p>
     <%= semester.expected_student_hours.round %> PPN /
     <%= @promotion.involvements.in_semester(semester).sum(:student_hours).round %> maquette / 
