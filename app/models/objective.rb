@@ -15,7 +15,7 @@ class Objective < ActiveRecord::Base
   belongs_to :teaching_module
 
   def objective_with_module
-    "#{teaching_module}: #{self}"
+    "#{teaching_module.full_name}: #{self}"
   end
 
   def covered_in_year_by_projects(year)

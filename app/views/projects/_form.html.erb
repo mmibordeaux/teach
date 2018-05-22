@@ -6,6 +6,7 @@
         <%= f.input :year, include_blank: false, collection: Year.order(year: :desc) %>
         <%= f.input :user, label: 'Responsable' %>
         <%= f.input :description, input_html: { rows: 5 } %>
+        <%= f.input :detailed_description, input_html: { rows: 15 } %>
         <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
       </div>
       <div class="col-md-4">
@@ -19,4 +20,5 @@
     </div>
     <%= f.input :objectives, as: :check_boxes, member_label: :objective_with_module %>
   <% end %>
+  <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
 <% end %>
