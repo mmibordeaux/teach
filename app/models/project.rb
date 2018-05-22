@@ -32,9 +32,17 @@ class Project < ActiveRecord::Base
 
   def start_date
     return if year.nil? || position.nil? || position < 1 || position > 52
-    real_year = year.year
-    real_year += 1 if position < 30 # weeks before summer belong to next year
     Date.commercial(real_year, position, 1)
+  end
+
+  def real_year
+    y = year.year
+    # weeks before summer belong to next year
+    position < 30 ? y : y-1
+  end
+
+  def week_number
+    "#{real_year}-#{position}"
   end
 
   # Modules though fields, filtered by semesters

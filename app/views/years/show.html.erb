@@ -26,10 +26,10 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
       </tr>
     </thead>
     <tbody>
-      <% projects.each do |project| %>
+      <% projects.sort_by(&:week_number).each do |project| %>
         <tr>
           <td><%= link_to project, project %></td>
-          <td><%= project.position %></td>
+          <td><%= project.week_number %></td>
           <td><%= simple_format project.description %></td>
           <td><%= project.user %></td>
         </tr>
