@@ -8,7 +8,6 @@
       <th>Heures enseignant</th>
       <th>Heures PPN</th>
       <th>Champs</th>
-      <th>Projets</th>
       <th>Mots-clés</th>
     </tr>
   </thead>
@@ -27,7 +26,6 @@
         <td><%= teaching_module.teacher_hours %></td>
         <td><%= teaching_module.hours %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: teaching_module.fields} %></td>
-        <td><%= render partial: 'projects/inline_list', locals: {projects: teaching_module.projects} %></td>
         <td><small><%= teaching_module.keywords.map{|k|k.label}.join(', ') %></small></td>
       </tr>
     <% end %>
