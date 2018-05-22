@@ -71,21 +71,19 @@
   </tbody>
 </table>
 
+<h2>Projets: responsabilité</h2>
+<%= render partial: 'projects/table', locals: {projects: @user.projects_managed} %>
+
+<h2>Projets: implication</h2>
+<%= render partial: 'projects/table', locals: {projects: @user.projects} %>
+
 <div class="row">
-  <div class="col-md-3"> 
+  <div class="col-md-6"> 
     <h2>Champs</h2>
     <%= render partial: 'fields/inline_list', locals: {fields: @user.fields} %>
   </div>
-  <div class="col-md-3"> 
+  <div class="col-md-6"> 
     <h2>Responsable modules</h2>
     <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @user.teaching_modules} %>
-  </div>
-  <div class="col-md-3"> 
-    <h2>Responsable projets</h2>
-    <%= render partial: 'projects/inline_list', locals: {projects: @user.projects_managed} %>
-  </div>
-  <div class="col-md-3"> 
-    <h2>Projets</h2>
-    <%= render partial: 'projects/inline_list', locals: {projects: @user.projects} %>
   </div>
 </div>
