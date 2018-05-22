@@ -11,4 +11,8 @@
 
 class Competency < ActiveRecord::Base
   belongs_to :teaching_module
+
+  def to_s
+    "#{label}"
+  end
 end

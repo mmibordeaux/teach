@@ -7,17 +7,14 @@
     <tr>
       <th>Label</th>
       <th>Teaching module</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @competencies.each do |competency| %>
       <tr>
-        <td><%= competency.label %></td>
-        <td><%= competency.teaching_module_id %></td>
-        <td><%= link_to 'Voir', competency %></td>
-        <td><%= link_to 'Modifier', edit_competency_path(competency) if can? :edit, competency %></td>
+        <td><%= link_to competency.label, competency %></td>
+        <td><%= link_to competency.teaching_module.full_name, competency.teaching_module %></td>
       </tr>
     <% end %>
   </tbody>

@@ -9,6 +9,8 @@ class CompetenciesController < ApplicationController
   end
 
   def show
+    @title = @competency.to_s.truncate(40)
+    add_breadcrumb @title
   end
 
   def new

@@ -1,13 +1,5 @@
-<p id="notice"><%= notice %></p>
+<p><%= @competency.label %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @competency.label %>
-</p>
-
-<p>
-  <strong>Teaching module:</strong>
-  <%= @competency.teaching_module_id %>
-</p>
+<p><%= link_to @competency.teaching_module.full_name, @competency.teaching_module %></p>
 
 <%= link_to 'Modifier', edit_competency_path(@competency) if can? :edit, @competency %>
