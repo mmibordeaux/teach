@@ -12,9 +12,10 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
   new TL.Timeline('timeline', data, config);
 </script>
 
-
 <% Semester.all.each do |semester| %>
   <h3><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h3>
+  <% projects = @year.projects.in_semester(semester) %>
+  <p><%= projects.count %> projets</p>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -25,7 +26,7 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
       </tr>
     </thead>
     <tbody>
-      <% @year.projects.in_semester(semester).each do |project| %>
+      <% projects.each do |project| %>
         <tr>
           <td><%= link_to project, project %></td>
           <td><%= project.position %></td>
@@ -36,7 +37,6 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
     </tbody>
   </table>
 <% end %>
-
 
 <h2>Services</h2>
 
