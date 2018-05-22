@@ -22,12 +22,20 @@ class Project < ActiveRecord::Base
   belongs_to :user
   belongs_to :year
   
+  # TODO validator, position must be 1-52
   accepts_nested_attributes_for :fields, allow_destroy: true
   accepts_nested_attributes_for :semesters, allow_destroy: true
 
   scope :in_semester, -> (semester) { joins(:semesters).where(semesters: { id: semester } ) }
 
   default_scope { order('position') }
+
+  def start_date
+    return if year.nil? || position.nil? || position < 1 || position > 52
+    real_year = year.year
+    real_year += 1 if position < 30 # weeks before summer belong to next year
+    Date.commercial(real_year, position, 1)
+  end
 
   # Modules though fields, filtered by semesters
   def teaching_modules
@@ -59,6 +67,20 @@ class Project < ActiveRecord::Base
 
   def teacher_hours
     sum_involvements :teacher_hours
+  end
+
+  def to_event
+    {
+      start_date: {
+        month: start_date&.month,
+        day: start_date&.day,
+        year: start_date&.year
+      },
+      text: {
+        headline: label,
+        text: ActionController::Base.helpers.simple_format(description)
+      }
+    } 
   end
 
   def to_s

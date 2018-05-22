@@ -57,6 +57,6 @@ class Promotion < ActiveRecord::Base
   end
 
   def to_s
-    "MMI #{year}"
+    "Promotion #{year}"
   end
 end
