@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
   belongs_to :user
   belongs_to :year
   
-  validates_inclusion_of :number, in: 1..52
+  validates_inclusion_of :position, in: 1..52
   accepts_nested_attributes_for :fields, allow_destroy: true
   accepts_nested_attributes_for :semesters, allow_destroy: true
 
