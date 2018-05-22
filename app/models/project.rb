@@ -42,7 +42,7 @@ class Project < ActiveRecord::Base
   end
 
   def week_number
-    "#{real_year}-#{position}"
+    "#{real_year}-#{ '%02d' % position}"
   end
 
   # Modules though fields, filtered by semesters
