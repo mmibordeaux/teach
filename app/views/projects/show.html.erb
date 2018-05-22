@@ -3,6 +3,7 @@
   <div class="col-md-4">
     <h4>Année</h4>
     <%= link_to @project.year, @project.year %>
+    (<%= @project.week_number %>)
     <h4>Semestres</h4>
     <%= render partial: 'semesters/inline_list', locals: {semesters: @project.semesters} %>
     <h4>Champs concernés</h4>
