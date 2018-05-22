@@ -1,6 +1,8 @@
 <%= link_to 'Modifier', edit_project_path(@project), class: 'btn btn-default' if can? :edit, @project %>
 <div class="row">
   <div class="col-md-4">
+    <h4>Description détaillée</h4>
+    <%= simple_format @project.detailed_description %>
     <h4>Année</h4>
     <%= link_to @project.year, @project.year %>
     (<%= @project.week_number %>)
