@@ -3,23 +3,34 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Atelier</th>
-      <th style="min-width: 200px">Nom</th>
+      <th width="200">Nom</th>
+      <th width="60">N° de semaine</th>
       <th>Description</th>
-      <th>Responsable</th>
-      <th>Personnes impliquées</th>
-      <th>Champs</th>
+      <th width="200">Personnes impliquées</th>
+      <th width="400">Modules</th>
     </tr>
   </thead>
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.position %></td>
         <td><%= link_to project, project %></td>
+        <td><%= project.week_number %></td>
         <td><%= simple_format project.description %></td>
-        <td><%= project.user %></td>
-        <td><%= project.users.map { |user| user.to_s }.join(', ') %></td>
-        <td><%= project.fields.map { |field| field.to_s }.join(', ') %></td>
+        <td>
+          <strong><%= project.user %></strong><br>
+          <ul class="list-unstyled">
+            <% project.users.each do |user| %>
+              <li><%= user %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td>
+          <ul class="list-unstyled">
+            <% project.teaching_modules.each do |teaching_module| %>
+              <li><%= link_to teaching_module.full_name, teaching_module %></li>
+            <% end %>
+          </ul>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -48,9 +59,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th width="400">Module</th>
+      <th width="300">Module</th>
       <th>Objectif</th>
-      <th width="200">Projets visant cet objectif</th>
+      <th width="300">Projets visant cet objectif</th>
     </tr>
   </thead>
   <tbody>
@@ -60,8 +71,37 @@
         <td><%= objective %></td>
         <td>
           <% if objective.covered_in_year?(@year) %>
-            <ul class="list-inline">
+            <ul class="list-unstyled">
               <% objective.covered_in_year_by_projects(@year).each do |project| %>
+                <li><%= link_to project, project %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            Aucun projet
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h2>Modules</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Projets</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @semester.teaching_modules.each do |teaching_module| %>
+      <tr>
+        <td><%= teaching_module.full_name %></td>
+        <td>
+          <% if teaching_module.projects_in_year?(@year) %>
+            <ul class="list-unstyled">
+              <% teaching_module.projects_in_year(@year).each do |project| %>
                 <li><%= link_to project, project %></li>
               <% end %>
             </ul>

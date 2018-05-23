@@ -44,6 +44,14 @@ class TeachingModule < ActiveRecord::Base
   scope :with_code, -> (code) { where('code ILIKE ? OR code_apogee ILIKE ?', code, code) }
   default_scope { order('code') }
 
+  def projects_in_year?(year)
+    projects_in_year(year).any?
+  end
+
+  def projects_in_year(year)
+    year.projects.joins(:objectives).where(objectives: { id: objectives }).uniq
+  end
+
   def teacher_hours
     involvements.collect(&:teacher_hours).sum.round(2)
   end
