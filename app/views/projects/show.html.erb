@@ -30,7 +30,7 @@
       <tbody>
         <% @project.objectives.each do |objective| %>
           <tr>
-            <td><%= objective.teaching_module %></td>
+            <td><%= objective.teaching_module.full_name %></td>
             <td><%= objective %></td>
           </tr>
         <% end %>
