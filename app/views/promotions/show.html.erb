@@ -3,7 +3,7 @@
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">
   var data = <%= { events: @promotion.projects.collect(&:to_event) }.to_json.html_safe %>;
-  var config = { language: 'fr' };
+  var config = { language: 'fr', initial_zoom: 1 };
   new TL.Timeline('timeline', data, config);
 </script>
 
@@ -12,25 +12,34 @@
   
   <h3>Projets</h3>
   <%
-  projects = @promotion.projects(semester)
-  positions = projects.pluck(:position)
+  projects = @promotion.projects(semester).sort_by(&:week_number)
   %>
   <table class="timeline table table-hover">
     <thead>
       <tr>
-        <th></th>
-        <% positions.each do |position| %>
-          <th><%= position %></td>
+        <th>Semaine</th>
+        <% projects.each do |project| %>
+          <th><%= project.week_number %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <th>Jour de début</th>
+        <% projects.each do |project| %>
+          <th><%= project.start_date.strftime '%d/%m/%y' %></td>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <% @promotion.projects(semester).each do |project| %>
+      <% projects.each do |project| %>
         <tr>
           <td><%= link_to project, project %></td>
-          <% positions.each do |position| %>
-            <% if project.position == position %>
-              <td class="active"><%= link_to project do %><span></span><% end %></td>
+          <% projects.each do |p| %>
+            <% if project == p %>
+              <td class="active">
+                <%= link_to project do %>
+                  <span><%= project.week_number %></span>
+                <% end %>
+              </td>
             <% else %>
               <td></td>
             <% end %>

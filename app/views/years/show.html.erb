@@ -8,7 +8,7 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">
   var data = <%= { events: @year.projects.collect(&:to_event) }.to_json.html_safe %>;
-  var config = { language: 'fr' };
+  var config = { language: 'fr', initial_zoom: 1 };
   new TL.Timeline('timeline', data, config);
 </script>
 
