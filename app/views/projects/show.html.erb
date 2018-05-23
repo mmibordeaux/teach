@@ -13,10 +13,13 @@
     <h4>Modules concernés</h4>
     <p>Nous pouvons intégrer des notes de ce projet dans les modules suivants</p>
     <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
-    <h4>Responsable</h4>
-    <p><%= link_to @project.user, @project.user unless @project.user.nil? %></p>
-    <h4>Personnes impliquées</h4>
-    <%= render partial: 'users/inline_list', locals: {users: @project.users} %>
+    <h4>Personnes</h4>
+    <p><strong><%= link_to @project.user, @project.user unless @project.user.nil? %></strong></p>
+    <ul class="list-unstyled">
+      <% @project.users.each do |user| %>
+        <li><%= link_to user, user %></li>
+      <% end %>
+    </ul>
   </div>
   <div class="col-md-8">
     <h2>Objectifs visés par ce projet</h2>
