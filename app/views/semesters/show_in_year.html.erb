@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @projects.each do |project| %>
+    <% @projects.sort_by(&:week_number).each do |project| %>
       <tr>
         <td><%= link_to project, project %></td>
         <td><%= project.week_number %></td>
@@ -101,7 +101,7 @@
         <td>
           <% if teaching_module.projects_in_year?(@year) %>
             <ul class="list-unstyled">
-              <% teaching_module.projects_in_year(@year).each do |project| %>
+              <% teaching_module.projects_in_year(@year).sort_by(&:week_number).each do |project| %>
                 <li><%= link_to project, project %></li>
               <% end %>
             </ul>
