@@ -4,25 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= @title.nil? ? 'MMI Teach' : @title %></title>
+    <title><%= @title.nil? ? 'MMI Bordeaux' : @title %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= favicon_link_tag 'favicon.png', :rel => 'shortcut icon' %>
     <%= javascript_include_tag "application" %>
   </head>
-  <body class="devise">
+  <body>
     <div class="logo logo-black">
       <%= image_tag 'mmi-bordeaux.png' %>
       <p>Teach</p>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
-      </div>
+      <%= yield %>
     </div>
-    <%= render 'application/footer' %>
   </body>
 </html>

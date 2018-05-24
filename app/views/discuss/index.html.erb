@@ -1,0 +1,5 @@
+<ul>
+<% @years.each do |year| %>
+  <li><%= link_to year, discuss_year_path(year.year) %></li>
+<% end %>
+</ul>

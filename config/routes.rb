@@ -11,5 +11,10 @@ Rails.application.routes.draw do
     get 'users/:id' => 'years#user', as: :user
     get 'semesters/:id' => 'semesters#show_in_year', as: :semester
   end
+  scope :discuss do 
+    get ':year' => 'discuss#year', as: :discuss_year
+    get ':year/:project_id' => 'discuss#project', as: :discuss_project
+    root to: 'discuss#index', as: :discuss
+  end
   root 'dashboard#index'
 end

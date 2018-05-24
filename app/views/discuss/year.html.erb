@@ -1,0 +1,7 @@
+<h1><%= @year %></h1>
+
+<ul>
+<% @year.projects.each do |project| %>
+  <li><%= link_to project, discuss_project_path(year: @year.year, project_id: project.id) %></li>
+<% end %>
+</ul>
