@@ -5,7 +5,7 @@ class YearsController < ApplicationController
 
   def index
     Year.create_necessary
-    @years = Year.all
+    @years = Year.order(year: :desc)
     @title = 'Années'
     @subtitle = 'Après années, après années...'
   end
