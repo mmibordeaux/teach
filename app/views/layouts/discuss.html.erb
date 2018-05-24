@@ -11,11 +11,14 @@
     <%= javascript_include_tag "application" %>
   </head>
   <body class="discuss">
-    <div class="logo logo-black">
-      <%= link_to discuss_path do %>
-        <%= image_tag 'mmi-bordeaux.png' %>
-        <p>Teach</p>
-      <% end %>
+    <div class="jumbotron">
+      <div class="logo">
+        <%= link_to discuss_path do %>
+          <%= image_tag 'mmi-bordeaux.png' %>
+          <p>Teach</p>
+        <% end %>
+      </div>
+      <%= yield :jumbotron %>
     </div>
     <div class="container">
       <%= yield %>

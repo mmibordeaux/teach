@@ -1,4 +1,13 @@
-<h1><%= @year %></h1>
+<% content_for :jumbotron do %>
+  <h1><%= @year %></h1>
+<% end %>
+
+<div id='timeline' style="width: 100%; height: 600px"></div>
+<script type="text/javascript">
+  var data = <%= { events: @year.projects.collect(&:to_event) }.to_json.html_safe %>;
+  var config = { language: 'fr', initial_zoom: 1 };
+  new TL.Timeline('timeline', data, config);
+</script>
 
 <% Semester.all.each do |semester| %>
   <h3><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h3>

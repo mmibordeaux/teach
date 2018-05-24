@@ -1,17 +1,28 @@
-<%= link_to @project.year, discuss_year_path(year: @project.year.year) %>
-<h1>
-  <%= @project %>
-  <sup><small>
-    <% @project.semesters.each do |semester| %>
-      <span class="label label-default"><%= semester %></span>      
-    <% end %>
-  </small></sup>
-</h1>
-<p>Semaine <%= @project.week_number %>, soit un démarrage le <%= @project.start_date.strftime '%d/%m/%y' %></p>
-<blockquote><%= simple_format @project.description %></blockquote>
+<% content_for :jumbotron do %>
+  <h1>
+    <%= @project %>
+    <sup>
+      <small>
+        <% @project.semesters.each do |semester| %>
+          <span class="label label-default"><%= semester %></span>      
+        <% end %>
+      </small>
+    </sup>
+  </h1>
+  <p><%= simple_format @project.description %></p>
+<% end %>
 <div class="row">
   <div class="col-md-4">
+    <h4>Dates</h4>
+    <p>
+      Année <%= link_to @project.year, discuss_year_path(year: @project.year.year) %><br>
+      Semaine <%= @project.week_number %><br>
+      Début le <%= @project.start_date.strftime '%d/%m/%y' %>    
+    </p>
+    <hr>
+    <h4>Description</h4>
     <%= simple_format @project.detailed_description %>
+    <hr>
     <h4>Personnes impliquées</h4>
     <strong><%= @project.user %></strong><br>
     <ul class="list-unstyled">
