@@ -12,19 +12,21 @@
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'Tableau de bord', root_path %></li>
-        <li><%= link_to 'Promotions', promotions_path %></li>
-        <li><%= link_to 'Années', years_path %></li>
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pédagogie <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><%= link_to 'Promotions', promotions_path %></li>
+            <li><%= link_to 'Années', years_path %></li>
             <li><%= link_to 'Equipe', users_path %></li>
-            <li><%= link_to 'Champs', fields_path %></li>
-            <li><%= link_to 'Projets', projects_path %></li>
+            <li><%= link_to 'Discussion', discuss_path %></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Archives <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><%= link_to 'Champs', fields_path %></li>
+            <li><%= link_to 'Projets', projects_path %></li>
             <li><%= link_to 'Services', users_summary_path %></li>
             <li><%= link_to 'Intervenants', budgets_users_path %></li>
             <li><%= link_to 'Modules', budgets_teaching_modules_path %></li>
@@ -43,7 +45,6 @@
             <li><%= link_to 'Mots-clés', keywords_path %></li>
           </ul>
         </li>
-        <li><%= link_to('Déconnexion', destroy_user_session_path, method: :delete) %> </li>
       </ul>
     </div>
   </div>

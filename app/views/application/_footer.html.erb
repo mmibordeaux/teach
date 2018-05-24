@@ -3,8 +3,11 @@
     <%= image_tag 'mmi-bordeaux.png' %>
     <p>Teach</p>
   </div>
+  <p>
+    <%= current_user %> 
+    <%= link_to('Déconnexion', destroy_user_session_path, method: :delete, class: 'btn btn-default btn-xs') %>
+  </p>
   <p class="version">
-	<strong>Version 1.6</strong><br/>
-    Horizon zero dawn
+    <strong>Version 1.6</strong> Horizon zero dawn
   </p>
 </footer>

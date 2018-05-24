@@ -12,6 +12,7 @@
     <h4><%= t('.sign_in', default: 'Sign in') %></h4>
   </div>
   <div class="panel-body">
+    <p>Vous faites partie de l'équipe pédagogique ? Identifiez-vous ci-dessous.</p>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: 'form' }) do |f| %>
       <div class="form-group">
         <%= f.label :email %>
