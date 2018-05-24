@@ -1,7 +1,30 @@
 <h1><%= @year %></h1>
 
-<ul>
-<% @year.projects.each do |project| %>
-  <li><%= link_to project, discuss_project_path(year: @year.year, project_id: project.id) %></li>
+<% Semester.all.each do |semester| %>
+  <h3><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h3>
+  <% projects = @year.projects.in_semester(semester) %>
+  <p><%= projects.count %> projets</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th style="min-width: 200px">Nom</th>
+        <th>N° de semaine</th>
+        <th>Description</th>
+        <th>Responsable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.sort_by(&:week_number).each do |project| %>
+        <tr>
+          <td><%= link_to project, discuss_project_path(year: @year.year, project_id: project.id) %></td>
+          <td>
+            <%= project.week_number %><br>
+            <small><%= project.start_date.strftime '%d/%m/%y' %></small>
+          </td>
+          <td><%= simple_format project.description %></td>
+          <td><%= project.user %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
-</ul>

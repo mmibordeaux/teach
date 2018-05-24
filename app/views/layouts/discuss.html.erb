@@ -10,10 +10,12 @@
     <%= favicon_link_tag 'favicon.png', :rel => 'shortcut icon' %>
     <%= javascript_include_tag "application" %>
   </head>
-  <body>
+  <body class="discuss">
     <div class="logo logo-black">
-      <%= image_tag 'mmi-bordeaux.png' %>
-      <p>Teach</p>
+      <%= link_to discuss_path do %>
+        <%= image_tag 'mmi-bordeaux.png' %>
+        <p>Teach</p>
+      <% end %>
     </div>
     <div class="container">
       <%= yield %>
