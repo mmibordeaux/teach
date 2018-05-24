@@ -1,8 +1,8 @@
 <%= link_to 'Edit', edit_promotion_path(@promotion), class: 'btn btn-primary btn-xs' if can? :edit, @promotion %>
 
-La première année est en <%= link_to @promotion.first_year, @promotion.first_year %>.<br>
-La seconde année est en <%= link_to @promotion.second_year, @promotion.second_year %>.<br>
-
+<p>
+  Cette promotion est en première année en <%= link_to @promotion.first_year, @promotion.first_year %>, et en seconde année en <%= link_to @promotion.second_year, @promotion.second_year %>.<br>
+</p>
 
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">
