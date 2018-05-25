@@ -2,6 +2,12 @@
   <h1><%= @year %></h1>
 <% end %>
 
+<ul class="list-inline">
+  <% Semester.all.each do |semester| %>
+    <li><%= link_to semester, "#semester#{semester.id}" %></li>
+  <% end %>
+</ul>
+
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">
   var data = <%= { events: @year.projects.collect(&:to_event) }.to_json.html_safe %>;
@@ -10,7 +16,7 @@
 </script>
 
 <% Semester.all.each do |semester| %>
-  <h3><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h3>
+  <h3 id="semester<%= semester.id %>"><%= semester %></h3>
   <% projects = @year.projects.in_semester(semester) %>
   <p><%= projects.count %> projets</p>
   <table class="table table-hover">
