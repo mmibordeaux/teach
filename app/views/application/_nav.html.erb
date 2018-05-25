@@ -5,21 +5,20 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <%= link_to root_path, class:'navbar-brand logo' do %>
+    <%= link_to dashboard_path, class:'navbar-brand logo' do %>
       <%= image_tag 'mmi-bordeaux.png' %>
       <p>Teach</p>
     <% end %>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'Tableau de bord', root_path %></li>
-
+        <li><%= link_to 'Tableau de bord', dashboard_path %></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pédagogie <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Promotions', promotions_path %></li>
             <li><%= link_to 'Années', years_path %></li>
             <li><%= link_to 'Equipe', users_path %></li>
-            <li><%= link_to 'Discussion', discuss_path %></li>
+            <li><%= link_to 'Discussion', root_path %></li>
           </ul>
         </li>
         <li class="dropdown">

@@ -16,19 +16,32 @@ class Promotion < ActiveRecord::Base
   default_scope { order(:year) }
 
   def first_year
-    Year.where(year: year-2).first
+    Year.where(year: year-1).first
   end
 
   def second_year
-    Year.where(year: year-1).first
+    Year.where(year: year).first
   end
 
   def years
     [first_year, second_year]
   end
 
-  def projects(semester=nil)
-    semester.nil? ? Project.where(year: years) : semester.projects.where(year: years)
+  def first_year_projects
+    first_year.projects.joins(:semesters).where(semesters: { id: [1, 2] })
+  end
+
+  def second_year_projects
+    second_year.projects.joins(:semesters).where(semesters: { id: [3, 4] })
+  end
+
+  def projects
+    first_year_projects + second_year_projects
+  end
+
+  def projects_in(semester)
+    projects_concerned = semester.id.in?([1, 2]) ? first_year_projects : second_year_projects
+    projects_concerned.where(semesters: { id: semester } )
   end
 
   # Planned student hours

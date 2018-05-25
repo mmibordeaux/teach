@@ -1,7 +1,13 @@
 <% content_for :jumbotron do %>
   <h1>Années scolaires</h1>
 <% end %>
-<p>Cliquez sur une année scolaire pour accéder aux contenus pédagogiques</p>
+<div class="row">
+  <div class="col-md-6">Cliquez sur une année scolaire ci-dessous pour accéder aux contenus pédagogiques</div>
+  <div class="col-md-6 text-right">
+    Vous faites partie de l'équipe enseignante ?<br> 
+    <%= link_to 'Cliquez ici pour vous connecter au tableau de bord pédagogique', dashboard_path, class: 'btn btn-primary' %>
+  </div>
+</div>
 <ul>
   <% @years.each do |year| %>
     <li><h2><%= link_to year, discuss_year_path(year.year) %></h2></li>

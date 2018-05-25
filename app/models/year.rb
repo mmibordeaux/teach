@@ -15,8 +15,10 @@ class Year < ActiveRecord::Base
 
   def self.create_necessary
     year = Date.today.year
+    where(year: year-1).first_or_create
     where(year: year).first_or_create
     where(year: year+1).first_or_create
+    where(year: year+2).first_or_create
   end
 
   def self.current
