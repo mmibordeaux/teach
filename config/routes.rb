@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     get ':year/:project_id' => 'discuss#project', as: :discuss_project
   end
   scope :api do
-    get 'promotions/:year' => 'api#promotion'
+    get '' =>  'api#index'
+    get 'promotions' => 'api#promotions'
+    get 'promotions/:year' => 'api#promotion', as: :api_promotion
   end
   root 'discuss#index'
 end
