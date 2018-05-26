@@ -26,6 +26,7 @@
         <th>N° de semaine</th>
         <th>Description</th>
         <th>Responsable</th>
+        <th>Commentaires</th>
       </tr>
     </thead>
     <tbody>
@@ -38,6 +39,7 @@
           </td>
           <td><%= simple_format project.description %></td>
           <td><%= project.user %></td>
+          <td><span class="disqus-comment-count" data-disqus-url="<%= discuss_project_url(year: @year.year, project_id: project.id) %>"></span></td>
         </tr>
       <% end %>
     </tbody>
