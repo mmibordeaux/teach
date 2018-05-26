@@ -19,10 +19,12 @@
       Semaine <%= @project.week_number %><br>
       Début le <%= @project.start_date.strftime '%d/%m/%y' %>    
     </p>
-    <hr>
+  </div>
+  <div class="col-md-4">
     <h4>Description</h4>
     <%= simple_format @project.detailed_description %>
-    <hr>
+  </div>
+  <div class="col-md-4">
     <h4>Personnes impliquées</h4>
     <strong><%= @project.user %></strong><br>
     <ul class="list-unstyled">
@@ -32,22 +34,27 @@
     </ul>
   </div>
   <div class="col-md-8">
-    <h2>Objectifs visés par ce projet</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th width="300">Module</th>
-          <th>Objectif</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @project.objectives.each do |objective| %>
-          <tr>
-            <td><%= objective.teaching_module.full_name %></td>
-            <td><%= objective %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
   </div>
+</div>
+
+<hr>
+<h4>Objectifs visés par ce projet</h4>
+<button data-toggle="collapse" data-target="#objectifs" class="btn btn-default">Cliquez pour voir les objectifs</button>
+<div id="objectifs" class="collapse">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="300">Module</th>
+        <th>Objectif</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.objectives.each do |objective| %>
+        <tr>
+          <td><%= objective.teaching_module.full_name %></td>
+          <td><%= objective %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
