@@ -1,0 +1,41 @@
+<%= link_to 'Nouveau projet', new_year_project_path(year_id: @year.id), class: 'btn btn-primary btn-xs' if can? :create, Project %>
+<div id='timeline' style="width: 100%; height: 600px"></div>
+<script type="text/javascript">
+  var data = <%= { events: @year.projects.collect(&:to_event) }.to_json.html_safe %>;
+  var config = { language: 'fr', initial_zoom: 1 };
+  new TL.Timeline('timeline', data, config);
+</script>
+
+<% Semester.all.each do |semester| %>
+  <h3><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h3>
+  <% projects = @year.projects.in_semester(semester) %>
+  <p><%= projects.count %> projets</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th style="min-width: 200px">Nom</th>
+        <th>N° de semaine</th>
+        <th>Description</th>
+        <th>Responsable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.sort_by(&:week_number).each do |project| %>
+        <tr>
+          <td><%= link_to project, [@year, project] %></td>
+          <td><%= project.week_number %></td>
+          <td><%= simple_format project.description %></td>
+          <td><%= project.user %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<h3>Projets sans semestres</h3>
+<ul>
+  <% @year.projects.each do |project| %>
+    <% next if project.semesters.any? %>
+    <li><%= link_to project, [@year, project] %></li>
+  <% end %>
+</ul>

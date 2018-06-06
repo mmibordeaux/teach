@@ -6,10 +6,8 @@
     <tr>
       <th style="min-width: 200px">Nom</th>
       <th>Email</th>
-      <th>Fonctionnaire ?</th>
-      <th>Responsable des modules</th>
+      <th>Fonctionnaire?</th>
       <th>Champs</th>
-      <th>Projets</th>
     </tr>
   </thead>
   <tbody>
@@ -23,9 +21,7 @@
           <% end %>
         </td>
         <td><%= user.public ? 'oui' : 'non' %></td>
-        <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: user.teaching_modules} %></td>
         <td><%= render partial: 'fields/inline_list', locals: {fields: user.fields} %></td>
-        <td><%= render partial: 'projects/inline_list', locals: {projects: user.projects} %></td>
       </tr>
     <% end %>
   </tbody>

@@ -7,9 +7,6 @@
 <h2>Sous-champs</h2>
 <%= render partial: 'table', locals: {fields: @field.children.sorted} %>
 
-<h2>Projets</h2>
-<%= render partial: 'projects/inline_list', locals: {projects: @field.projects} %>
-
 <h2>Modules</h2>
 <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @field.teaching_modules_including_children} %>
 

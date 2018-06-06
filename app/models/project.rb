@@ -46,6 +46,11 @@ class Project < ActiveRecord::Base
     "#{real_year}-#{ '%02d' % position}"
   end
 
+  def possible_teaching_modules
+    ids = objectives.collect &:teaching_module_id
+    TeachingModule.where(semester: semesters, id: ids)
+  end
+
   # Modules though fields, filtered by semesters
   def teaching_modules
     list = []
@@ -93,6 +98,7 @@ class Project < ActiveRecord::Base
   end
 
   def to_s
+    return 'Projet sans titre' if label.blank?
     "#{label}"
   end
 

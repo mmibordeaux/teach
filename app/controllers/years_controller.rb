@@ -1,27 +1,29 @@
 class YearsController < ApplicationController
   load_and_authorize_resource except: :user
-
-  add_breadcrumb 'Années', :years_path
+  before_action :load_year
 
   def index
     Year.create_necessary
     @years = Year.order(year: :desc)
     @title = 'Années'
     @subtitle = 'Après années, après années...'
+    breadcrumb
   end
 
   def show
     @title = @year
     @subtitle = "Du #{ @year.from.strftime "%d/%m/%Y"} au #{@year.to.strftime "%d/%m/%Y"}"
-    add_breadcrumb @year
+    breadcrumb
   end
 
-  def user
-    @year = Year.find params[:year_id]
-    @user = User.find params[:id]
-    add_breadcrumb @year, @year
-    add_breadcrumb @user
-    @title = @user
-    @subtitle = @year
+  protected
+
+  def load_year
+    @year = Year.find params[:year_id] if params.include? :year_id
+  end
+
+  def breadcrumb
+    add_breadcrumb 'Années', :years_path
+    add_breadcrumb @year, @year if @year
   end
 end

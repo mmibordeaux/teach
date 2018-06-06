@@ -30,7 +30,7 @@
 <hr class="spacer">
 
 <h2>Mes interventions (maquette)</h2>
-<% @year.involvements_for(current_user).includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+<% @year.involvements_for_user(current_user).includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3>
@@ -70,7 +70,7 @@
           <p>Responsable du module</p>
           <hr>
           <% involvement.teaching_module.involvements.where.not(user: current_user).each do |involvement| %>
-            <%= render 'involvements/short', involvement: involvement %><br/>
+            <%= render 'years/involvements/short', involvement: involvement %><br/>
             <hr>
           <% end %>
         </div>

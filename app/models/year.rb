@@ -64,20 +64,31 @@ class Year < ActiveRecord::Base
   end
 
   def users
-    involvements.collect(&:user).uniq.sort_by { |user| user&.last_name }
-  rescue
+    involvements.where.not(user: nil).collect(&:user).uniq.sort_by { |user| user&.last_name }
   end
   
-  def involvements_for(user)
+  def involvements_for_user(user)
     involvements.where(user: user)
+  end
+
+  def involvements_for_teaching_module(teaching_module)
+    involvements.where(teaching_module: teaching_module)
   end
 
   def events_for(user)
     user.events.where('date >= ? AND date < ?', from, to)
   end
 
+  def student_hours
+    involvements.collect(&:student_hours).sum.round(2)
+  end
+
+  def teacher_hours
+    involvements.collect(&:teacher_hours).sum.round(2)
+  end
+
   def planned_teacher_hours_for(user, kind = :teacher_hours)
-    involvements_for(user).sum(kind)
+    involvements_for_user(user).sum(kind)
   end
 
   def scheduled_teacher_hours_for(user)
@@ -85,7 +96,7 @@ class Year < ActiveRecord::Base
   end
 
   def planned_teaching_modules_for(user)
-    involvements_for(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
+    involvements_for_user(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
   end
 
   def planned_delta_for(user)
@@ -96,8 +107,12 @@ class Year < ActiveRecord::Base
     events_for(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
   end
 
+  def planned_hours_for_teaching_module(teaching_module, kind = :teacher_hours)
+    involvements_for_teaching_module(teaching_module).sum(kind)
+  end
+
   def planned_hours_for_teaching_module_and_user(teaching_module, user, kind = :teacher_hours)
-    involvements_for(user).where(teaching_module: teaching_module).sum(kind)
+    involvements_for_user(user).where(teaching_module: teaching_module).sum(kind)
   end
 
   def scheduled_hours_for_teaching_module_and_user(teaching_module, user, kind = :teacher_hours)

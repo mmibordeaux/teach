@@ -1,14 +1,16 @@
-<%= semantic_form_for @involvement do |f| %>
+<%= semantic_form_for [@year, @involvement] do |f| %>
   <%= f.inputs do %>
     <div class="row">
-      <div class="col-md-4">
-        <%= f.input :teaching_module, label: 'Module' %>
+      <div class="col-md-3">
+        <%= f.input :teaching_module, label: 'Module', include_blank: false, collection: @teaching_modules %>
         <%= f.input :promotion, label: 'Promotion', include_blank: false, collection: @promotions %>
         <%= f.input :user, label: 'Personne' %>
-        <%= f.input :project, label: 'Projet' %>
-        <%= f.input :description, input_html: { rows: 3 } %>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-4">
+        <%= f.input :project, label: 'Projet', collection: @projects %>
+        <%= f.input :description, label: 'Description de l\'intervention', input_html: { rows: 3 } %>
+      </div>
+      <div class="col-md-5">
         <h4>Cours magistraux (CM)</h4>
         <%= f.input :hours_cm, label: 'Heures' %>
         <h4>Travaux dirigés (TD)</h4>

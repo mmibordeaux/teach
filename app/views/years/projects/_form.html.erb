@@ -1,9 +1,9 @@
-<%= semantic_form_for @project do |f| %>
+<%= semantic_form_for [@year, @project] do |f| %>
   <%= f.inputs do %>
     <div class="row">
       <div class="col-md-4">
         <%= f.input :label %>
-        <%= f.input :year, include_blank: false, collection: Year.order(year: :desc) %>
+        <%= f.input :year_id, as: :hidden %>
         <%= f.input :user, label: 'Responsable' %>
         <%= f.input :description, input_html: { rows: 5 } %>
         <%= f.input :detailed_description, input_html: { rows: 15 } %>

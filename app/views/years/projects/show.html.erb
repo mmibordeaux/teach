@@ -1,4 +1,4 @@
-<%= link_to 'Modifier', edit_project_path(@project), class: 'btn btn-default' if can? :edit, @project %>
+<%= link_to 'Modifier', edit_year_project_path(year_id: @year.id, id: @project.id), class: 'btn btn-default' if can? :edit, @project %>
 <div class="row">
   <div class="col-md-3">
     <h4>Description détaillée</h4>
@@ -31,7 +31,7 @@
       <br/>
       Heures enseignants : <%= @project.teacher_hours %>
     </p>
-    <%= link_to 'Planifier une intervention', new_involvement_path(year_id: @project.year.id, project_id: @project.id), class: 'btn btn-primary btn-xs' %>
+    <%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, project_id: @project.id), class: 'btn btn-primary btn-xs' %>
     <table class="table">
       <thead>
         <tr>
@@ -50,7 +50,7 @@
       <tbody>
       <% @project.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
         <tr>
-          <td><%= link_to involvement.user, involvement.user %></td>
+          <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
           <td><%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %></td>
           <td><%= link_to involvement.promotion.year, involvement.promotion %></td>
           <td><%= involvement.student_hours %></td>
@@ -59,7 +59,7 @@
           <td><%= involvement.hours_tp %></td>
           <td><%= involvement.teacher_hours %></td>
           <td><%= simple_format involvement.description %></td>
-          <td><%= link_to 'Edit', edit_involvement_path(involvement, year_id: @project.year.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+          <td><%= link_to 'Edit', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
         </tr>
       <% end %>
       </tbody>

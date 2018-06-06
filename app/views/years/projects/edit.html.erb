@@ -1,0 +1,5 @@
+<h1>Editing Project</h1>
+<%= render 'form' %>
+<br/>
+<%= link_to 'Supprimer ce projet', year_project_path(year_id: @year.id, id: @project.id), class: 'btn btn-danger pull-right', method: :delete, data: {confirm: "Sûr?"}  %>
+<br/>

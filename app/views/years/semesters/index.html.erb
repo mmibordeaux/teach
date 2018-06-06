@@ -1,0 +1,26 @@
+<% @semesters.each do |semester| %>
+  <% 
+  objectives = semester.objectives
+  objectives_covered = objectives.where(id: @year.objectives)
+  objectives_not_covered = objectives - objectives_covered
+  %>
+  <h2><%= link_to semester, [@year, semester] %></h2>
+  <div id="covering<%= semester.id %>"></div></td>
+  <script type="text/javascript">
+    $(function () {
+      $('#covering<%= semester.id %>').highcharts({
+          chart: { type: 'bar', height: 150 },
+          title: null,
+          xAxis: { categories: ['Objectifs'], tickWidth: 0 },
+          yAxis: { min: 0, title: null },
+          credits: { enabled: false },
+          plotOptions: { series: { stacking: 'normal' } },
+          colors: ['#ff2222', '#22cc22'],
+          series: [
+            { name: 'Objectifs non couverts', data: [ <%= objectives_not_covered.count %> ] },
+            { name: 'Objectifs couverts', data: [ <%= objectives_covered.count %> ] }
+          ]
+      });
+  });
+  </script>
+<% end %>

@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th>Label</th>
-      <th>Projets</th>
       <th>Modules</th>
     </tr>
   </thead>
@@ -10,7 +9,6 @@
     <% fields.each do |field| %>
       <tr>
         <td><%= link_to field, field %></td>
-        <td><%= render partial: 'projects/inline_list', locals: {projects: field.projects} %></td>
         <td><%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: field.teaching_modules_including_children} %></td>
       </tr>
     <% end %>

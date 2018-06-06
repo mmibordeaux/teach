@@ -36,11 +36,11 @@
     <tbody>
       <% projects.each do |project| %>
         <tr>
-          <td><%= link_to project, project %></td>
+          <td><%= link_to project, [project.year, project] %></td>
           <% projects.each do |p| %>
             <% if project == p %>
               <td class="active">
-                <%= link_to project do %>
+                <%= link_to [project.year, project] do %>
                   <span><%= project.week_number %></span>
                 <% end %>
               </td>
@@ -170,7 +170,7 @@
         <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
         <td><%= (event.dtend - event.dtstart) / 60 / 60 %></td>
       </tr>
-    <% end %>
+    <% end unless @promotion.calendar_events.nil? %>
   </tbody>
 </table>
 

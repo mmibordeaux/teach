@@ -1,99 +1,6 @@
 <%= link_to 'Modifier', edit_teaching_module_path(@teaching_module), class: 'btn btn-primary btn-xs' if can? :edit, @teaching_module %>
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="btn btn-block btn-default">
-      <h2>Maquette <%= @teaching_module.planned_student_hours.round %></h2>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="btn btn-block btn-default">
-      <h2>PPN <%= @teaching_module.expected_student_hours.round %></h2>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="btn btn-block btn-<%= @teaching_module.student_hours_delta < 0 ? 'danger' : 'success' %>">
-      <h2>Delta <%= @teaching_module.student_hours_delta.round %>%</h2>
-    </div>
-  </div>
-</div>
-
-<hr/>
-
-<h2>Heures</h2>
-<div id="hours"></div></td>
-<script type="text/javascript">
-  $(function () {
-    $('#hours').highcharts({
-        chart: { type: 'bar', height: 150 },
-        title: null,
-        xAxis: { categories: ['PPN', 'Planifié'], tickWidth: 0 },
-        yAxis: { min: 0, title: null },
-        tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
-        plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
-        legend: { enabled: false },
-        credits: { enabled: false },
-        series: [
-          { 
-            name: 'TP', 
-            data: [
-              <%= @teaching_module.hours_tp %>, 
-              <%= @teaching_module.planned_student_hours_tp %>
-            ] 
-          }, 
-          { 
-            name: 'TD', 
-            data: [
-              <%= @teaching_module.hours_td %>, 
-              <%= @teaching_module.planned_student_hours_td %>
-            ] 
-          }, 
-          { 
-            name: 'CM', 
-            data: [
-              <%= @teaching_module.hours_cm %>, 
-              <%= @teaching_module.planned_student_hours_cm %>
-              ] 
-            }
-          ]
-    });
-});
-</script>
-<%= link_to 'Planifier une intervention', new_involvement_path(teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Promotion</th>
-      <th>Personne</th>
-      <th>Heures étudiant total</th>
-      <th>CM</th>
-      <th>TD</th>
-      <th>TP</th>
-      <th>Heures enseignant</th>
-      <th>Note</th>
-      <th>Projet</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @teaching_module.involvements.includes(:user).reorder('users.last_name').each do |involvement| %>
-    <tr>
-      <td><%= link_to involvement.promotion, involvement.promotion %></td>
-      <td><%= link_to involvement.user, involvement.user %></td>
-      <td><%= involvement.student_hours %></td>
-      <td><%= involvement.hours_cm %></td>
-      <td><%= involvement.hours_td %> <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
-      <td><%= involvement.hours_tp %> <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
-      <td><%= involvement.teacher_hours %></td>
-      <td style="max-width: 200px"><%= simple_format involvement.description %></td>
-      <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
-      <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<div class="row">
   <div class="col-md-4">
     <h2>En bref</h2>
     <ul class="list">
@@ -143,9 +50,5 @@
   <div class="col-md-6">
     <h2>Champs concernés</h2>
     <%= render partial: 'fields/inline_list', locals: {fields: @teaching_module.fields} %>
-  </div>
-  <div class="col-md-6">
-    <h2>Projets possibles</h2>
-    <%#= render partial: 'projects/inline_list', locals: {projects: @teaching_module.projects} %>
   </div>
 </div>

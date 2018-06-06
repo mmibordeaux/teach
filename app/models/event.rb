@@ -26,6 +26,7 @@ class Event < ActiveRecord::Base
   before_save :compute_student_hours
 
   def self.sync(promotion)
+    return if promotion.calendar_events.nil?
     promotion.events.destroy_all
     promotion.calendar_events.each do |calendar_event|
       create_with calendar_event, promotion

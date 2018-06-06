@@ -1,0 +1,4 @@
+<%= render 'form' %>
+<br/>
+<%= link_to 'Supprimer cette planification', year_involvement_path(year_id: @year.id, id: @involvement.id), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger pull-right'  %>
+<br/>

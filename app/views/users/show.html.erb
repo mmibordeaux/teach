@@ -2,7 +2,6 @@
 
 <h2>Heures maquette</h2>
 <p><%= @user.teacher_hours %> heures enseignant / <%= @user.hours %> heures de service</p>
-<%= link_to 'Planifier un module', new_involvement_path(user_id: @user.id) if can? :create, Involvement %>
 <table class="table">
   <thead>
     <tr>
@@ -33,8 +32,7 @@
       <td><%= involvement.hours_tp %></td>
       <td><%= involvement.teacher_hours %></td>
       <td><%= simple_format involvement.description %></td>
-      <td><%= link_to involvement.project, involvement.project unless involvement.project.nil? %></td>
-      <td><%= link_to 'Modifier', edit_involvement_path(involvement), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+      <td><%= link_to involvement.project, [involvement.project.year, involvement.project] unless involvement.project.nil? %></td>
     </tr>
   <% end %>
   </tbody>
@@ -71,19 +69,3 @@
   </tbody>
 </table>
 
-<h2>Projets: responsabilité</h2>
-<%= render partial: 'projects/table', locals: {projects: @user.projects_managed} %>
-
-<h2>Projets: implication</h2>
-<%= render partial: 'projects/table', locals: {projects: @user.projects} %>
-
-<div class="row">
-  <div class="col-md-6"> 
-    <h2>Champs</h2>
-    <%= render partial: 'fields/inline_list', locals: {fields: @user.fields} %>
-  </div>
-  <div class="col-md-6"> 
-    <h2>Responsable modules</h2>
-    <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @user.teaching_modules} %>
-  </div>
-</div>

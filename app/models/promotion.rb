@@ -67,6 +67,7 @@ class Promotion < ActiveRecord::Base
     require 'open-uri'
     cal_file = open calendar_url
     Icalendar::Parser.new(cal_file).parse.first.events
+  rescue
   end
   
   def to_s

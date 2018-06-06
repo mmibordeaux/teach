@@ -1,5 +1,53 @@
-<h2>Projets</h2>
+<div id="covering"></div></td>
+<script type="text/javascript">
+  $(function () {
+    $('#covering').highcharts({
+        chart: { type: 'bar', height: 150 },
+        title: null,
+        xAxis: { categories: ['Objectifs'], tickWidth: 0 },
+        yAxis: { min: 0, title: null },
+        credits: { enabled: false },
+        plotOptions: { series: { stacking: 'normal' } },
+        colors: ['#ff2222', '#22cc22'],
+        series: [
+          { name: 'Objectifs non couverts', data: [ <%= @objectives_not_covered.count %> ] },
+          { name: 'Objectifs couverts', data: [ <%= @objectives_covered.count %> ] }
+        ]
+    });
+});
+</script>
 
+<h2>Modules</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="300">Module</th>
+      <th>Objectif</th>
+      <th width="300">Projets visant cet objectif</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @objectives.each do |objective| %>
+      <tr class="<%= 'bg-danger' unless objective.covered_in_year?(@year) %>">
+        <td><%= objective.teaching_module.full_name %></td>
+        <td><%= objective %></td>
+        <td>
+          <% if objective.covered_in_year?(@year) %>
+            <ul class="list-unstyled">
+              <% objective.covered_in_year_by_projects(@year).each do |project| %>
+                <li><%= link_to project, [@year, project] %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            Aucun projet
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Projets</h2>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -13,7 +61,7 @@
   <tbody>
     <% @projects.sort_by(&:week_number).each do |project| %>
       <tr>
-        <td><%= link_to project, project %></td>
+        <td><%= link_to project, [@year, project] %></td>
         <td><%= project.week_number %></td>
         <td><%= simple_format project.description %></td>
         <td>
@@ -36,58 +84,8 @@
   </tbody>
 </table>
 
-<h2>Couverture des objectifs du PPN</h2>
-
-<div id="covering"></div></td>
-<script type="text/javascript">
-  $(function () {
-    $('#covering').highcharts({
-        chart: { type: 'bar', height: 150 },
-        title: null,
-        xAxis: { categories: ['Objectifs'], tickWidth: 0 },
-        yAxis: { min: 0, title: null },
-        credits: { enabled: false },
-        plotOptions: { series: { stacking: 'normal' } },
-        colors: ['#ff2222', '#22cc22'],
-        series: [
-          { name: 'Objectifs non couverts', data: [ <%= @objectives_not_covered.count %> ] },
-          { name: 'Objectifs couverts', data: [ <%= @objectives_covered.count %> ] }
-        ]
-    });
-});
-</script>
-<table class="table">
-  <thead>
-    <tr>
-      <th width="300">Module</th>
-      <th>Objectif</th>
-      <th width="300">Projets visant cet objectif</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @objectives.each do |objective| %>
-      <tr class="<%= 'bg-danger' unless objective.covered_in_year?(@year) %>">
-        <td><%= objective.teaching_module.full_name %></td>
-        <td><%= objective %></td>
-        <td>
-          <% if objective.covered_in_year?(@year) %>
-            <ul class="list-unstyled">
-              <% objective.covered_in_year_by_projects(@year).each do |project| %>
-                <li><%= link_to project, project %></li>
-              <% end %>
-            </ul>
-          <% else %>
-            Aucun projet
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
 <h2>Modules</h2>
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Module</th>
@@ -102,7 +100,7 @@
           <% if teaching_module.projects_in_year?(@year) %>
             <ul class="list-unstyled">
               <% teaching_module.projects_in_year(@year).sort_by(&:week_number).each do |project| %>
-                <li><%= link_to project, project %></li>
+                <li><%= link_to project, [@year, project] %></li>
               <% end %>
             </ul>
           <% else %>

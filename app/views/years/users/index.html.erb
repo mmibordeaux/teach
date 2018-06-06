@@ -1,0 +1,36 @@
+<p><%= @users.count %> personnes</p>
+<%= link_to 'Nouvelle personne', new_user_path, class: 'btn btn-primary btn-xs' if can? :create, User %>
+
+<h2>Services</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="min-width: 200px">Nom</th>
+      <th>Service</th>
+      <th>Fonctionnaire ?</th>
+      <th>Maquette</th>
+      <th>Delta service / maquette</th>
+      <th>EDT</th>
+      <th>Delta maquette / EDT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @year.users.each do |user| %>
+      <% next if user.nil? %>
+      <%
+      service = user.hours
+      planned = @year.planned_teacher_hours_for(user)
+      scheduled = @year.scheduled_teacher_hours_for(user)
+      %>
+      <tr>
+        <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
+        <td><%= service.round unless service.nil? %></td>
+        <td><%= user.public ? 'oui' : 'non' %></td>
+        <td><%= planned.round %></td>
+        <%= render 'application/td_delta', value: planned, reference: service %>
+        <td><%= scheduled.round %></td>
+        <%= render 'application/td_delta', value: scheduled, reference: planned %>
+      </tr>
+    <% end unless @year.users.nil? %>
+  </tbody>
+</table>
