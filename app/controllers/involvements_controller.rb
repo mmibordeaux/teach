@@ -1,8 +1,6 @@
 class InvolvementsController < ApplicationController
   load_and_authorize_resource
 
-  add_breadcrumb 'Planifications', :involvements_path
-
   def index
     @involvements = Involvement.all
   end
@@ -11,39 +9,45 @@ class InvolvementsController < ApplicationController
   end
 
   def new
+    @year = Year.find params[:year_id]
+    @project = Project.find params[:project_id]
+    @promotions = @year.nil? ? Promotion.all : @year.promotions
     @involvement = Involvement.new
+    @involvement.project = @project
     @involvement.user_id = params[:user_id] if params.include? :user_id
     @involvement.teaching_module_id = params[:teaching_module_id] if params.include? :teaching_module_id
     @title = 'Planifier une intervention'
+    add_breadcrumb 'Années', years_path
+    add_breadcrumb @year, @year
+    add_breadcrumb @project, @project
+    add_breadcrumb @title
   end
 
   def edit
+    @year = Year.find params[:year_id]
+    @project = @involvement.project
+    @promotions = @year.nil? ? Promotion.all : @year.promotions
     @title = 'Modifier une planification'
+    add_breadcrumb 'Années', years_path
+    add_breadcrumb @year, @year
+    add_breadcrumb @project, @project
+    add_breadcrumb @title
   end
 
   def create
     @involvement = Involvement.new(involvement_params)
-
-    respond_to do |format|
-      if @involvement.save
-        format.html { redirect_to @involvement.teaching_module, notice: 'Involvement was successfully created.' }
-        format.json { render :show, status: :created, location: @involvement }
-      else
-        format.html { render :new }
-        format.json { render json: @involvement.errors, status: :unprocessable_entity }
-      end
+    if @involvement.save
+      redirect_to @involvement.project, notice: 'Involvement was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @involvement.update(involvement_params)
-        format.html { redirect_to @involvement.teaching_module, notice: 'Involvement was successfully updated.' }
-        format.json { render :show, status: :ok, location: @involvement }
-      else
-        format.html { render :edit }
-        format.json { render json: @involvement.errors, status: :unprocessable_entity }
-      end
+    if @involvement.update(involvement_params)
+      redirect_to @involvement.project, notice: 'Involvement was successfully updated.'
+    else
+      render :edit
     end
   end
 

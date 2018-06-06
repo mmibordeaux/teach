@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   def show
     @title = "#{@project}"
     @subtitle = "#{@project.description}"
+    add_breadcrumb @project.year, @project.year
     add_breadcrumb @project, @project
   end
 

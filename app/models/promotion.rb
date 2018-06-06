@@ -68,7 +68,7 @@ class Promotion < ActiveRecord::Base
     cal_file = open calendar_url
     Icalendar::Parser.new(cal_file).parse.first.events
   end
-
+  
   def to_s
     "Promotion #{year}"
   end
