@@ -137,6 +137,6 @@ Pour actualiser l'EDT, cliquez sur la promotion concernée.
         <td><%= scheduled.round %></td>
         <%= render 'application/td_delta', value: scheduled, reference: planned %>
       </tr>
-    <% end %>
+    <% end unless @year.users.nil? %>
   </tbody>
 </table>

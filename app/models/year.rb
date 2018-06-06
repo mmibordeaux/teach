@@ -65,6 +65,7 @@ class Year < ActiveRecord::Base
 
   def users
     involvements.collect(&:user).uniq.sort_by { |user| user&.last_name }
+  rescue
   end
   
   def involvements_for(user)

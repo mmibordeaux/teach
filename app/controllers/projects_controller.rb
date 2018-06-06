@@ -1,8 +1,6 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
 
-  add_breadcrumb 'Projets', :projects_path
-
   def index
     @projects = Project.all
     @title = 'Projets'
@@ -12,6 +10,7 @@ class ProjectsController < ApplicationController
   def show
     @title = "#{@project}"
     @subtitle = "#{@project.description}"
+    add_breadcrumb 'Années', years_path
     add_breadcrumb @project.year, @project.year
     add_breadcrumb @project, @project
   end
