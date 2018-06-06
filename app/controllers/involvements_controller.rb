@@ -52,12 +52,9 @@ class InvolvementsController < ApplicationController
   end
 
   def destroy
-    teaching_module = @involvement.teaching_module
+    project = @involvement.project
     @involvement.destroy
-    respond_to do |format|
-      format.html { redirect_to teaching_module, notice: 'Involvement was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to project, notice: 'Involvement was successfully destroyed.'
   end
 
   private
