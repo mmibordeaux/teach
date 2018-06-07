@@ -3,7 +3,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Code</th>
+      <th>Code PPN</th>
+      <th>Code Apogée</th>
       <th>Module</th>
       <th>Total</th>
       <th>CM</th>
@@ -15,6 +16,7 @@
     <% @year.planned_teaching_modules_for(@user).each do |teaching_module| %>
       <tr>
         <td><%= teaching_module.code %></td>
+        <td><%= teaching_module.code_apogee %></td>
         <td><%= teaching_module.label %></td>
         <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user) %></td>
         <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :hours_cm) %></td>
@@ -31,7 +33,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Code</th>
+      <th>Code PPN</th>
+      <th>Code Apogée</th>
       <th>Module</th>
       <th>Total</th>
       <th>CM</th>
@@ -43,6 +46,7 @@
     <% @year.scheduled_teaching_modules_for(@user).each do |teaching_module| %>
       <tr>
         <td><%= teaching_module.code %></td>
+        <td><%= teaching_module.code_apogee %></td>
         <td><%= teaching_module.label %></td>
         <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user) %></td>
         <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_cm) %></td>
