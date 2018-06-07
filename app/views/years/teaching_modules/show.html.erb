@@ -11,7 +11,7 @@
   </div>
   <div class="col-md-6">
     <div class="btn btn-block btn-<%= @teaching_module.student_hours_delta < 0 ? 'danger' : 'success' %>">
-      <h2>Delta <%= @teaching_module.student_hours_delta.round %>%</h2>
+      <h2>Delta <%#= @teaching_module.student_hours_delta.round # FIXME %>%</h2>
     </div>
   </div>
 </div>
