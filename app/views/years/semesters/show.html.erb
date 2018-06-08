@@ -55,6 +55,7 @@
       <th width="60">N° de semaine</th>
       <th>Description</th>
       <th width="200">Personnes impliquées</th>
+      <th width="100">Objectifs couverts</th>
       <th width="400">Modules</th>
     </tr>
   </thead>
@@ -72,6 +73,7 @@
             <% end %>
           </ul>
         </td>
+        <td><%= project.objectives.count %></td>
         <td>
           <ul class="list-unstyled">
             <% project.teaching_modules.each do |teaching_module| %>
