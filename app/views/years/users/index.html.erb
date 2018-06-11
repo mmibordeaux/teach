@@ -19,7 +19,7 @@
       <% next if user.nil? %>
       <%
       service = user.hours
-      planned = @year.planned_teacher_hours_for(user)
+      planned = @year.planned_hours_for(user)
       scheduled = @year.scheduled_teacher_hours_for(user)
       %>
       <tr>

@@ -24,7 +24,7 @@ class Year < ActiveRecord::Base
   def self.current
     create_necessary
     year = Date.today.year
-    year += 1 if Date.today.month >= 8
+    year += 1 if Date.today.month >= 7
     where(year: year).first
   end
 
@@ -63,6 +63,10 @@ class Year < ActiveRecord::Base
     Event.where('date >= ? AND date < ?', from, to)
   end
 
+  def projects_for_user(user)
+    involvements_for_user(user).collect(&:project).uniq.compact.to_ary.sort_by(&:week_number)
+  end
+
   def users
     involvements.where.not(user: nil).collect(&:user).uniq.sort_by { |user| user&.last_name }
   end
@@ -87,7 +91,7 @@ class Year < ActiveRecord::Base
     involvements.collect(&:teacher_hours).sum.round(2)
   end
 
-  def planned_teacher_hours_for(user, kind = :teacher_hours)
+  def planned_hours_for(user, kind = :teacher_hours)
     involvements_for_user(user).sum(kind)
   end
 
@@ -100,7 +104,7 @@ class Year < ActiveRecord::Base
   end
 
   def planned_delta_for(user)
-    planned_teacher_hours_for(user) - user.hours
+    planned_hours_for(user) - user.hours
   end
 
   def scheduled_teaching_modules_for(user)

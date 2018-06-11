@@ -17,6 +17,7 @@
         <th>N° de semaine</th>
         <th>Description</th>
         <th>Responsable</th>
+        <th>Heures étudiant (CM/TD/TP)</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +27,10 @@
           <td><%= project.week_number %></td>
           <td><%= simple_format project.description %></td>
           <td><%= project.user %></td>
+          <td>
+            <%= project.student_hours %>
+            (<%= project.student_hours_cm %>/<%= project.student_hours_td %>/<%= project.student_hours_tp %>)
+          </td>
         </tr>
       <% end %>
     </tbody>
