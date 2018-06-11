@@ -63,7 +63,7 @@ class Year < ActiveRecord::Base
     Event.where('date >= ? AND date < ?', from, to)
   end
 
-  def projects_for_user(user)
+  def projects_with_user_involved(user)
     involvements_for_user(user).collect(&:project).uniq.compact.to_ary.sort_by(&:week_number)
   end
 
