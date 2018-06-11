@@ -95,6 +95,7 @@
     <tr>
       <th>Code</th>
       <th>Module</th>
+      <th>Semestre</th>
       <th>Total heures enseignant</th>
       <th>CM</th>
       <th>TD</th>
@@ -106,6 +107,7 @@
       <tr>
         <td><%= teaching_module.code %></td>
         <td><%= teaching_module.label %></td>
+        <td><%= teaching_module.semester %></td>
         <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user).round %></td>
         <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_cm).round %></td>
         <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_td).round %></td>
