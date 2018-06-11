@@ -11,6 +11,7 @@ class Years::ProjectsController < YearsController
   def show
     @title = "#{@project}"
     @subtitle = "#{@project.description}"
+    @involvements = @project.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id, involvements.user_id')
     add_breadcrumb 'Années', years_path
     add_breadcrumb @project.year, @year
     add_breadcrumb 'Projets', year_projects_path(year_id: @year.id)

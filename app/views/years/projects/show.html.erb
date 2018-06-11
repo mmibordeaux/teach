@@ -48,7 +48,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @project.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
+      <% @involvements.each do |involvement| %>
         <tr>
           <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
           <td><%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %></td>
