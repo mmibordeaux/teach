@@ -38,6 +38,36 @@
 </div>
 
 <hr>
+<h4>Intervenants planifiés</h4>
+<p>Les heures sont des heures du point de vue de l'étudiant. Le cours magistral (CM) est un cours dispensé à toute la promotion en même temps (50 étudiants). Les travaux dirigés (TD) sont des cours donnés par demi-groupe. Les travaux pratiques (TP) sont des cours en 1/3 de groupe. Un TD de 2 heures assuré pour 1 seul groupe compte comme 1 heure, parce que la moitié de la promotion a 0 heures de cours, et l'autre moitié 2 heures. Dans ce cas, une autre personne assurera 2 heures de TD pour l'autre groupe, ce qui ramènera le total à 2 heures.</p>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Personne</th>
+        <th>Contenu</th>
+        <th>Heures</th>
+        <th>CM</th>
+        <th>TD</th>
+        <th>TP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.involvements.each do |involvement| %>
+        <tr>
+          <td><%= involvement.user %></td>
+          <td><%= simple_format involvement.description %></td>
+          <td><%= involvement.student_hours.round %></td>
+          <td><%= involvement.student_hours_cm.round unless involvement.student_hours_cm.zero? %></td>
+          <td><%= involvement.student_hours_td.round unless involvement.student_hours_td.zero? %></td>
+          <td><%= involvement.student_hours_tp.round unless involvement.student_hours_tp.zero? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<hr>
+
 <h4>Objectifs visés par ce projet</h4>
 <button data-toggle="collapse" data-target="#objectifs" class="btn btn-default">Cliquez pour voir les objectifs</button>
 <div id="objectifs" class="collapse">
