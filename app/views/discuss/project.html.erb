@@ -44,18 +44,20 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Personne</th>
+        <th width="250">Personne</th>
+        <th width="50">Promotion</th>
         <th>Contenu</th>
-        <th>Heures</th>
-        <th>CM</th>
-        <th>TD</th>
-        <th>TP</th>
+        <th width="50">Heures</th>
+        <th width="50">CM</th>
+        <th width="50">TD</th>
+        <th width="50">TP</th>
       </tr>
     </thead>
     <tbody>
-      <% @project.involvements.each do |involvement| %>
+      <% @project.involvements.includes(:user).order('users.last_name').each do |involvement| %>
         <tr>
           <td><%= involvement.user %></td>
+          <td><%= involvement.promotion.year %></td>
           <td><%= simple_format involvement.description %></td>
           <td><%= involvement.student_hours.round %></td>
           <td><%= involvement.student_hours_cm.round unless involvement.student_hours_cm.zero? %></td>
