@@ -57,7 +57,7 @@
           <td><%= involvement.hours_cm %></td>
           <td><%= involvement.hours_td %></td>
           <td><%= involvement.hours_tp %></td>
-          <td><%= involvement.teacher_hours %></td>
+          <td><%= involvement.teacher_hours.round %></td>
           <td><%= simple_format involvement.description %></td>
           <td><%= link_to 'Edit', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
         </tr>
