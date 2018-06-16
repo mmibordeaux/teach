@@ -11,6 +11,7 @@
 #  user_id              :integer
 #  year_id              :integer
 #  detailed_description :text
+#  sublabel             :string
 #
 
 require 'test_helper'

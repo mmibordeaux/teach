@@ -23,7 +23,12 @@
     <tbody>
       <% projects.sort_by(&:week_number).each do |project| %>
         <tr>
-          <td><%= link_to project, [@year, project] %></td>
+          <td>
+            <%= link_to [@year, project] do %>
+              <%= project %><br>
+              <small><%= project.sublabel %></small>
+            <% end %>
+          </td>
           <td><%= project.week_number %></td>
           <td><%= simple_format project.description %></td>
           <td><%= project.user %></td>

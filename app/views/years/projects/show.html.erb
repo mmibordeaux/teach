@@ -1,6 +1,7 @@
 <%= link_to 'Modifier', edit_year_project_path(year_id: @year.id, id: @project.id), class: 'btn btn-default' if can? :edit, @project %>
 <div class="row">
   <div class="col-md-3">
+    <%= @project.sublabel %>
     <h4>Description détaillée</h4>
     <%= simple_format @project.detailed_description %>
     <h4>Année</h4>

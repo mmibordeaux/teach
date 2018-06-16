@@ -72,6 +72,6 @@ class Years::ProjectsController < YearsController
   end
 
   def project_params
-    params.require(:project).permit(:label, :description, :detailed_description, :position, :user_id, :year_id, field_ids: [], semester_ids: [], user_ids: [], objective_ids: [])
+    params.require(:project).permit(:label, :sublabel, :description, :detailed_description, :position, :user_id, :year_id, field_ids: [], semester_ids: [], user_ids: [], objective_ids: [])
   end
 end
