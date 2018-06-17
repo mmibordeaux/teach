@@ -7,6 +7,8 @@
 //= require chartkick
 //= require sunburst
 //= require timeline/timeline-min
+//= require star-rating/star-rating.min
+//= require star-rating/locales/fr
 //= require_self
 
 jQuery(function() {

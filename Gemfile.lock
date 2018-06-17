@@ -74,6 +74,9 @@ GEM
       formtastic (>= 3.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    glyphicons-rails (0.1.2)
+      sass (~> 3.3)
+      sass-rails
     highcharts-rails (6.0.3)
       railties (>= 3.1)
     i18n (0.9.5)
@@ -201,6 +204,7 @@ DEPENDENCIES
   font-awesome-rails
   formtastic
   formtastic-bootstrap
+  glyphicons-rails
   highcharts-rails
   icalendar
   jbuilder
