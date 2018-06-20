@@ -3,7 +3,7 @@ class Years::TeachingModulesController < YearsController
     @teaching_modules = TeachingModule.all.order(:semester_id)
     @student_hours = @year.student_hours
     @teacher_hours = @year.teacher_hours
-    @title = 'Projets'
+    @title = 'Modules'
     @subtitle = @year.to_s
     breadcrumb
   end
