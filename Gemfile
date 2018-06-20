@@ -29,6 +29,7 @@ gem 'jbuilder'
 gem 'd3_rails'
 gem 'chartkick'
 gem 'highcharts-rails'
+gem 'glyphicons-rails'
 
 group :development do
   gem 'byebug'
