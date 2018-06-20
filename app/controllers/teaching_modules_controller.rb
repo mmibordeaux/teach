@@ -5,13 +5,16 @@ class TeachingModulesController < ApplicationController
 
   def index
     @teaching_modules = TeachingModule.all.order(:semester_id)
-    @student_hours = Involvement.student_hours
-    @teacher_hours = Involvement.teacher_hours
+    @student_hours = TeachingModule.sum :hours
+    @student_hours_cm = TeachingModule.sum :hours_cm
+    @student_hours_td = TeachingModule.sum :hours_td
+    @student_hours_tp = TeachingModule.sum :hours_tp
     @title = 'Modules'
   end
 
   def show
-    @title = @teaching_module.full_name
+    @title = @teaching_module.label
+    @subtitle = "#{@teaching_module.code} / #{@teaching_module.code_apogee}"
     add_breadcrumb @teaching_module, @teaching_module
   end
 

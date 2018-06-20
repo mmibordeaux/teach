@@ -1,71 +1,78 @@
 <%= link_to 'Modifier', edit_user_path(@user), class: 'btn btn-primary btn-xs' if can? :edit, @user %>
 
-<h2>Heures maquette</h2>
-<p><%= @user.teacher_hours %> heures enseignant / <%= @user.hours %> heures de service</p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Promotion</th>
-      <th>Semestre</th>
-      <th>Code module</th>
-      <th>Nom module</th>
-      <th>Heures étudiant total</th>
-      <th>CM</th>
-      <th>TD</th>
-      <th>TP</th>
-      <th>Heures enseignant</th>
-      <th>Note</th>
-      <th>Projet</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @user.involvements.includes(:teaching_module).reorder('teaching_modules.semester_id').each do |involvement| %>
-    <tr>
-      <td><%= link_to involvement.promotion, involvement.promotion %></td>
-      <td><%= link_to involvement.teaching_module.semester, involvement.teaching_module.semester unless involvement.teaching_module.nil? %></td>
-      <td><%= link_to involvement.teaching_module, involvement.teaching_module unless involvement.teaching_module.nil? %></td>
-      <td><%= link_to involvement.teaching_module.label, involvement.teaching_module unless involvement.teaching_module.nil? %></td>
-      <td><%= involvement.student_hours %></td>
-      <td><%= involvement.hours_cm %></td>
-      <td><%= involvement.hours_td %></td>
-      <td><%= involvement.hours_tp %></td>
-      <td><%= involvement.teacher_hours %></td>
-      <td><%= simple_format involvement.description %></td>
-      <td><%= link_to involvement.project, [involvement.project.year, involvement.project] unless involvement.project.nil? %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<br/><br/>
 
-<h2>Heures EDT</h2>
-
-<p>
-  <%= @user.events.cm.sum :duration %> CM
-  / <%= @user.events.td.sum :duration %> TD
-  / <%= @user.events.tp.sum :duration %> TP
-</p>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Promotion</th>
-      <th>Module</th>
-      <th>Type</th>
-      <th>Date</th>
-      <th>Heures</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.events.each do |event| %>
-      <tr>
-        <td><%= link_to event.promotion, event.promotion %></td>
-        <td><%= link_to event.teaching_module, event.teaching_module %></td>
-        <td><%= event.kind.to_s.upcase %></td>
-        <td><%= event.date.strftime "%d/%m/%Y" %></td>
-        <td><%= event.duration %></td>
-      </tr>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <% @years.each_with_index do |year, index| %>
+      <li role="presentation"<%= raw ' class="active"' if index.zero? %>>
+        <a href="#year<%= year.id %>" role="tab" data-toggle="tab"><%= year %></a>
+      </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+  <div class="tab-content">
+    <% @years.each_with_index do |year, index| %>
+      <div role="tabpanel" class="tab-pane<%= ' active' if index.zero? %>" id="year<%= year.id %>">
+        <h2><%= year %></h2>
 
+        <h3>Service prévisionnel (prévu dans la maquette)</h3>
+        <p><%= year.planned_hours_for(@user).round %> heures enseignant</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Code PPN</th>
+              <th>Code Apogée</th>
+              <th>Module</th>
+              <th>Total</th>
+              <th>CM</th>
+              <th>TD</th>
+              <th>TP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% year.planned_teaching_modules_for(@user).each do |teaching_module| %>
+              <tr>
+                <td><%= teaching_module.code %></td>
+                <td><%= teaching_module.code_apogee %></td>
+                <td><%= teaching_module.label %></td>
+                <td><%= year.planned_hours_for_teaching_module_and_user(teaching_module, @user).round %></td>
+                <td><%= year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm).round %></td>
+                <td><%= year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td).round %></td>
+                <td><%= year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp).round %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <h3>Service validé (planifié dans l'emploi du temps)</h3>
+        <p><%= year.scheduled_teacher_hours_for(@user).round %> heures enseignant</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Code PPN</th>
+              <th>Code Apogée</th>
+              <th>Module</th>
+              <th>Total</th>
+              <th>CM</th>
+              <th>TD</th>
+              <th>TP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% year.scheduled_teaching_modules_for(@user).each do |teaching_module| %>
+              <tr>
+                <td><%= teaching_module.code %></td>
+                <td><%= teaching_module.code_apogee %></td>
+                <td><%= teaching_module.label %></td>
+                <td><%= year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user).round %></td>
+                <td><%= year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm) %></td>
+                <td><%= year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td) %></td>
+                <td><%= year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>  
+  </div>
+</div>

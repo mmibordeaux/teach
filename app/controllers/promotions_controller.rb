@@ -1,24 +1,31 @@
 class PromotionsController < ApplicationController
   load_and_authorize_resource
-
-  add_breadcrumb 'Promotions', :promotions_path
+  before_action :load_promotion
 
   def index
     @promotions = Promotion.all
     @title = 'Promotions'
     @subtitle = 'Chaque année, de beaux étudiants bien frais'
+    breadcrumb
   end
 
   def show
-    Event.sync @promotion
     @title = @promotion.to_s
-    @semesters = Semester.all
     @subtitle = 'Répartition des heures du point de vue étudiant'
-    add_breadcrumb @promotion
+    @semesters = Semester.all
+    breadcrumb
+  end
+
+  def sync
+    @title = 'Synchronisation Google Calendar'
+    breadcrumb
+    add_breadcrumb @title
   end
 
   def new
     @promotion = Promotion.new
+    Event.sync @promotion
+    flash[:notice] = 'Synchronisation effectuée'
   end
 
   def edit
@@ -58,7 +65,16 @@ class PromotionsController < ApplicationController
     end
   end
 
-  private
+  protected
+
+  def breadcrumb
+    add_breadcrumb 'Promotions', :promotions_path
+    add_breadcrumb @promotion.year, @promotion if @promotion
+  end
+
+  def load_promotion
+    @promotion = Promotion.find params[:promotion_id] if params.include? :promotion_id
+  end
 
   def promotion_params
     params.require(:promotion).permit(:year, :calendar_url)

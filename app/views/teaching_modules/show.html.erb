@@ -8,13 +8,11 @@
       <li>Semestre : <%= link_to @teaching_module.semester, @teaching_module.semester %></li>
       <li>Catégorie : <%= link_to @teaching_module.teaching_category, @teaching_module.teaching_category %></li>
       <li>Sujet : <%= link_to @teaching_module.teaching_subject, @teaching_module.teaching_subject %></li>
-      <li>Durée : <%= @teaching_module.hours %> heures</li>
-      <li>Coefficient : <%= @teaching_module.coefficient %></li>
-      <% unless @teaching_module.user.nil? %>
-        <li>Responsable : <%= link_to @teaching_module.user, @teaching_module.user %></li>
-      <% end %>
+      <li>Heures : <%= @teaching_module.hours %></li>
+      <li>CM : <%= @teaching_module.hours_cm %></li>
+      <li>TD : <%= @teaching_module.hours_td %></li>
+      <li>TP : <%= @teaching_module.hours_tp %></li>
     </ul>
-	<%= link_to 'Définir le responsable et les champs concernés', edit_teaching_module_path(@teaching_module), class: 'btn btn-primary btn-xs' %>
   </div>
   <div class="col-md-4">
     <h2>Contenus</h2>

@@ -7,7 +7,6 @@
       <th style="min-width: 200px">Nom</th>
       <th>Email</th>
       <th>Fonctionnaire?</th>
-      <th>Champs</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +20,6 @@
           <% end %>
         </td>
         <td><%= user.public ? 'oui' : 'non' %></td>
-        <td><%= render partial: 'fields/inline_list', locals: {fields: user.fields} %></td>
       </tr>
     <% end %>
   </tbody>

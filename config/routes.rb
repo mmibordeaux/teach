@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'budgets/users' => 'budgets#users', as: 'budgets_users'
   get 'budgets/teaching_modules' => 'budgets#teaching_modules', as: 'budgets_teaching_modules'
   # get 'parse' => 'application#parse'
-  resources :users, :jobs, :fields, :objectives, :keywords, :competencies, :teaching_modules, :teaching_categories, :teaching_subjects, :teaching_units, :promotions
+  resources :users, :jobs, :fields, :objectives, :keywords, :competencies, :teaching_modules, :teaching_categories, :teaching_subjects, :teaching_units
   resources :semesters, only: [:index, :show]
   resources :years, only: [:index, :show] do 
     resources :projects, module: :years
@@ -13,6 +13,11 @@ Rails.application.routes.draw do
     resources :semesters, module: :years, only: [:index, :show]
     resources :teaching_modules, module: :years, only: [:index, :show]
     resources :users, module: :years
+  end
+  resources :promotions do 
+    resources :projects, module: :promotions, only: :index
+    resources :teaching_modules, module: :promotions, only: :index
+    get :sync
   end
   get 'dashboard' => 'dashboard#index', as: :dashboard
   scope :discuss do 

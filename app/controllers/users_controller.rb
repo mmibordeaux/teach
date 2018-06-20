@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   def show
     @title = @user.to_s
     @subtitle = @user.email
+    @years = Year.order(year: :desc)
     add_breadcrumb @user, @user
   end
 
@@ -30,6 +31,8 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @title = @user.to_s
+    @subtitle = @user.email
     add_breadcrumb @user, @user
     add_breadcrumb 'Modifier'
   end

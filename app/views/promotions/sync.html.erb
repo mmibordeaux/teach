@@ -1,0 +1,58 @@
+
+<h2>Evénements Google Calendar bruts</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Cours</th>
+      <th>Description</th>
+      <th>Personnes</th>
+      <th>Date</th>
+      <th>Heures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotion.calendar_events.each do |event| %>
+      <tr>
+        <td><%= event.summary %></td>
+        <td><%= event.description %></td>
+        <td><%= raw event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join '<br>' %></td>
+        <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
+        <td><%= (event.dtend - event.dtstart) / 60 / 60 %></td>
+      </tr>
+    <% end unless @promotion.calendar_events.nil? %>
+  </tbody>
+</table>
+
+<h2>Evénements Google Calendar importés</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Heures</th>
+      <th>Heures étudiants</th>
+      <th>Heures enseignant</th>
+      <th>Personnes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotion.events.each do |event| %>
+      <tr>
+        <td><%= event.teaching_module %></td>
+        <td><%= event.date.strftime "%d/%m/%Y" %></td>
+        <td><%= event.kind.to_s.upcase %></td>
+        <td><%= event.duration %></td>
+        <td><%= event.student_hours %></td>
+        <td><%= event.teacher_hours %></td>
+        <td>
+          <% event.users.each do |user| %>
+            <%= link_to user, user %><br>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

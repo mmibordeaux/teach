@@ -1,5 +1,3 @@
-<h1><%= @user %></h1>
-
 <%= render 'form' %>
 <br/>
 <%= link_to 'Supprimer cet utilisateur', user_path(@user), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger'   %>

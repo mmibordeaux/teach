@@ -1,31 +1,32 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Code PPN</th>
+      <th>Code Apogée</th>
       <th>Nom</th>
-      <th>En bref</th>
-      <th>Responsable</th>
-      <th>Heures étudiant</th>
-      <th>Heures enseignant</th>
-      <th>Heures PPN</th>
-      <th>Champs</th>
-      <th>Mots-clés</th>
+      <th>UE</th>
+      <th>Catégorie</th>
+      <th>Semestre</th>
+      <th>Heures</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th width="300">Mots-clés</th>
     </tr>
   </thead>
   <tbody>
     <% teaching_modules.each do |teaching_module| %>
       <tr>
-        <td><%= link_to teaching_module.full_name, teaching_module %></td>
-        <td>
-          <%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %>,
-          <%= link_to teaching_module.teaching_category, teaching_module.teaching_category %>,
-          <%= link_to teaching_module.semester, teaching_module.semester %>, 
-          <%= teaching_module.hours %> heures
-        </td>
-        <td><%= link_to teaching_module.user, teaching_module.user unless teaching_module.user.nil? %></td>
-        <td><%= teaching_module.student_hours %></td>
-        <td><%= teaching_module.teacher_hours %></td>
+        <td><%= teaching_module.code %></td>
+        <td><%= teaching_module.code_apogee %></td>
+        <td><%= link_to teaching_module.label, teaching_module %></td>
+        <td><%= link_to teaching_module.teaching_unit, teaching_module.teaching_unit %></td>
+        <td><%= link_to teaching_module.teaching_category, teaching_module.teaching_category %></td>
+        <td><%= link_to teaching_module.semester, teaching_module.semester %></td>
         <td><%= teaching_module.hours %></td>
-        <td><%= render partial: 'fields/inline_list', locals: {fields: teaching_module.fields} %></td>
+        <td><%= teaching_module.hours_cm %></td>
+        <td><%= teaching_module.hours_td %></td>
+        <td><%= teaching_module.hours_tp %></td>
         <td><small><%= teaching_module.keywords.map{|k|k.label}.join(', ') %></small></td>
       </tr>
     <% end %>
