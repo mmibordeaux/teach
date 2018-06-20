@@ -61,8 +61,13 @@ class Years::InvolvementsController < YearsController
   end
 
   def prepare
-    @promotions = @year.promotions
     @projects = @year.projects
+    @promotions = @year.promotions
+    # if @involvement.project 
+    #   # @involvement.project.semesters
+    #   byebug
+    #   @promotions = @year.first_year
+    # end
     @teaching_modules = TeachingModule.all
     @teaching_modules = @project.possible_teaching_modules unless @project.nil?
   end
