@@ -139,7 +139,7 @@
         scheduled = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours).round
         %>
         <tr>
-          <td><%= link_to teaching_module.full_name, teaching_module %></td>
+          <td><%= link_to teaching_module.full_name, [@promotion.year_for_teaching_module(teaching_module), teaching_module] %></td>
           <td>
             <%= program %>
             (<%= teaching_module.hours_cm %> /

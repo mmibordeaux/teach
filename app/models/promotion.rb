@@ -35,6 +35,11 @@ class Promotion < ActiveRecord::Base
     second_year.projects.joins(:semesters).where(semesters: { id: [3, 4] })
   end
 
+  def year_for_teaching_module(teaching_module)
+    return first_year if teaching_module.semester_id.in? [1, 2]
+    second_year
+  end
+
   def projects
     first_year_projects + second_year_projects
   end
