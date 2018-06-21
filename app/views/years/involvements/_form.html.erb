@@ -2,12 +2,13 @@
   <%= f.inputs do %>
     <div class="row">
       <div class="col-md-3">
-        <%= f.input :teaching_module, label: 'Module', include_blank: false, collection: @teaching_modules %>
         <%= f.input :promotion, label: 'Promotion', include_blank: false, collection: @promotions %>
         <%= f.input :user, label: 'Personne' %>
+        <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
       </div>
       <div class="col-md-4">
         <%= f.input :project, label: 'Projet', collection: @projects %>
+        <%= f.input :teaching_module, label: 'Module', include_blank: false, collection: @teaching_modules_collection %>
         <%= f.input :description, label: 'Description de l\'intervention', input_html: { rows: 3 } %>
       </div>
       <div class="col-md-5">
@@ -28,5 +29,4 @@
       </div>
     </div>
   <% end %>
-  <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
 <% end %>

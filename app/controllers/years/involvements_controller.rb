@@ -11,9 +11,9 @@ class Years::InvolvementsController < YearsController
 
   def new
     @project = Project.find params[:project_id] if params.include? :project_id
-    prepare
     @involvement = Involvement.new
     @involvement.project = @project
+    prepare
     @title = 'Nouvelle intervention'
     breadcrumb
   end
@@ -63,13 +63,30 @@ class Years::InvolvementsController < YearsController
   def prepare
     @projects = @year.projects
     @promotions = @year.promotions
-    # if @involvement.project 
-    #   # @involvement.project.semesters
-    #   byebug
-    #   @promotions = @year.first_year
-    # end
+    if @involvement.project && @involvement.project.semesters.one?
+      semester = @involvement.project.semesters.first
+      @promotions = semester.id.in?([1, 2]) ? [@year.first_year_promotion] : [@year.second_year_promotion]
+    end
     @teaching_modules = TeachingModule.all
-    @teaching_modules = @project.possible_teaching_modules unless @project.nil?
+    @teaching_modules_collection = []
+    unless @project.nil?
+      @teaching_modules_collection.concat prepare_teaching_modules(@project.possible_teaching_modules)
+      @teaching_modules_collection.push ['---', '']
+    end
+    @teaching_modules_collection.concat prepare_teaching_modules(@teaching_modules)
+  end
+
+  def prepare_teaching_modules(teaching_modules)
+    teaching_modules.map do |teaching_module| 
+      programmed = teaching_module.expected_student_hours.round
+      planned = @year.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
+      teaching_module_name = teaching_module.full_name
+      if !planned.zero? && !programmed.zero?
+        delta = 100.0 * (planned - programmed) / programmed
+        teaching_module_name += " (#{delta.to_i}%)"
+      end
+      [teaching_module_name, teaching_module.id]
+    end
   end
 
   def breadcrumb
