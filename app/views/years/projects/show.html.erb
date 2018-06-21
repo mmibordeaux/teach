@@ -23,7 +23,8 @@
     </ul>
   </div>
   <div class="col-md-9">
-    <h2>Heures planifiées</h2>
+    <%= render 'years/projects/evaluation', project: @project %>
+    <h4>Heures planifiées</h4>
     <p>
       Heures étudiants : <%= @project.student_hours %>
       (CM <%= @project.student_hours_cm %>
@@ -66,7 +67,7 @@
       </tbody>
     </table>
 
-    <h2>Objectifs visés par ce projet</h2>
+    <h4>Objectifs visés par ce projet</h4>
     <table class="table table-striped">
       <thead>
         <tr>
