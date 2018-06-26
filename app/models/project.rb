@@ -64,6 +64,14 @@ class Project < ActiveRecord::Base
     list
   end
 
+  def involvements_for_user(user)
+    involvements.where(user: user)
+  end
+
+  def planned_hours_for_user(user, kind = :teacher_hours)
+    involvements_for_user(user).sum(kind)
+  end
+
   def student_hours
     sum_involvements :student_hours
   end
