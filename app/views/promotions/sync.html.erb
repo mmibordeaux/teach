@@ -44,7 +44,7 @@
         <td><%= event.teaching_module %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
         <td><%= event.kind.to_s.upcase %></td>
-        <td><%= event.duration %></td>
+        <td><%= number_to_human event.duration %></td>
         <td><%= number_to_human event.student_hours %></td>
         <td><%= number_to_human event.teacher_hours %></td>
         <td>
