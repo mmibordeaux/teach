@@ -29,6 +29,9 @@ class PromotionsController < ApplicationController
   end
 
   def edit
+    @title = "#{@promotion} - Modifier"
+    breadcrumb
+    add_breadcrumb 'Modifier'
   end
 
   def create

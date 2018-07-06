@@ -1,5 +1,5 @@
 <%= semantic_form_for @promotion do |f| %>
-  <%= f.input :year %>
-  <%= f.input :calendar_url, label: 'URL du calendrier' %>
-  <%= f.button :submit %>
+  <%= f.input :year, label: 'Année' %>
+  <%= f.input :calendar_url, label: 'URL du calendrier Google (Adresse privée au format iCal)' %>
+  <%= f.button :submit 'Enregistrer', class: 'btn btn-default' %>
 <% end %>
