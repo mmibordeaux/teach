@@ -52,11 +52,11 @@ class Event < ActiveRecord::Base
         teaching_module = TeachingModule.with_code(hashtag).first
       end
     end
-    event = Event.create promotion: promotion,
-      duration: duration,
-      date: date,
-      kind: kind,
-      teaching_module: teaching_module
+    event = Event.create  promotion: promotion,
+                          duration: duration,
+                          date: date,
+                          kind: kind,
+                          teaching_module: teaching_module
     calendar_event.attendee.each do |attendee| 
       email = attendee.to_s.remove 'mailto:'
       user = User.where(email: email).first

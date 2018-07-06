@@ -18,13 +18,13 @@ class PromotionsController < ApplicationController
 
   def sync
     @title = 'Synchronisation Google Calendar'
+    Event.sync @promotion
     breadcrumb
     add_breadcrumb @title
   end
 
   def new
     @promotion = Promotion.new
-    Event.sync @promotion
     flash[:notice] = 'Synchronisation effectuée'
   end
 
