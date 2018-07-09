@@ -119,6 +119,10 @@ class Year < ActiveRecord::Base
     involvements_for_user(user).where(teaching_module: teaching_module).sum(kind)
   end
 
+  def scheduled_hours_for_teaching_module(teaching_module, kind_of_hours)
+    events.where(teaching_module: teaching_module).send(kind_of_hours).sum(:student_hours)
+  end
+
   def scheduled_hours_for_teaching_module_and_user(teaching_module, user, kind = :teacher_hours)
     events = events_for(user).where(teaching_module: teaching_module)
     case kind

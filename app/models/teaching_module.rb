@@ -37,6 +37,7 @@ class TeachingModule < ActiveRecord::Base
   has_many :projects, -> { uniq }, through: :fields
   has_many :involvements
   has_many :users_involved, through: :involvements
+  has_many :events
   
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields
