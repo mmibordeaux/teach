@@ -6,4 +6,5 @@
 
 <%= link_to 'Projets', promotion_projects_path(promotion_id: @promotion.id), class: 'btn btn-default btn-lg' %>
 <%= link_to 'Modules', promotion_teaching_modules_path(promotion_id: @promotion.id), class: 'btn btn-default btn-lg' %>
-<%= link_to 'Synchroniser avec Google', promotion_sync_path(promotion_id: @promotion.id), class: 'btn btn-default btn-lg' %>
+<%= link_to 'Emploi du temps', promotion_events_path(promotion_id: @promotion.id), class: 'btn btn-default btn-lg' %>
+<%= link_to 'Synchroniser avec Google', promotion_events_sync_path(promotion_id: @promotion.id), method: :post, class: 'btn btn-default btn-lg' %>

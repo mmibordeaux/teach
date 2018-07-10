@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   resources :promotions do 
     resources :projects, module: :promotions, only: :index
     resources :teaching_modules, module: :promotions, only: :index
-    get :sync
+    get :events
+    post :events_sync
   end
   get 'dashboard' => 'dashboard#index', as: :dashboard
   scope :discuss do 

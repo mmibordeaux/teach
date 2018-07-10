@@ -16,11 +16,15 @@ class PromotionsController < ApplicationController
     breadcrumb
   end
 
-  def sync
-    @title = 'Synchronisation Google Calendar'
-    Event.sync @promotion
+  def events
+    @title = 'Emploi du temps'
     breadcrumb
     add_breadcrumb @title
+  end
+
+  def events_sync
+    Event.sync @promotion
+    redirect_to promotion_events_path(@promotion)
   end
 
   def new
