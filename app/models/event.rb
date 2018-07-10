@@ -27,11 +27,10 @@ class Event < ActiveRecord::Base
 
   def self.sync(promotion)
     return if promotion.calendar_events.nil?
-    promotion.events.destroy_all
+    promotion.events.delete_all
     promotion.calendar_events.each do |calendar_event|
       create_with calendar_event, promotion
     end
-    promotion.events.reload
   end
 
   def self.create_with(calendar_event, promotion)
