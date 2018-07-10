@@ -1,7 +1,11 @@
 <%= link_to 'Synchroniser avec Google', promotion_events_sync_path(promotion_id: @promotion.id), method: :post, class: 'btn btn-default btn-lg' %>
 
-<h2>Evénements Google Calendar bruts</h2>
-<p><%= @promotion.calendar_events.count %> événements importés de Google</p>
+<ul>
+  <li><a href="#raw"><%= @promotion.calendar_events.count %> événements Google Calendar bruts</a></li>
+  <li><a href="#imported"><%= @promotion.calendar_events.count %> événements Google Calendar bruts</a></li>
+</ul>
+
+<h2 id="raw"><%= @promotion.calendar_events.count %> événements Google Calendar bruts</h2>
 <table class="table">
   <thead>
     <tr>
@@ -25,8 +29,7 @@
   </tbody>
 </table>
 
-<h2>Evénements Google Calendar importés</h2>
-<p><%= @promotion.events.count %> événements traités</p>
+<h2 id="imported"><%= @promotion.events.count %> événements Google Calendar importés</h2>
 <table class="table">
   <thead>
     <tr>
