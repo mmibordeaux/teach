@@ -108,7 +108,8 @@ class Year < ActiveRecord::Base
   end
 
   def scheduled_teaching_modules_for(user)
-    events_for(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
+    teaching_modules = events_for(user).collect(&:teaching_module).uniq.compact
+    teaching_modules.sort_by { |tm| tm.code }
   end
 
   def planned_hours_for_teaching_module(teaching_module, kind = :teacher_hours)
