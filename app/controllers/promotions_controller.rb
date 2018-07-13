@@ -23,7 +23,7 @@ class PromotionsController < ApplicationController
   end
 
   def events_sync
-    Event.sync @promotion
+    @promotion.sync_events
     redirect_to promotion_events_path(@promotion)
   end
 

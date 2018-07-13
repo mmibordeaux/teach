@@ -74,6 +74,15 @@ class Promotion < ActiveRecord::Base
     Icalendar::Parser.new(cal_file).parse.first.events
   rescue
   end
+
+  def sync_events
+    return if calendar_events.nil?
+    events.destroy_all
+    calendar_events.each do |calendar_event|
+      Event.create_with calendar_event, self
+    end
+  end
+  handle_asynchronously :sync_events
   
   def to_s
     "Promotion #{year}"

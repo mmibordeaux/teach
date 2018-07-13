@@ -17,6 +17,8 @@ gem 'devise-bootstrap-views'
 gem 'cancancan'
 gem 'breadcrumbs_on_rails'
 gem 'icalendar'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 
 # Front
 gem 'bootstrap-sass'
