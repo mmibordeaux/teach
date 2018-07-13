@@ -17,7 +17,13 @@ class PromotionsController < ApplicationController
   end
 
   def events
-    @title = 'Emploi du temps'
+    @title = 'EDT: événements bruts'
+    breadcrumb
+    add_breadcrumb @title
+  end
+
+  def events_imported
+    @title = 'EDT: événements importés'
     breadcrumb
     add_breadcrumb @title
   end

@@ -1,0 +1,31 @@
+<h2><%= @promotion.events.count %> événements Google Calendar importés</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Heures</th>
+      <th>Heures étudiants</th>
+      <th>Heures enseignant</th>
+      <th>Personnes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @promotion.events.each do |event| %>
+      <tr>
+        <td><%= event.teaching_module %></td>
+        <td><%= event.date.strftime "%d/%m/%Y" %></td>
+        <td><%= event.kind.to_s.upcase %></td>
+        <td><%= number_to_human event.duration %></td>
+        <td><%= number_to_human event.student_hours %></td>
+        <td><%= number_to_human event.teacher_hours %></td>
+        <td>
+          <% event.users.each do |user| %>
+            <%= link_to user, user %><br>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
