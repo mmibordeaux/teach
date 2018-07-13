@@ -22,7 +22,7 @@
         <td><%= number_to_human event.teacher_hours %></td>
         <td>
           <% event.users.each do |user| %>
-            <%= link_to user, user %><br>
+            <%= user %><br>
           <% end %>
         </td>
       </tr>
