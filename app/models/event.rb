@@ -29,8 +29,8 @@ class Event < ActiveRecord::Base
   before_save :compute_student_hours
 
   def self.create_with(calendar_event, promotion)
-    date = calendar_event.dtstart + 1.hour
-    date_end = calendar_event.dtend + 1.hour
+    date = calendar_event.dtstart
+    date_end = calendar_event.dtend
     duration = (date_end - date) / 60 / 60
     teaching_module = nil
     hashtags = calendar_event.description.scan(/#(\w+)/).flatten
