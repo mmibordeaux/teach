@@ -3,7 +3,7 @@
 # Table name: events
 #
 #  id                 :integer          not null, primary key
-#  date               :date
+#  date               :datetime
 #  duration           :float
 #  teaching_module_id :integer
 #  promotion_id       :integer
@@ -12,6 +12,8 @@
 #  updated_at         :datetime         not null
 #  student_hours      :float
 #  teacher_hours      :float
+#  label              :string
+#  description        :text
 #
 
 class Event < ActiveRecord::Base
@@ -20,14 +22,16 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
+  scope :ordered, -> { order(:date) }
 
   enum kind: [:cm, :td, :tp]
 
   before_save :compute_student_hours
 
   def self.create_with(calendar_event, promotion)
-    date = calendar_event.dtstart
-    duration = (calendar_event.dtend - date) / 60 / 60
+    date = calendar_event.dtstart + 1.hour
+    date_end = calendar_event.dtend + 1.hour
+    duration = (date_end - date) / 60 / 60
     teaching_module = nil
     hashtags = calendar_event.description.scan(/#(\w+)/).flatten
     kind = Event.kinds[:cm] # default
@@ -47,7 +51,9 @@ class Event < ActiveRecord::Base
                           duration: duration,
                           date: date,
                           kind: kind,
-                          teaching_module: teaching_module
+                          teaching_module: teaching_module,
+                          label: calendar_event.summary,
+                          description: calendar_event.description
     calendar_event.attendee.each do |attendee| 
       email = attendee.to_s.remove 'mailto:'
       user = User.where(email: email).first

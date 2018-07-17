@@ -3,7 +3,7 @@
 # Table name: events
 #
 #  id                 :integer          not null, primary key
-#  date               :date
+#  date               :datetime
 #  duration           :float
 #  teaching_module_id :integer
 #  promotion_id       :integer
@@ -12,6 +12,8 @@
 #  updated_at         :datetime         not null
 #  student_hours      :float
 #  teacher_hours      :float
+#  label              :string
+#  description        :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

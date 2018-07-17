@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713091504) do
+ActiveRecord::Schema.define(version: 20180717192456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180713091504) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.date     "date"
+    t.datetime "date"
     t.float    "duration"
     t.integer  "teaching_module_id"
     t.integer  "promotion_id"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20180713091504) do
     t.datetime "updated_at",         null: false
     t.float    "student_hours"
     t.float    "teacher_hours"
+    t.string   "label"
+    t.text     "description"
   end
 
   add_index "events", ["promotion_id"], name: "index_events_on_promotion_id", using: :btree
