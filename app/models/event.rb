@@ -31,7 +31,12 @@ class Event < ActiveRecord::Base
   def self.create_with(calendar_event, promotion)
     date = calendar_event.dtstart
     date_end = calendar_event.dtend
-    duration = (date_end - date) / 60 / 60
+    if date.class == Icalendar::Values::Date
+      # All day event, used for holidays
+      duration = 0
+    else
+      duration = (date_end - date) / 60 / 60
+    end
     teaching_module = nil
     hashtags = calendar_event.description.scan(/#(\w+)/).flatten
     kind = Event.kinds[:cm] # default
@@ -62,6 +67,8 @@ class Event < ActiveRecord::Base
     # Compute hours now that users are set
     event.save
     event
+  rescue => e
+    byebug
   end
 
   protected
