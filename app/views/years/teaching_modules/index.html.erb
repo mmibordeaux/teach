@@ -62,6 +62,7 @@
         <th>PPN vs Maquette</th>
         <th>EDT</th>
         <th>Maquette vs EDT</th>
+        <th>PPN vs EDT</th>
       </tr>
     </thead>
     <tbody>
@@ -93,6 +94,7 @@
             <%= @year.events.tp.where(teaching_module: teaching_module).sum(:student_hours).round %>)
             </td>
           <%= render 'application/td_delta', value: scheduled, reference: planned %>
+          <%= render 'application/td_delta', value: scheduled, reference: program %>
         </tr>
       <% end %>
     </tbody>
