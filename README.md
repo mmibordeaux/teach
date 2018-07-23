@@ -1,6 +1,6 @@
-# mmibordeaux
+# MMI Bordeaux Teach
 
-[![Code Climate](https://codeclimate.com/github/arnaudlevy/mmibordeaux/badges/gpa.svg)](https://codeclimate.com/github/arnaudlevy/mmibordeaux)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b856f799521cd84bb132/maintainability)](https://codeclimate.com/github/mmibordeaux/teach/maintainability)
 
 ## Google calendar
 
@@ -10,6 +10,8 @@ In case of ghosts repeated events, use this to delete:
     https://productforums.google.com/forum/#!msg/calendar/NDpsOwQjzjc/2HfWFgZJpScJ
     https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.events.list
     https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.events.delete
+
+There was a problematic recurring event with id 7p66jnuc3r3ta9rvtlqus22hph_R20180910T140000
 
 ## Viz
     https://github.com/mbostock/d3/wiki/Gallery
