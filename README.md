@@ -2,6 +2,15 @@
 
 [![Code Climate](https://codeclimate.com/github/arnaudlevy/mmibordeaux/badges/gpa.svg)](https://codeclimate.com/github/arnaudlevy/mmibordeaux)
 
+## Google calendar
+
+Do not use repeated events.
+In case of ghosts repeated events, use this to delete: 
+
+    https://productforums.google.com/forum/#!msg/calendar/NDpsOwQjzjc/2HfWFgZJpScJ
+    https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.events.list
+    https://developers.google.com/apis-explorer/#p/calendar/v3/calendar.events.delete
+
 ## Viz
     https://github.com/mbostock/d3/wiki/Gallery
     http://mlvl.github.io/Hierarchie/#/
