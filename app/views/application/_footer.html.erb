@@ -1,13 +1,15 @@
 <footer>
-  <div class="logo logo-black">
-    <%= image_tag 'mmi-bordeaux.png' %>
-    <p>Teach</p>
+  <div class="inner">
+    <div class="logo logo-black">
+      <%= image_tag 'mmi-bordeaux.png' %>
+      <p>Teach</p>
+    </div>
+    <p class="version">
+      <strong>Version 1.8</strong><br/>
+      No Man's Sky
+    </p>
+    <% if current_user %>
+      <%= link_to('Déconnexion', destroy_user_session_path, method: :delete, class: 'btn btn-default btn-xs') %>
+    <% end %>
   </div>
-  <p>
-    <%= current_user %> 
-    <%= link_to('Déconnexion', destroy_user_session_path, method: :delete, class: 'btn btn-default btn-xs') %>
-  </p>
-  <p class="version">
-    <strong>Version 1.7</strong> Shadow of the Colossus
-  </p>
 </footer>

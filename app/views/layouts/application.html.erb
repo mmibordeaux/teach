@@ -13,11 +13,11 @@
   <body>
     <%= render 'application/nav' %>
     <%= render 'application/jumbotron' %>
-    <div class="container-fluid">
+    <main class="container-fluid">
       <%= render 'application/breadcrumb' %>
       <%= bootstrap_flash %>
       <%= yield %>
-    </div>
+    </main>
     <%= render 'application/footer' %>
   </body>
 </html>

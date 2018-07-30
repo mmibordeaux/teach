@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def index
-  	@title = 'Tableau de bord'
+  	@title = "Bonjour, #{current_user.first_name}"
   	@subtitle = '<strong>mmi teach</strong> | L\'outil d\'organisation des enseignements de MMI Bordeaux'
     @semesters = Semester.all
     @year = Year.current
