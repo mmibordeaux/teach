@@ -90,30 +90,32 @@
 <hr class="spacer">
 
 <h2>Modules</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Module</th>
-      <th>Semestre</th>
-      <th>Total heures enseignant</th>
-      <th>CM</th>
-      <th>TD</th>
-      <th>TP</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teaching_modules.each do |teaching_module| %>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= teaching_module.code %></td>
-        <td><%= teaching_module.label %></td>
-        <td><%= teaching_module.semester %></td>
-        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user).round %></td>
-        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_cm).round %></td>
-        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_td).round %></td>
-        <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_tp).round %></td>
-        </td>
+        <th>Code</th>
+        <th>Module</th>
+        <th>Semestre</th>
+        <th>Total heures enseignant</th>
+        <th>CM</th>
+        <th>TD</th>
+        <th>TP</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @teaching_modules.each do |teaching_module| %>
+        <tr>
+          <td><%= teaching_module.code %></td>
+          <td><%= teaching_module.label %></td>
+          <td><%= teaching_module.semester %></td>
+          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user).round %></td>
+          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_cm).round %></td>
+          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_td).round %></td>
+          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_tp).round %></td>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
