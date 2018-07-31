@@ -1,7 +1,9 @@
 <p>
   La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion %> est en première année, 
   La promotion <%= link_to @year.second_year_promotion, @year.second_year_promotion %> est en seconde année.
-  Pour actualiser l'EDT depuis Google, cliquez sur la promotion concernée.
+  <% if can? :edit, @year.first_year_promotion %>
+    Pour actualiser l'EDT depuis Google, cliquez sur la promotion concernée.
+  <% end %>
 </p>
 
 <div>
