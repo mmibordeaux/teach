@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   def parse
     render json: PPN.parse
   end
+
+  # def current_user
+  #   User.where(email: 'beatrice.lemoine@mmibordeaux.com').first
+  # end
 end

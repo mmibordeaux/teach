@@ -104,6 +104,7 @@ class Year < ActiveRecord::Base
   end
 
   def planned_delta_for(user)
+    return 0 if user.hours.nil?
     planned_hours_for(user) - user.hours
   end
 
