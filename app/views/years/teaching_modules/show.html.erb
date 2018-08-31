@@ -1,17 +1,17 @@
 <div class="row">
-  <div class="col-md-3">
-    <div class="btn btn-block btn-default">
-      <h2>Maquette <%= @year.planned_hours_for_teaching_module(@teaching_module, :student_hours).round %></h2>
-    </div>
-  </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="btn btn-block btn-default">
       <h2>PPN <%= @teaching_module.expected_student_hours.round %></h2>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="btn btn-block btn-<%= @teaching_module.student_hours_delta < 0 ? 'danger' : 'success' %>">
-      <h2>Delta <%#= @teaching_module.student_hours_delta.round # FIXME %>%</h2>
+  <div class="col-md-4">
+    <div class="btn btn-block btn-default">
+      <h2>Planifié <%= @year.planned_hours_for_teaching_module(@teaching_module, :student_hours).round %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="btn btn-block btn-default">
+      <h2>EDT <%= @year.scheduled_hours_for_teaching_module(@teaching_module).round %></h2>
     </div>
   </div>
 </div>
