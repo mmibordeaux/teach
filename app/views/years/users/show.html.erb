@@ -122,9 +122,9 @@
         <td><%= teaching_module.code_apogee %></td>
         <td><%= teaching_module.label %></td>
         <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user).round %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm).round %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td).round %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp).round %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_cm).round %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_td).round %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_tp).round %></td>
       </tr>
     <% end %>
   </tbody>
