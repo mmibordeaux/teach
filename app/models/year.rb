@@ -99,6 +99,13 @@ class Year < ActiveRecord::Base
     events_for(user).sum(:duration)
   end
 
+  def scheduled_teacher_hours_ponderated_for(user)
+    cm = events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
+    td = events_for(user).td.sum(:duration)
+    tp = events_for(user).tp.sum(:duration)
+    cm + td + tp
+  end
+
   def planned_teaching_modules_for(user)
     involvements_for_user(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
   end
