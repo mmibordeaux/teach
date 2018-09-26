@@ -85,6 +85,25 @@
 
 <h2>Emploi du temps</h2>
 
+<div class="row">
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user).round %>h</div>
+    <%= @year.scheduled_teacher_hours_ponderated_for(@user).round %> heures avec CM pondérés
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.events_for(@user).cm.sum(:duration).round %>hCM</div>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.events_for(@user).td.sum(:duration).round %>hTD</div>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.events_for(@user).tp.sum(:duration).round %>hTP</div>
+  </div>
+</div>
+
+
+
+
 <h3>Service validé (planifié dans l'emploi du temps)</h3>
 <table class="table">
   <thead>
