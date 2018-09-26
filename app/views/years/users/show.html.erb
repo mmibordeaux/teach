@@ -27,7 +27,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <h3>Projets</h3>
     <table class="table">
       <thead>
@@ -52,7 +52,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-7">
     <h3>Service prévisionnel (prévu dans la maquette)</h3>
     <table class="table">
       <thead>
@@ -102,8 +102,6 @@
 </div>
 
 
-
-
 <h3>Service validé (planifié dans l'emploi du temps)</h3>
 <table class="table">
   <thead>
@@ -124,9 +122,52 @@
         <td><%= teaching_module.code_apogee %></td>
         <td><%= teaching_module.label %></td>
         <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user).round %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm) %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td) %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp) %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm).round %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td).round %></td>
+        <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp).round %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Evénements importés de l'emploi du temps</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Label</th>
+      <th>Description</th>
+      <th>Heures</th>
+      <th>Heures étudiants</th>
+      <th>Heures enseignant</th>
+      <th>Personnes</th>
+      <th>Ouvrir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @year.events_for(@user).ordered.each do |event| %>
+      <tr>
+        <td class="<%= 'bg-danger' if event.teaching_module.nil? %>"><%= event.teaching_module %></td>
+        <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
+        <td><%= event.kind.to_s.upcase %></td>
+        <td><%= event.label %></td>
+        <td><%= event.description %></td>
+        <td><%= number_to_human event.duration %></td>
+        <td><%= number_to_human event.student_hours %></td>
+        <td><%= number_to_human event.teacher_hours %></td>
+        <td class="<%= 'bg-danger' if event.users.empty? %>">
+          <% event.users.each do |user| %>
+            <%= user %><br>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Ouvrir la semaine', 
+                      "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}", 
+                      target: :blank,
+                      class: 'btn btn-default btn-xs' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
