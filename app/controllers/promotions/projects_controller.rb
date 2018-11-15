@@ -7,6 +7,14 @@ class Promotions::ProjectsController < PromotionsController
     breadcrumb
   end
 
+  def evaluations
+    @projects = @promotion.projects
+    @title = 'Evaluations des projets'
+    @subtitle = @promotion.to_s
+    breadcrumb
+    add_breadcrumb 'Evaluations'
+  end
+
   protected
 
   def breadcrumb

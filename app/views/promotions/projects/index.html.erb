@@ -6,6 +6,7 @@
   new TL.Timeline('timeline', data, config);
 </script>
 
+<%= link_to 'Evaluations', evaluations_promotion_projects_path(@promotion), class: 'btn btn-default' %> 
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>
   

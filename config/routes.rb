@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     resources :users, module: :years
   end
   resources :promotions do 
-    resources :projects, module: :promotions, only: :index
+    resources :projects, module: :promotions, only: :index do
+      collection do
+        get :evaluations
+      end
+    end
     resources :teaching_modules, module: :promotions, only: :index
     get :events
     get :events_imported

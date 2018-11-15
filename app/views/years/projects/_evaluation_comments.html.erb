@@ -1,5 +1,5 @@
 <ul>
-  <% list.each do |text| %>
-    <li><%= fa_icon 'comment-o' %> <%= text %></li>
+  <% list.each_with_index do |text, index| %>
+    <li><span class="badge"><%= "#{letter}#{index}" %></span> <%= text %></li>
   <% end %>
 </ul>

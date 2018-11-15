@@ -1,0 +1,5 @@
+<p><%= DateTime.now %></p>
+<% @projects.each do |project| %>
+  <h2><%= project %></h2>
+  <%= render 'years/projects/evaluation', project: project %>
+<% end %>

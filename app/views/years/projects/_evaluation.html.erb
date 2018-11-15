@@ -37,19 +37,19 @@
   <div class="row">
     <div class="col-md-3">
       <h5>Contenus pertinents</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['relevant_content'] %>
+      <%= render 'years/projects/evaluation_comments', list: project.evaluation['relevant_content'], letter: 'A' %>
     </div>
     <div class="col-md-3">
       <h5>Contenus à ajouter</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_add'] %>
+      <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_add'], letter: 'B' %>
     </div>
     <div class="col-md-3">
       <h5>Contenus à supprimer</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_remove'] %>
+      <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_remove'], letter: 'C' %>
     </div>
     <div class="col-md-3">
       <h5>Commentaires</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['comment'] %>
+      <%= render 'years/projects/evaluation_comments', list: project.evaluation['comment'], letter: 'D' %>
     </div>
   </div>
 <% end %>
