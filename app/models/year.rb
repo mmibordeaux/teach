@@ -54,7 +54,7 @@ class Year < ActiveRecord::Base
     second_year_promotion_id = second_year_promotion.nil? ? nil : second_year_promotion.id
     second_year_module_ids = TeachingModule.where(semester_id: [3, 4]).pluck(:id)
     Involvement
-      .where('(promotion_id = ? AND teaching_module_id IN (?)) OR (promotion_id = ? AND teaching_module_id IN (?))', 
+      .where('(promotion_id = ? AND teaching_module_id IN (?)) OR (promotion_id = ? AND teaching_module_id IN (?))',
         first_year_promotion_id, first_year_module_ids,
         second_year_promotion_id, second_year_module_ids)
   end
@@ -70,7 +70,7 @@ class Year < ActiveRecord::Base
   def users
     involvements.where.not(user: nil).collect(&:user).uniq.sort_by { |user| user&.last_name }
   end
-  
+
   def involvements_for_user(user)
     involvements.where(user: user)
   end
@@ -101,8 +101,8 @@ class Year < ActiveRecord::Base
 
   def scheduled_teacher_hours_ponderated_for(user)
     cm = events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
-    td = events_for(user).td.sum(:duration)
-    tp = events_for(user).tp.sum(:duration)
+    td = events_for(user).td.sum(:duration) * Involvement::COST_RATIO_TD
+    tp = events_for(user).tp.sum(:duration) * Involvement::COST_RATIO_TP
     cm + td + tp
   end
 

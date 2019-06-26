@@ -127,6 +127,15 @@
         <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_tp).round %></td>
       </tr>
     <% end %>
+    <tr>
+      <td>NA</td>
+      <td>NA</td>
+      <td>Heures sans module</td>
+      <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user).round %></td>
+      <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user, :hours_cm).round %></td>
+      <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user, :hours_td).round %></td>
+      <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user, :hours_tp).round %></td>
+    </tr>
   </tbody>
 </table>
 
@@ -163,8 +172,8 @@
           <% end %>
         </td>
         <td>
-          <%= link_to 'Ouvrir la semaine', 
-                      "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}", 
+          <%= link_to 'Ouvrir la semaine',
+                      "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
                       target: :blank,
                       class: 'btn btn-default btn-xs' %>
         </td>

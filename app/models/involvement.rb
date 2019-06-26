@@ -34,7 +34,7 @@ class Involvement < ActiveRecord::Base
 
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
 
-  delegate :expected_student_hours, to: :teaching_module 
+  delegate :expected_student_hours, to: :teaching_module
 
   GROUPS_TD = 2.0
   GROUPS_TP = 3.0
@@ -62,8 +62,8 @@ class Involvement < ActiveRecord::Base
 
   COST_RATIO_CM = 1.5
   COST_RATIO_TD = 1
-  COST_RATIO_TP = 0.66
-  # COST_RATIO_TP = 1
+  # COST_RATIO_TP = 0.66
+  COST_RATIO_TP = 1
 
   COST_HOUR_PRIVATE = 58.31
   COST_HOUR_PUBLIC = 42.96
