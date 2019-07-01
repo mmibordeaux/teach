@@ -12,6 +12,7 @@
       <th>Delta service / maquette</th>
       <th>EDT (heures pondérées)</th>
       <th>Delta maquette / EDT</th>
+      <th>Delta service / EDT</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +31,7 @@
         <%= render 'application/td_delta', value: planned, reference: service %>
         <td><%= scheduled.round %> (<%= @year.scheduled_teacher_hours_ponderated_for(user).round %>)</td>
         <%= render 'application/td_delta', value: scheduled, reference: planned %>
+        <%= render 'application/td_delta', value: scheduled, reference: service %>
       </tr>
     <% end unless @year.users.nil? %>
   </tbody>
