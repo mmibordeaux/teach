@@ -8,7 +8,8 @@
       <th style="min-width: 200px">Nom</th>
       <th>Service</th>
       <th>Fonctionnaire ?</th>
-      <th>EDT (heures pondérées)</th>
+      <th>EDT</th>
+      <th>EDT heures pondérées</th>
       <th>Delta service / EDT</th>
     </tr>
   </thead>
@@ -25,7 +26,8 @@
         <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
         <td><%= service.round unless service.nil? %></td>
         <td><%= user.public ? 'oui' : 'non' %></td>
-        <td><%= scheduled.round %> (<%= scheduled_ponderated.round %>)</td>
+        <td><%= scheduled.round %></td>
+        <td><%= scheduled_ponderated.round %></td>
         <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
       </tr>
     <% end unless @year.users.nil? %>
