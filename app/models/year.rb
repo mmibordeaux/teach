@@ -67,8 +67,16 @@ class Year < ActiveRecord::Base
     involvements_for_user(user).collect(&:project).uniq.compact.to_ary.sort_by(&:week_number)
   end
 
-  def users
+  def users_with_involvements
     involvements.where.not(user: nil).collect(&:user).uniq.sort_by { |user| user&.last_name }
+  end
+
+  def users_with_events
+    events.collect(&:users).flatten.uniq.sort_by { |user| user&.last_name }
+  end
+
+  def users
+    (users_with_involvements + users_with_events).uniq.sort_by { |user| user&.last_name }
   end
 
   def involvements_for_user(user)

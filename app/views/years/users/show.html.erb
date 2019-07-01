@@ -1,88 +1,3 @@
-<h2>Maquette</h2>
-
-<div class="row">
-  <div class="col-md-2">
-    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours).round %>h</div>
-  </div>
-  <div class="col-md-2">
-    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours_cm).round %>hCM</div>
-  </div>
-  <div class="col-md-3">
-    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours_td).round %>hTD</div>
-    <p><%= @year.planned_hours_for(@user, :student_hours_td).round %> heures TD avec chaque étudiant</p>
-  </div>
-  <div class="col-md-3">
-    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours_tp).round %>hTP</div>
-    <p><%= @year.planned_hours_for(@user, :student_hours_tp).round %> heures TP avec chaque étudiant</p>
-  </div>
-  <% if @user.tenured %>
-    <% delta = @year.planned_delta_for(@user) %>
-    <div class="col-md-2">
-      <div class="btn btn-block <%= delta >= 0 ? 'btn-success' : ' btn-danger' %>">
-        <div class="text-xl"><%= delta.round %>h</div>
-        <strong><% if delta >= 0 %>Heures complémentaires<% else %>Sous-service<% end %></strong>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<div class="row">
-  <div class="col-md-5">
-    <h3>Projets</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Total</th>
-          <th>CM</th>
-          <th>TD</th>
-          <th>TP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @year.projects_with_user_involved(@user).each do |project| %>
-          <tr>
-            <td><%= link_to project, [@year, project] %></td>
-            <td><%= project.planned_hours_for_user(@user).round %></td>
-            <td><%= project.planned_hours_for_user(@user, :teacher_hours_cm).round %></td>
-            <td><%= project.planned_hours_for_user(@user, :teacher_hours_td).round %></td>
-            <td><%= project.planned_hours_for_user(@user, :teacher_hours_tp).round %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-7">
-    <h3>Service prévisionnel (prévu dans la maquette)</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Code PPN</th>
-          <th>Code Apogée</th>
-          <th>Module</th>
-          <th>Total</th>
-          <th>CM</th>
-          <th>TD</th>
-          <th>TP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @year.planned_teaching_modules_for(@user).each do |teaching_module| %>
-          <tr>
-            <td><%= teaching_module.code %></td>
-            <td><%= teaching_module.code_apogee %></td>
-            <td><%= teaching_module.label %></td>
-            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user).round %></td>
-            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm).round %></td>
-            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td).round %></td>
-            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp).round %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
 <h2>Emploi du temps</h2>
 
 <div class="row">
@@ -181,3 +96,90 @@
     <% end %>
   </tbody>
 </table>
+
+<hr/>
+
+<h2>Maquette</h2>
+
+<div class="row">
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours).round %>h</div>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours_cm).round %>hCM</div>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours_td).round %>hTD</div>
+    <p><%= @year.planned_hours_for(@user, :student_hours_td).round %> heures TD avec chaque étudiant</p>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.planned_hours_for(@user, :teacher_hours_tp).round %>hTP</div>
+    <p><%= @year.planned_hours_for(@user, :student_hours_tp).round %> heures TP avec chaque étudiant</p>
+  </div>
+  <% if @user.tenured %>
+    <% delta = @year.planned_delta_for(@user) %>
+    <div class="col-md-2">
+      <div class="btn btn-block <%= delta >= 0 ? 'btn-success' : ' btn-danger' %>">
+        <div class="text-xl"><%= delta.round %>h</div>
+        <strong><% if delta >= 0 %>Heures complémentaires<% else %>Sous-service<% end %></strong>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <h3>Projets</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Total</th>
+          <th>CM</th>
+          <th>TD</th>
+          <th>TP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @year.projects_with_user_involved(@user).each do |project| %>
+          <tr>
+            <td><%= link_to project, [@year, project] %></td>
+            <td><%= project.planned_hours_for_user(@user).round %></td>
+            <td><%= project.planned_hours_for_user(@user, :teacher_hours_cm).round %></td>
+            <td><%= project.planned_hours_for_user(@user, :teacher_hours_td).round %></td>
+            <td><%= project.planned_hours_for_user(@user, :teacher_hours_tp).round %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-7">
+    <h3>Service prévisionnel (prévu dans la maquette)</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Code PPN</th>
+          <th>Code Apogée</th>
+          <th>Module</th>
+          <th>Total</th>
+          <th>CM</th>
+          <th>TD</th>
+          <th>TP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @year.planned_teaching_modules_for(@user).each do |teaching_module| %>
+          <tr>
+            <td><%= teaching_module.code %></td>
+            <td><%= teaching_module.code_apogee %></td>
+            <td><%= teaching_module.label %></td>
+            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user).round %></td>
+            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_cm).round %></td>
+            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_td).round %></td>
+            <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, @user, :teacher_hours_tp).round %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
