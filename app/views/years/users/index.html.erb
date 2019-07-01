@@ -19,13 +19,14 @@
       service = user.hours
       planned = @year.planned_hours_for(user)
       scheduled = @year.scheduled_teacher_hours_for(user)
+      scheduled_ponderated = @year.scheduled_teacher_hours_ponderated_for(user)
       %>
       <tr>
         <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
         <td><%= service.round unless service.nil? %></td>
         <td><%= user.public ? 'oui' : 'non' %></td>
-        <td><%= scheduled.round %> (<%= @year.scheduled_teacher_hours_ponderated_for(user).round %>)</td>
-        <%= render 'application/td_delta', value: scheduled, reference: service %>
+        <td><%= scheduled.round %> (<%= scheduled_ponderated.round %>)</td>
+        <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
       </tr>
     <% end unless @year.users.nil? %>
   </tbody>
@@ -51,6 +52,7 @@
       service = user.hours
       planned = @year.planned_hours_for(user)
       scheduled = @year.scheduled_teacher_hours_for(user)
+      scheduled_ponderated = @year.scheduled_teacher_hours_ponderated_for(user)
       %>
       <tr>
         <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
@@ -58,7 +60,7 @@
         <td><%= user.public ? 'oui' : 'non' %></td>
         <td><%= planned.round %></td>
         <%= render 'application/td_delta', value: planned, reference: service %>
-        <%= render 'application/td_delta', value: scheduled, reference: planned %>
+        <%= render 'application/td_delta', value: scheduled_ponderated, reference: planned %>
       </tr>
     <% end unless @year.users.nil? %>
   </tbody>
