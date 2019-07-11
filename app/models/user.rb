@@ -44,7 +44,12 @@ class User < ActiveRecord::Base
   BUDGET = 100000
   PER_HOUR_PRICE = 60
   EXTRA_HOURS = BUDGET / PER_HOUR_PRICE
-  
+
+  # Intervenant à préciser (id: 104)
+  def self.temporary
+    find(104)
+  end
+
   def no_hours?
     (teacher_hours.nil? or teacher_hours.zero?) and (hours.nil? or hours.zero?)
   end
@@ -97,19 +102,19 @@ class User < ActiveRecord::Base
   def teacher_hours_cm_costs
     involvements.collect(&:teacher_hours_cm_costs).sum
   end
-  
+
   def teacher_hours_td_costs
     involvements.collect(&:teacher_hours_td_costs).sum
   end
-  
+
   def teacher_hours_tp_costs
     involvements.collect(&:teacher_hours_tp_costs).sum
   end
-  
+
   def teacher_hours_costs
     involvements.collect(&:teacher_hours_costs).sum
   end
-  
+
   def to_s
     "#{first_name} #{last_name}"
   end

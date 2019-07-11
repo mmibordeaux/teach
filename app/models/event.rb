@@ -54,7 +54,6 @@ class Event < ActiveRecord::Base
         teaching_module = TeachingModule.with_code(hashtag).first
       end
     end
-
     project = Project.at_date_for_promotion(date, promotion)
     event = Event.create  promotion: promotion,
                           duration: duration,
@@ -68,6 +67,9 @@ class Event < ActiveRecord::Base
       email = attendee.to_s.remove 'mailto:'
       user = User.where(email: email).first
       event.users << user unless user.nil?
+    end
+    if event.users.none?
+      event.users << User.temporary
     end
     # Compute hours now that users are set
     event.save
