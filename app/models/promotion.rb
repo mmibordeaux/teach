@@ -54,7 +54,7 @@ class Promotion < ActiveRecord::Base
   def planned_student_hours_cm
     involvements.collect(&:student_hours_cm).sum.round(2)
   end
-  
+
   def planned_student_hours_td
     involvements.collect(&:student_hours_td).sum.round(2)
   end
@@ -71,7 +71,8 @@ class Promotion < ActiveRecord::Base
     return [] if calendar_url.blank?
     require 'open-uri'
     cal_file = open calendar_url
-    Icalendar::Parser.new(cal_file).parse.first.events
+    events = Icalendar::Parser.new(cal_file).parse.first.events
+    events.sort_by { |event| event.dtstart }
   rescue
   end
 
@@ -83,7 +84,7 @@ class Promotion < ActiveRecord::Base
     end
   end
   handle_asynchronously :sync_events
-  
+
   def to_s
     "Promotion #{year}"
   end

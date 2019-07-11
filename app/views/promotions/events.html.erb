@@ -17,7 +17,7 @@
         <td><%= raw event.attendee.map { |attendee| attendee.to_s.remove('mailto:') }.join '<br>' %></td>
         <td><%= event.dtstart.strftime "%d/%m/%Y" %></td>
         <td>
-          <% 
+          <%
           begin
             duration = event.dtend.to_time.to_i - event.dtstart.to_time.to_i
           rescue

@@ -38,7 +38,7 @@ class TeachingModule < ActiveRecord::Base
   has_many :involvements
   has_many :users_involved, through: :involvements
   has_many :events
-  
+
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields
 
@@ -91,7 +91,7 @@ class TeachingModule < ActiveRecord::Base
   def planned_student_hours_cm
     involvements.collect(&:student_hours_cm).sum.round(2)
   end
-  
+
   def planned_student_hours_td
     involvements.collect(&:student_hours_td).sum.round(2)
   end
@@ -109,7 +109,7 @@ class TeachingModule < ActiveRecord::Base
   def planned_teacher_hours_cm
     involvements.collect(&:teacher_hours_cm).sum.round(2)
   end
-  
+
   def planned_teacher_hours_td
     involvements.collect(&:teacher_hours_td).sum.round(2)
   end
@@ -130,7 +130,7 @@ class TeachingModule < ActiveRecord::Base
 
   def planned_teacher_hours_cm_costs
     involvements.collect(&:teacher_hours_cm_costs).sum.round(2)
-  end 
+  end
 
   def planned_teacher_hours_td_costs
     involvements.collect(&:teacher_hours_td_costs).sum.round(2)
@@ -146,6 +146,14 @@ class TeachingModule < ActiveRecord::Base
     else
       (planned_teacher_hours_costs / expected_student_hours * 1.0).round(2)
     end
+  end
+
+  # Events
+
+  def events_for_year(year)
+    promotion = semester_id.in?([1, 2]) ? year.first_year_promotion
+                                        : year.second_year_promotion
+    events.where(promotion: promotion).ordered
   end
 
   def to_s

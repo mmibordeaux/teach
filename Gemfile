@@ -34,6 +34,7 @@ gem 'highcharts-rails'
 gem 'glyphicons-rails'
 
 group :development do
+  gem 'rb-readline'
   gem 'byebug'
   gem 'spring'
   gem 'annotate'
