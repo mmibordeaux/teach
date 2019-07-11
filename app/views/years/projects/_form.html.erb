@@ -11,7 +11,9 @@
         <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
       </div>
       <div class="col-md-4">
-        <%= f.input :position, label: 'N° de semaine' %>
+        <%= f.input :position, label: 'N° de semaine (début de l\'atelier)' %>
+        Soit le <%= l @project.from if @project.from %>.
+        <%= f.input :to, label: 'Fin de l\'atelier', html5: true %>
         <%= f.input :semesters, as: :check_boxes, label: 'Semestres' %>
         <%= f.input :fields, as: :check_boxes, label: 'Champs', collection: Field.not_root %>
       </div>

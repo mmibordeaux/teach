@@ -8,6 +8,7 @@ gem 'sendgrid-ruby'
 
 # Back
 gem 'rails', '4.2.9'
+gem 'rails-i18n'
 gem 'nokogiri'
 gem 'formtastic'
 gem 'formtastic-bootstrap'

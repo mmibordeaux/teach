@@ -37,6 +37,11 @@ class Years::ProjectsController < YearsController
     add_breadcrumb @title
   end
 
+  def sync_involvements_from_events
+    @project.sync_involvements_from_events
+    redirect_to :back, notice: 'Project synced.'
+  end
+
   def create
     @project = Project.new(project_params)
     if @project.save
@@ -72,6 +77,6 @@ class Years::ProjectsController < YearsController
   end
 
   def project_params
-    params.require(:project).permit(:label, :sublabel, :description, :detailed_description, :position, :user_id, :year_id, field_ids: [], semester_ids: [], user_ids: [], objective_ids: [])
+    params.require(:project).permit(:label, :sublabel, :description, :detailed_description, :position, :to, :user_id, :year_id, field_ids: [], semester_ids: [], user_ids: [], objective_ids: [])
   end
 end

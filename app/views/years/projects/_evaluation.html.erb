@@ -1,55 +1,57 @@
 <% unless project.evaluation['status'] == 500 %>
-  <h4>Evaluation du projet par les étudiants</h4>
-  <small><%= project.evaluation['evaluations'] %> évaluations</small>
-  <table class="table table-bordered">
-    <tbody>
-      <tr>
+  <% if project.evaluation['evaluations'] > 0 %>
+    <h4>Evaluation du projet par les étudiants</h4>
+    <small><%= project.evaluation['evaluations'] %> évaluations</small>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
 
-        <td><h3>Qualité globale du projet</h3></td>
-        <td><%= render  'years/projects/evaluation_stars', 
-                        value: project.evaluation['quality'],
-                        size: 'lg' %></td>
-        <td><h3><%= (project.evaluation['quality'].to_f / 2.0).round(1) %></h3></td>
-      </tr>
-      <tr>
-        <td>Connaissances acquises</td>
-        <td><%= render  'years/projects/evaluation_stars', 
-                        value: project.evaluation['knowledge_acquired'],
-                        size: 'xs' %></td>
-        <td><%= (project.evaluation['knowledge_acquired'].to_f / 2.0).round(1) %></td>
-      </tr>
-      <tr>
-        <td>Compétences techniques acquises</td>
-        <td><%= render  'years/projects/evaluation_stars', 
-                        value: project.evaluation['technical_skills_acquired'],
-                        size: 'xs' %></td>
-        <td><%= (project.evaluation['technical_skills_acquired'].to_f / 2.0).round(1) %></td>
-      </tr>
-      <tr>
-        <td>Compétences relationnelles acquises (soft skills)</td>
-        <td><%= render  'years/projects/evaluation_stars', 
-                        value: project.evaluation['soft_skills_acquired'],
-                        size: 'xs' %></td>
-        <td><%= (project.evaluation['soft_skills_acquired'].to_f / 2.0).round(1) %></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="row">
-    <div class="col-md-3">
-      <h5>Contenus pertinents</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['relevant_content'], letter: 'A' %>
+          <td><h3>Qualité globale du projet</h3></td>
+          <td><%= render  'years/projects/evaluation_stars',
+                          value: project.evaluation['quality'],
+                          size: 'lg' %></td>
+          <td><h3><%= (project.evaluation['quality'].to_f / 2.0).round(1) %></h3></td>
+        </tr>
+        <tr>
+          <td>Connaissances acquises</td>
+          <td><%= render  'years/projects/evaluation_stars',
+                          value: project.evaluation['knowledge_acquired'],
+                          size: 'xs' %></td>
+          <td><%= (project.evaluation['knowledge_acquired'].to_f / 2.0).round(1) %></td>
+        </tr>
+        <tr>
+          <td>Compétences techniques acquises</td>
+          <td><%= render  'years/projects/evaluation_stars',
+                          value: project.evaluation['technical_skills_acquired'],
+                          size: 'xs' %></td>
+          <td><%= (project.evaluation['technical_skills_acquired'].to_f / 2.0).round(1) %></td>
+        </tr>
+        <tr>
+          <td>Compétences relationnelles acquises (soft skills)</td>
+          <td><%= render  'years/projects/evaluation_stars',
+                          value: project.evaluation['soft_skills_acquired'],
+                          size: 'xs' %></td>
+          <td><%= (project.evaluation['soft_skills_acquired'].to_f / 2.0).round(1) %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-md-3">
+        <h5>Contenus pertinents</h5>
+        <%= render 'years/projects/evaluation_comments', list: project.evaluation['relevant_content'], letter: 'A' %>
+      </div>
+      <div class="col-md-3">
+        <h5>Contenus à ajouter</h5>
+        <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_add'], letter: 'B' %>
+      </div>
+      <div class="col-md-3">
+        <h5>Contenus à supprimer</h5>
+        <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_remove'], letter: 'C' %>
+      </div>
+      <div class="col-md-3">
+        <h5>Commentaires</h5>
+        <%= render 'years/projects/evaluation_comments', list: project.evaluation['comment'], letter: 'D' %>
+      </div>
     </div>
-    <div class="col-md-3">
-      <h5>Contenus à ajouter</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_add'], letter: 'B' %>
-    </div>
-    <div class="col-md-3">
-      <h5>Contenus à supprimer</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['content_to_remove'], letter: 'C' %>
-    </div>
-    <div class="col-md-3">
-      <h5>Commentaires</h5>
-      <%= render 'years/projects/evaluation_comments', list: project.evaluation['comment'], letter: 'D' %>
-    </div>
-  </div>
+  <% end %>
 <% end %>

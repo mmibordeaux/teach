@@ -12,25 +12,34 @@
 #  year_id              :integer
 #  detailed_description :text
 #  sublabel             :string
+#  from                 :date
+#  to                   :date
 #
 
 class Project < ActiveRecord::Base
 
   has_many :involvements
+  has_many :events
   has_and_belongs_to_many :fields
   has_and_belongs_to_many :semesters
   has_and_belongs_to_many :users
   has_and_belongs_to_many :objectives
   belongs_to :user
   belongs_to :year
-  
+
   validates_inclusion_of :position, in: 1..52
   accepts_nested_attributes_for :fields, allow_destroy: true
   accepts_nested_attributes_for :semesters, allow_destroy: true
 
   scope :in_semester, -> (semester) { joins(:semesters).where(semesters: { id: semester } ) }
 
+  before_save :fix_dates
+
   default_scope { order('position') }
+
+  def self.at_date_for_promotion(date, promotion)
+    where(id: promotion.projects).where('? >= "from" AND ? <= "to"', date.to_date, date.to_date).first
+  end
 
   def start_date
     return if year.nil? || position.nil? || position < 1 || position > 52
@@ -103,7 +112,7 @@ class Project < ActiveRecord::Base
         headline: label,
         text: ActionController::Base.helpers.simple_format(description)
       }
-    } 
+    }
   end
 
   def evaluation
@@ -112,12 +121,38 @@ class Project < ActiveRecord::Base
     JSON.parse response.body
   end
 
+  def sync_involvements_from_events
+    involvements.find_each &:reset_hours!
+    events.each do |event|
+      event.users.each do |user|
+        involvement = involvements.where(teaching_module: event.teaching_module, user: user, promotion: event.promotion)
+                                  .first_or_initialize
+        case event.kind
+        when 'cm'
+          involvement.hours_cm += event.student_hours
+        when 'td'
+          involvement.hours_td += event.student_hours
+        when 'tp'
+          involvement.hours_tp += event.student_hours
+        end
+        involvement.save
+      end
+    end
+  end
+
   def to_s
     return 'Projet sans titre' if label.blank?
     "#{label}"
   end
 
   protected
+
+  def fix_dates
+    if self.from.blank?
+      self.from = start_date
+      self.to = self.from + 5.days
+    end
+  end
 
   def sum_involvements(key)
     involvements.collect(&key).sum.round

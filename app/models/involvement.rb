@@ -89,6 +89,13 @@ class Involvement < ActiveRecord::Base
     user.public ? COST_HOUR_PUBLIC : COST_HOUR_PRIVATE
   end
 
+  def reset_hours!
+    self.hours_cm = 0
+    self.hours_td = 0
+    self.hours_tp = 0
+    save
+  end
+
   def to_s
     "#{user} - #{teaching_module.code} (CM #{hours_cm}h, TD #{hours_td}, TP #{hours_tp})"
   end

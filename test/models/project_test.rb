@@ -12,6 +12,8 @@
 #  year_id              :integer
 #  detailed_description :text
 #  sublabel             :string
+#  from                 :date
+#  to                   :date
 #
 
 require 'test_helper'

@@ -8,14 +8,18 @@ Rails.application.routes.draw do
   # get 'parse' => 'application#parse'
   resources :users, :jobs, :fields, :objectives, :keywords, :competencies, :teaching_modules, :teaching_categories, :teaching_subjects, :teaching_units
   resources :semesters, only: [:index, :show]
-  resources :years, only: [:index, :show] do 
-    resources :projects, module: :years
+  resources :years, only: [:index, :show] do
+    resources :projects, module: :years do
+      member do
+        post :sync_involvements_from_events
+      end
+    end
     resources :involvements, module: :years
     resources :semesters, module: :years, only: [:index, :show]
     resources :teaching_modules, module: :years, only: [:index, :show]
     resources :users, module: :years
   end
-  resources :promotions do 
+  resources :promotions do
     resources :projects, module: :promotions, only: :index do
       collection do
         get :evaluations
@@ -27,7 +31,7 @@ Rails.application.routes.draw do
     post :events_sync
   end
   get 'dashboard' => 'dashboard#index', as: :dashboard
-  scope :discuss do 
+  scope :discuss do
     get ':year' => 'discuss#year', as: :discuss_year
     get ':year/:project_id' => 'discuss#project', as: :discuss_project
   end

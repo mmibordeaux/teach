@@ -14,6 +14,7 @@
 #  teacher_hours      :float
 #  label              :string
 #  description        :text
+#  project_id         :integer
 #
 
 require 'test_helper'

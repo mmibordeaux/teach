@@ -14,13 +14,15 @@
 #  teacher_hours      :float
 #  label              :string
 #  description        :text
+#  project_id         :integer
 #
 
 class Event < ActiveRecord::Base
   belongs_to :teaching_module
   belongs_to :promotion
+  belongs_to :project
   has_and_belongs_to_many :users
-  
+
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
   scope :ordered, -> { order(:date) }
 
@@ -52,14 +54,17 @@ class Event < ActiveRecord::Base
         teaching_module = TeachingModule.with_code(hashtag).first
       end
     end
+
+    project = Project.at_date_for_promotion(date, promotion)
     event = Event.create  promotion: promotion,
                           duration: duration,
                           date: date,
                           kind: kind,
+                          project: project,
                           teaching_module: teaching_module,
                           label: calendar_event.summary,
                           description: calendar_event.description
-    calendar_event.attendee.each do |attendee| 
+    calendar_event.attendee.each do |attendee|
       email = attendee.to_s.remove 'mailto:'
       user = User.where(email: email).first
       event.users << user unless user.nil?

@@ -12,6 +12,8 @@
 #  year_id              :integer
 #  detailed_description :text
 #  sublabel             :string
+#  from                 :date
+#  to                   :date
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

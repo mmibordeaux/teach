@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180717192456) do
+ActiveRecord::Schema.define(version: 20190711105712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 20180717192456) do
     t.float    "teacher_hours"
     t.string   "label"
     t.text     "description"
+    t.integer  "project_id"
   end
 
+  add_index "events", ["project_id"], name: "index_events_on_project_id", using: :btree
   add_index "events", ["promotion_id"], name: "index_events_on_promotion_id", using: :btree
   add_index "events", ["teaching_module_id"], name: "index_events_on_teaching_module_id", using: :btree
 
@@ -160,6 +162,8 @@ ActiveRecord::Schema.define(version: 20180717192456) do
     t.integer  "year_id"
     t.text     "detailed_description"
     t.string   "sublabel"
+    t.date     "from"
+    t.date     "to"
   end
 
   add_index "projects", ["year_id"], name: "index_projects_on_year_id", using: :btree
@@ -258,6 +262,7 @@ ActiveRecord::Schema.define(version: 20180717192456) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "events", "projects"
   add_foreign_key "events", "promotions"
   add_foreign_key "events", "teaching_modules"
   add_foreign_key "involvements", "promotions"
