@@ -1,0 +1,28 @@
+<%
+tabs = [
+  ['Projets', year_projects_path(year_id: @year.id)],
+  ['Interventions', year_involvements_path(year_id: @year.id)],
+  ['Modules', year_teaching_modules_path(year_id: @year.id)],
+  ['Equipe', year_users_path(year_id: @year.id)],
+  ['Semestres (couverture des objectifs)', year_semesters_path(year_id: @year.id)]
+]
+%>
+
+<div>
+  <% tabs.each do |tab| %>
+    <%
+    name = tab.first
+    path = tab.last
+    active = tab.last == request.path
+    %>
+    <%= link_to name, path, class: "btn btn-lg #{ active ? 'btn-info' : 'btn-default' }" %>
+  <% end %>
+</div>
+<br/>
+<p class="small">
+  La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion %> est en première année,
+  La promotion <%= link_to @year.second_year_promotion, @year.second_year_promotion %> est en seconde année.
+  <% if can? :edit, @year.first_year_promotion %>
+  Pour actualiser l'EDT depuis Google, cliquez sur la promotion concernée.
+  <% end %>
+</p>
