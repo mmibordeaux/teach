@@ -1,3 +1,5 @@
+<%= render 'years/nav' %>
+
 <%= link_to 'Nouvelle intervention', new_year_involvement_path(year_id: @year.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
 
 <table class="table table-hover">

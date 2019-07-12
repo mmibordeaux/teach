@@ -11,9 +11,7 @@ class YearsController < ApplicationController
   end
 
   def show
-    @title = @year
-    @subtitle = "Du #{ @year.from.strftime "%d/%m/%Y"} au #{@year.to.strftime "%d/%m/%Y"}"
-    breadcrumb
+    redirect_to year_projects_path(@year)
   end
 
   protected

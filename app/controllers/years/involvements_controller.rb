@@ -3,6 +3,8 @@ class Years::InvolvementsController < YearsController
 
   def index
     @involvements = @year.involvements
+    @title = 'Interventions'
+    @subtitle = 'Liste de toutes les interventions prévues dans la maquette'
     breadcrumb
   end
 
@@ -94,8 +96,6 @@ class Years::InvolvementsController < YearsController
     if @project
       add_breadcrumb 'Projets', year_projects_path(year_id: @year.id)
       add_breadcrumb @project, [@year, @project]
-    else
-      add_breadcrumb 'Interventions', year_involvements_path(year_id: @year.id)
     end
     add_breadcrumb @title if @title
   end

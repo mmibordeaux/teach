@@ -1,3 +1,5 @@
+<%= render 'years/nav' %>
+
 <p><%= @users.count %> personnes</p>
 <%= link_to 'Nouvelle personne', new_user_path, class: 'btn btn-primary btn-xs' if can? :create, User %>
 

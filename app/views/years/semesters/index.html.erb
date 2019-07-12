@@ -1,5 +1,7 @@
+<%= render 'years/nav' %>
+
 <% @semesters.each do |semester| %>
-  <% 
+  <%
   objectives = semester.objectives
   objectives_covered = objectives.where(id: @year.objectives)
   objectives_not_covered = objectives - objectives_covered
