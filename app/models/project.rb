@@ -148,6 +148,7 @@ class Project < ActiveRecord::Base
   protected
 
   def fix_dates
+    self.from = nil if position_changed?
     if self.from.blank?
       self.from = start_date
       self.to = self.from + 5.days
