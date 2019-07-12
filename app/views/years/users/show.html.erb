@@ -58,35 +58,31 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Promotion<br/>&nbsp;</th>
       <th>Date</th>
       <th>Module</th>
       <th>Projet</th>
-      <th>Type</th>
       <th>Label</th>
-      <th>Description</th>
-      <th>Heures</th>
-      <th>Heures étudiants</th>
-      <th>Heures enseignant</th>
-      <th>Personnes</th>
+      <th>Heures<br/><span class="small">étudiant/enseignant</span></th>
       <th>Ouvrir</th>
     </tr>
   </thead>
   <tbody>
     <% @year.events_for(@user).ordered.each do |event| %>
       <tr>
+        <td><%= event.promotion.year %></td>
         <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
         <td class="<%= 'bg-danger' if event.teaching_module.nil? %>"><%= event.teaching_module %></td>
         <td><%= event.project %></td>
-        <td><%= event.kind.to_s.upcase %></td>
-        <td><%= event.label %></td>
-        <td><%= event.description %></td>
-        <td><%= number_to_human event.duration %></td>
-        <td><%= number_to_human event.student_hours %></td>
-        <td><%= number_to_human event.teacher_hours %></td>
-        <td class="<%= 'bg-danger' if event.users.empty? %>">
-          <% event.users.each do |user| %>
-            <%= user %><br>
-          <% end %>
+        <td>
+          <%= event.label %>
+          <p class="small"><%= event.description %></p>
+        </td>
+        <td>
+          <%= number_to_human event.duration %>h <%= event.kind.to_s.upcase %><br/>
+          <p class="small">
+            <%= number_to_human event.student_hours %> / <%= number_to_human event.teacher_hours %>
+          </p>
         </td>
         <td>
           <%= link_to 'Ouvrir la semaine',
