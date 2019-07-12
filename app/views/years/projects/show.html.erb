@@ -74,13 +74,16 @@
           <td><%= involvement.hours_tp %></td>
           <td><%= involvement.teacher_hours.round %></td>
           <td><%= simple_format involvement.description %></td>
-          <td><%= link_to 'Edit', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+          <td>
+            <%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%>
+            <%= link_to 'Supprimer', year_involvement_path(year_id: @year.id, id: involvement.id), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger btn-xs'  %>
+          </td>
         </tr>
       <% end %>
       </tbody>
     </table>
 
-    
+
     <h4>Emploi du temps</h4>
     <p>
       Attention, certains événements peuvent avoir lieu pendant le temps du projet sans être rattachés au projet.

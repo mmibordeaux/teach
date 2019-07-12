@@ -49,9 +49,9 @@ class Years::InvolvementsController < YearsController
   end
 
   def destroy
-    year = @involvement.promotion.first_year
+    @project = @involvement.project
     @involvement.destroy
-    redirect_to year, notice: 'Involvement was successfully destroyed.'
+    redirect_to [@year, @project], notice: 'Involvement was successfully destroyed.'
   end
 
   private
@@ -77,7 +77,7 @@ class Years::InvolvementsController < YearsController
   end
 
   def prepare_teaching_modules(teaching_modules)
-    teaching_modules.map do |teaching_module| 
+    teaching_modules.map do |teaching_module|
       programmed = teaching_module.expected_student_hours.round
       planned = @year.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
       teaching_module_name = teaching_module.full_name
