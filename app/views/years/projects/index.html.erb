@@ -14,8 +14,8 @@
     <thead>
       <tr>
         <th style="min-width: 200px">Nom</th>
-        <th>N° de semaine</th>
-        <th>Description</th>
+        <th>Date</th>
+        <th width="500">Description</th>
         <th>Responsable</th>
         <th>Heures étudiant (CM/TD/TP)</th>
       </tr>
@@ -29,7 +29,10 @@
               <small><%= project.sublabel %></small>
             <% end %>
           </td>
-          <td><%= project.week_number %></td>
+          <td>
+            Du <%= l project.from, format: "%d/%m" %>
+            au <%= l project.to, format: "%d/%m/%Y" %>
+          </td>
           <td><%= simple_format project.description %></td>
           <td><%= project.user %></td>
           <td>
