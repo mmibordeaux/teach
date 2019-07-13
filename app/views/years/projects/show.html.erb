@@ -68,7 +68,7 @@
           <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
           <td><%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %></td>
           <td><%= link_to involvement.promotion&.year, involvement.promotion %></td>
-          <td><%= involvement.student_hours %></td>
+          <td><%= involvement.student_hours.round %></td>
           <td><%= involvement.hours_cm %></td>
           <td><%= involvement.hours_td %></td>
           <td><%= involvement.hours_tp %></td>
