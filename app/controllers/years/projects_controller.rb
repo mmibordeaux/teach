@@ -42,6 +42,11 @@ class Years::ProjectsController < YearsController
     redirect_to :back, notice: 'Project synced.'
   end
 
+  def batch_sync_involvements_from_events
+    @year.projects.find_each &:sync_involvements_from_events
+    redirect_to :back, notice: 'All projects synced.'
+  end
+
   def create
     @project = Project.new(project_params)
     if @project.save
