@@ -61,6 +61,42 @@
 </script>
 
 
+<h2>Maquette</h2>
+<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Promotion</th>
+      <th>Personne</th>
+      <th>Heures étudiant total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th>Projet</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @year.involvements_for_teaching_module(@teaching_module).includes(:user).reorder('users.last_name').each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.promotion, involvement.promotion %></td>
+      <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
+      <td><%= involvement.student_hours %></td>
+      <td><%= involvement.hours_cm %></td>
+      <td><%= involvement.hours_td %> <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
+      <td><%= involvement.hours_tp %> <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
+      <td><%= involvement.teacher_hours %></td>
+      <td style="max-width: 200px"><%= simple_format involvement.description %></td>
+      <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
+      <td><%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
 <h2>EDT</h2>
 <table class="table">
   <thead>
@@ -98,40 +134,5 @@
   </tbody>
 </table>
 
-
-<h2>Maquette</h2>
-<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Promotion</th>
-      <th>Personne</th>
-      <th>Heures étudiant total</th>
-      <th>CM</th>
-      <th>TD</th>
-      <th>TP</th>
-      <th>Heures enseignant</th>
-      <th>Note</th>
-      <th>Projet</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @year.involvements_for_teaching_module(@teaching_module).includes(:user).reorder('users.last_name').each do |involvement| %>
-    <tr>
-      <td><%= link_to involvement.promotion, involvement.promotion %></td>
-      <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
-      <td><%= involvement.student_hours %></td>
-      <td><%= involvement.hours_cm %></td>
-      <td><%= involvement.hours_td %> <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
-      <td><%= involvement.hours_tp %> <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
-      <td><%= involvement.teacher_hours %></td>
-      <td style="max-width: 200px"><%= simple_format involvement.description %></td>
-      <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
-      <td><%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
 
 <%= link_to 'En savoir plus sur ce module', @teaching_module, class: 'btn btn-default' %>
