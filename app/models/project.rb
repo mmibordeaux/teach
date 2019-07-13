@@ -101,6 +101,12 @@ class Project < ActiveRecord::Base
     sum_involvements :teacher_hours
   end
 
+  # Scheduled (events)
+
+  def events_for_user(user)
+    events.includes(:users).where(users: { id: user.id })
+  end
+
   def to_event
     {
       start_date: {

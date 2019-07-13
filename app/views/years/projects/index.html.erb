@@ -25,9 +25,10 @@
       <tr>
         <th style="min-width: 200px">Nom</th>
         <th>Date</th>
-        <th width="500">Description</th>
+        <th width="400">Description</th>
         <th>Responsable</th>
-        <th>Heures étudiant (CM/TD/TP)</th>
+        <th>Heures étudiant<br/><small>CM/TD/TP</small></th>
+        <th>Heures sans intervenant<br/><small>heures étudiant, dans l'EDT</small></th>
       </tr>
     </thead>
     <tbody>
@@ -49,7 +50,9 @@
             <%= project.student_hours %>
             (<%= project.student_hours_cm %>/<%= project.student_hours_td %>/<%= project.student_hours_tp %>)
           </td>
-        </tr>
+          <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
+          <td class="<%= 'bg-danger' if hours_with_no_one > 0 %>"><%= hours_with_no_one.round %></td>
+         </tr>
       <% end %>
     </tbody>
   </table>
