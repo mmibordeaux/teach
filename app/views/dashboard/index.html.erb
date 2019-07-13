@@ -6,18 +6,18 @@
 <% end %>
 <div class="row">
   <div class="col-md-2">
-    <div class="text-xl"><%= @year.planned_hours_for(current_user, :teacher_hours).round %>h</div>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(current_user).round %><small>H</small></div>
   </div>
   <div class="col-md-2">
-    <div class="text-xl"><%= @year.planned_hours_for(current_user, :teacher_hours_cm).round %>hCM</div>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(current_user, :cm).round %><small>CM</small></div>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= @year.planned_hours_for(current_user, :teacher_hours_td).round %>hTD</div>
-    <p><%= @year.planned_hours_for(current_user, :student_hours_td).round %> heures TD avec chaque étudiant</p>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(current_user, :td).round %><small>TD</small></div>
+    <p><%= @year.scheduled_student_hours_for(current_user, :td).round %> heures TD avec chaque étudiant</p>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= @year.planned_hours_for(current_user, :teacher_hours_tp).round %>hTP</div>
-    <p><%= @year.planned_hours_for(current_user, :student_hours_tp).round %> heures TP avec chaque étudiant</p>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(current_user, :tp).round %><small>TP</small></div>
+    <p><%= @year.scheduled_student_hours_for(current_user, :tp).round %> heures TP avec chaque étudiant</p>
   </div>
   <% if current_user.tenured && current_user.hours%>
     <% delta = @year.planned_delta_for(current_user) %>

@@ -59,10 +59,6 @@ class Year < ActiveRecord::Base
         second_year_promotion_id, second_year_module_ids)
   end
 
-  def events
-    Event.where('date >= ? AND date < ?', from, to)
-  end
-
   def projects_with_user_involved(user)
     involvements_for_user(user).collect(&:project).uniq.compact.to_ary.sort_by(&:week_number)
   end
@@ -79,16 +75,14 @@ class Year < ActiveRecord::Base
     (users_with_involvements + users_with_events).uniq.sort_by { |user| user&.last_name }
   end
 
+  # Planned (involvements)
+
   def involvements_for_user(user)
     involvements.where(user: user)
   end
 
   def involvements_for_teaching_module(teaching_module)
     involvements.where(teaching_module: teaching_module)
-  end
-
-  def events_for(user)
-    user.events.where('date >= ? AND date < ?', from, to)
   end
 
   def student_hours
@@ -103,17 +97,6 @@ class Year < ActiveRecord::Base
     involvements_for_user(user).sum(kind)
   end
 
-  def scheduled_teacher_hours_for(user)
-    events_for(user).sum(:duration)
-  end
-
-  def scheduled_teacher_hours_ponderated_for(user)
-    cm = events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
-    td = events_for(user).td.sum(:duration) * Involvement::COST_RATIO_TD
-    tp = events_for(user).tp.sum(:duration) * Involvement::COST_RATIO_TP
-    cm + td + tp
-  end
-
   def planned_teaching_modules_for(user)
     involvements_for_user(user).collect(&:teaching_module).uniq.sort_by { |tm| tm.code }
   end
@@ -123,17 +106,44 @@ class Year < ActiveRecord::Base
     planned_hours_for(user) - user.hours
   end
 
-  def scheduled_teaching_modules_for(user)
-    teaching_modules = events_for(user).collect(&:teaching_module).uniq.compact
-    teaching_modules.sort_by { |tm| tm.code }
-  end
-
   def planned_hours_for_teaching_module(teaching_module, kind = :teacher_hours)
     involvements_for_teaching_module(teaching_module).sum(kind)
   end
 
   def planned_hours_for_teaching_module_and_user(teaching_module, user, kind = :teacher_hours)
     involvements_for_user(user).where(teaching_module: teaching_module).sum(kind)
+  end
+
+  # Scheduled (events)
+
+  def scheduled_teacher_hours_for(user, kind = nil)
+    events_for(user, kind).sum(:duration)
+  end
+
+  def scheduled_teacher_hours_ponderated_for(user)
+    cm = events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
+    td = events_for(user).td.sum(:duration) * Involvement::COST_RATIO_TD
+    tp = events_for(user).tp.sum(:duration) * Involvement::COST_RATIO_TP
+    cm + td + tp
+  end
+
+  def scheduled_student_hours_for(user, kind = nil)
+    events_for(user, kind).sum(:student_hours)
+  end
+
+  def events
+    Event.where('date >= ? AND date < ?', from, to)
+  end
+
+  def events_for(user, kind = nil)
+    events = user.events.where('date >= ? AND date < ?', from, to)
+    events = events.send(kind) if kind
+    events
+  end
+
+  def scheduled_teaching_modules_for(user)
+    teaching_modules = events_for(user).collect(&:teaching_module).uniq.compact
+    teaching_modules.sort_by { |tm| tm.code }
   end
 
   def scheduled_hours_for_teaching_module(teaching_module, kind_of_hours = nil)

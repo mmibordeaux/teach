@@ -2,19 +2,19 @@
 
 <div class="row">
   <div class="col-md-2">
-    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user).round %>h</div>
-    <%= @year.scheduled_teacher_hours_ponderated_for(@user).round %> heures avec CM pondérés
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user).round %><small>h</small></div>
   </div>
   <div class="col-md-2">
-    <div class="text-xl"><%= @year.events_for(@user).cm.sum(:duration).round %>hCM</div>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user, :cm).round %><small>CM</small></div>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= @year.events_for(@user).td.sum(:duration).round %>hTD</div>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user, :td).round %><small>TD</small></div>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= @year.events_for(@user).tp.sum(:duration).round %>hTP</div>
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user, :tp).round %><small>TP</small></div>
   </div>
 </div>
+<p><%= @year.scheduled_teacher_hours_ponderated_for(@user).round %> heures avec CM pondérés</p>
 
 
 <h3>Service validé (planifié dans l'emploi du temps)</h3>
