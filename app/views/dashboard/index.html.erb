@@ -20,7 +20,7 @@
     <p><%= @year.scheduled_student_hours_for(current_user, :tp).round %> heures TP avec chaque étudiant</p>
   </div>
   <% if current_user.tenured && current_user.hours%>
-    <% delta = @year.planned_delta_for(current_user) %>
+    <% delta = @year.scheduled_delta_for(current_user) %>
     <div class="col-md-2">
       <div class="btn btn-block <%= delta >= 0 ? 'btn-success' : ' btn-danger' %>">
         <div class="text-xl"><%= delta.round %>h</div>

@@ -116,8 +116,12 @@ class Year < ActiveRecord::Base
 
   # Scheduled (events)
 
-  def scheduled_teacher_hours_for(user, kind = nil)
+  def scheduled_hours_for(user, kind = nil)
     events_for(user, kind).sum(:duration)
+  end
+
+  def scheduled_teacher_hours_for(user, kind = nil)
+    events_for(user, kind).sum(:teacher_hours)
   end
 
   def scheduled_teacher_hours_ponderated_for(user)
@@ -163,6 +167,11 @@ class Year < ActiveRecord::Base
       events = events.tp
     end
     events.sum :duration
+  end
+
+  def scheduled_delta_for(user)
+    return 0 if user.hours.nil?
+    scheduled_hours_for(user) - user.hours
   end
 
   def to_s
