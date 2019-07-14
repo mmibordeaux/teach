@@ -34,35 +34,58 @@
 
 <h2>Projets dont je suis responsable</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Semestre</th>
-      <th>Projet</th>
-      <th>Dates</th>
-      <th>Volume d'heures étudiant</th>
-      <th>Heures sans intervenant (heures étudiant, dans l'EDT)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects_in_charge.each do |project| %>
-      <tr>
-        <td><%= project.semesters.join(', ') %></td>
-        <td><%= project %></td>
-        <td>
-          Du <%= l project.from, format: "%d/%m" %>
-          au <%= l project.to, format: "%d/%m/%Y" %>
-        </td>
-        <td>
-          <%= project.student_hours %>
-          (<%= project.student_hours_cm %>/<%= project.student_hours_td %>/<%= project.student_hours_tp %>)
-        </td>
+<% @projects_in_charge.each do |project| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <div class="pull-right">
+        <% project.semesters.each do |semester| %>
+          <span class="label label-info"><%= semester %></span>
+        <% end %>
+      </div>
+      <h3><%= link_to project, [project.year, project] %></h3>
+      <div class="pull-right">
+        Du <%= l project.from, format: "%d/%m" %>
+        au <%= l project.to, format: "%d/%m/%Y" %>
+      </div>
+      <%= project.description %>&nbsp;
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4">
+          <%= simple_format project.detailed_description %>
+        </div>
+        <div class="col-md-2">
+          <div class="text-xl"><%= project.student_hours.round %><small>h</small></div>
+          <%= project.student_hours_cm %> CM /
+          <%= project.student_hours_td %> TD /
+          <%= project.student_hours_tp %> TP
+        </div>
+        <div class="col-md-4">
+          <ul>
+            <% project.involvements.each do |involvement| %>
+              <li>
+                <h5><%= involvement.user %></h5>
+                <%= simple_format involvement.description %>
+                <p class="small">
+                  <%= involvement.teaching_module&.label %> : 
+                  <%= involvement.hours_cm %> CM /
+                  <%= involvement.hours_td %> TD /
+                  <%= involvement.hours_tp %> TP
+                </p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
         <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
-        <td class="<%= 'bg-danger' if hours_with_no_one > 0 %>"><%= hours_with_no_one.round %></td>
-      </tr>
-    <% end %> 
-  </tbody>
-</table>
+        <div class="col-md-2 bg-danger">
+          <div class="text-xl"><%= hours_with_no_one.round %><small>h</small></div>
+          <p>Heures sans intervenant <br/>
+          <span class="small">heures étudiant, dans l'EDT</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <hr class="spacer">
 
@@ -90,24 +113,30 @@
              <%= involvement.teacher_hours.round %>h d'enseignement en tout.
           </div>
           <div class="col-md-2<% if involvement.student_hours_cm.zero? %> text-muted <% end %>">
-            <div class="text-xl"><%= involvement.student_hours_cm.round %><small>CM</small></div>
-            <strong>cours magistral</strong><br/>
-            En classe entière, à assurer une seule fois.
+            <% if involvement.student_hours_cm > 0 %>
+              <div class="text-xl"><%= involvement.student_hours_cm.round %><small>CM</small></div>
+              <strong>cours magistral</strong><br/>
+              En classe entière, à assurer une seule fois.
+            <% end %>
           </div>
           <div class="col-md-2<% if involvement.student_hours_td.zero? %> text-muted <% end %>">
-            <div class="text-xl"><%= involvement.student_hours_td.round %><small>TD</small></div>
-            <strong>travaux dirigés</strong><br/>
             <% if involvement.student_hours_td > 0 %>
-              En demi-groupe, à assurer <%= involvement.multiplier_td %> fois. 
-              Cela fait donc un total de <%= involvement.teacher_hours_td.round %>h d'enseignement en TD.
+              <div class="text-xl"><%= involvement.student_hours_td.round %><small>TD</small></div>
+              <strong>travaux dirigés</strong><br/>
+              <% if involvement.student_hours_td > 0 %>
+                En demi-groupe, à assurer <%= involvement.multiplier_td %> fois. 
+                Cela fait donc un total de <%= involvement.teacher_hours_td.round %>h d'enseignement en TD.
+              <% end %>
             <% end %>
           </div>
           <div class="col-md-2<% if involvement.student_hours_tp.zero? %> text-muted <% end %>">
-            <div class="text-xl"><%= involvement.student_hours_tp.round %><small>TP</small></div>
-            <strong>travaux pratiques</strong><br/>
             <% if involvement.student_hours_tp > 0 %>
-              Avec <%= involvement.multiplier_tp %> groupes, à assurer <%= involvement.groups_tp %> fois. 
-              Cela fait donc un total de <%= involvement.teacher_hours_tp.round %>h d'enseignement en TP.
+              <div class="text-xl"><%= involvement.student_hours_tp.round %><small>TP</small></div>
+              <strong>travaux pratiques</strong><br/>
+              <% if involvement.student_hours_tp > 0 %>
+                Avec <%= involvement.multiplier_tp %> groupes, à assurer <%= involvement.groups_tp %> fois. 
+                Cela fait donc un total de <%= involvement.teacher_hours_tp.round %>h d'enseignement en TP.
+              <% end %>
             <% end %>
           </div>
           <div class="col-md-2">

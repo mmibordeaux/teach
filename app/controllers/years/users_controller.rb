@@ -8,6 +8,7 @@ class Years::UsersController < YearsController
   def show
     @user = User.find params[:id]
     @title = @user
+    @projects_in_charge = @year.projects.where(user: @user)
     breadcrumb
   end
 
