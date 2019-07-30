@@ -125,9 +125,9 @@ class Year < ActiveRecord::Base
   end
 
   def scheduled_teacher_hours_ponderated_for(user)
-    cm = events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
-    td = events_for(user).td.sum(:duration) * Involvement::COST_RATIO_TD
-    tp = events_for(user).tp.sum(:duration) * Involvement::COST_RATIO_TP
+    cm = 1.0 * events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
+    td = 1.0 * events_for(user).td.sum(:duration) * Involvement::COST_RATIO_TD
+    tp = 1.0 * events_for(user).tp.sum(:duration) * Involvement::COST_RATIO_TP
     cm + td + tp
   end
 

@@ -36,6 +36,7 @@ class Event < ActiveRecord::Base
     if date.class == Icalendar::Values::Date
       # All day event, used for holidays
       duration = 0
+      return
     else
       duration = (date_end - date) / 60 / 60
     end
