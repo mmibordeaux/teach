@@ -120,15 +120,15 @@ class Year < ActiveRecord::Base
     events_for(user, kind).sum(:duration)
   end
 
-  def scheduled_teacher_hours_for(user, kind = nil)
-    events_for(user, kind).sum(:teacher_hours)
-  end
-
-  def scheduled_teacher_hours_ponderated_for(user)
+  def scheduled_hours_ponderated_for(user)
     cm = events_for(user).cm.sum(:duration) * Involvement::COST_RATIO_CM
     td = events_for(user).td.sum(:duration) * Involvement::COST_RATIO_TD
     tp = events_for(user).tp.sum(:duration) * Involvement::COST_RATIO_TP
     cm + td + tp
+  end
+
+  def scheduled_teacher_hours_for(user, kind = nil)
+    events_for(user, kind).sum(:teacher_hours)
   end
 
   def scheduled_student_hours_for(user, kind = nil)
