@@ -77,11 +77,13 @@
           </ul>
         </div>
         <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
-        <div class="col-md-2 bg-danger">
-          <div class="text-xl"><%= hours_with_no_one.round %><small>h</small></div>
-          <p>Heures sans intervenant <br/>
-          <span class="small">heures étudiant, dans l'EDT</span></p>
-        </div>
+        <% if hours_with_no_one > 0 %>
+          <div class="col-md-2 bg-danger">
+            <div class="text-xl"><%= hours_with_no_one.round %><small>h</small></div>
+            <p>Heures sans intervenant <br/>
+            <span class="small">heures étudiant, dans l'EDT</span></p>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
