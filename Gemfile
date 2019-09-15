@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.6.3'
 
 # Infrastructure
 gem 'pg', '0.20.0'
@@ -7,7 +7,7 @@ gem 'puma'
 gem 'sendgrid-ruby'
 
 # Back
-gem 'rails', '4.2.9'
+gem 'rails', '~> 4'
 gem 'rails-i18n'
 gem 'nokogiri'
 gem 'formtastic'
