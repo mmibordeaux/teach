@@ -2,19 +2,19 @@
 
 <div class="row">
   <div class="col-md-2">
-    <div class="text-xl"><%= @year.scheduled_teacher_hours_for(@user).round %>h</div>
-    <%= @year.scheduled_teacher_hours_ponderated_for(@user).round %> heures avec CM pondérés
+    <div class="text-xl"><%= @year.scheduled_hours_for(@user).round %><small>h</small></div>
   </div>
   <div class="col-md-2">
-    <div class="text-xl"><%= @year.events_for(@user).cm.sum(:duration).round %>hCM</div>
+    <div class="text-xl"><%= @year.scheduled_hours_for(@user, :cm).round %><small>CM</small></div>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= @year.events_for(@user).td.sum(:duration).round %>hTD</div>
+    <div class="text-xl"><%= @year.scheduled_hours_for(@user, :td).round %><small>TD</small></div>
   </div>
   <div class="col-md-3">
-    <div class="text-xl"><%= @year.events_for(@user).tp.sum(:duration).round %>hTP</div>
+    <div class="text-xl"><%= @year.scheduled_hours_for(@user, :tp).round %><small>TP</small></div>
   </div>
 </div>
+<p><%= @year.scheduled_hours_ponderated_for(@user).round %> heures avec CM pondérés</p>
 
 
 <h3>Service validé (planifié dans l'emploi du temps)</h3>
@@ -58,7 +58,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Promotion<br/>&nbsp;</th>
+      <th>Promotion</th>
       <th>Date</th>
       <th>Module</th>
       <th>Projet</th>
@@ -181,3 +181,34 @@
     </table>
   </div>
 </div>
+
+<h2>Projets gérés</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Semestre</th>
+      <th>Projet</th>
+      <th>Dates</th>
+      <th>Volume d'heures étudiant</th>
+      <th>Heures sans intervenant (heures étudiant, dans l'EDT)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects_in_charge.each do |project| %>
+      <tr>
+        <td><%= project.semesters.join(', ') %></td>
+        <td><%= project %></td>
+        <td>
+          Du <%= l project.from, format: "%d/%m" %>
+          au <%= l project.to, format: "%d/%m/%Y" %>
+        </td>
+        <td>
+          <%= project.student_hours %>
+          (<%= project.student_hours_cm %>/<%= project.student_hours_td %>/<%= project.student_hours_tp %>)
+        </td>
+        <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
+        <td class="<%= 'bg-danger' if hours_with_no_one > 0 %>"><%= hours_with_no_one.round %></td>
+      </tr>
+    <% end %> 
+  </tbody>
+</table>

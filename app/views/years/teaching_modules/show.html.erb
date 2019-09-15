@@ -61,31 +61,77 @@
 </script>
 
 
+<h2>Maquette</h2>
+<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Projet</th>
+      <th>Personne</th>
+      <th>Heures étudiant</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @year.involvements_for_teaching_module(@teaching_module).includes(:user).reorder('users.last_name').each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
+      <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
+      <td><%= involvement.student_hours.round %></td>
+      <td><%= involvement.hours_cm.round %></td>
+      <td>
+        <%= involvement.hours_td.round %>
+        <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
+      <td>
+        <%= involvement.hours_tp.round %>
+        <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
+      <td><%= involvement.teacher_hours.round %></td>
+      <td style="max-width: 200px"><%= simple_format involvement.description %></td>
+      <td><%= link_to 'Modifier',
+                      edit_year_involvement_path(year_id: @year.id, id: involvement.id),
+                      class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
 <h2>EDT</h2>
 <table class="table">
   <thead>
     <tr>
       <th>Date</th>
-      <th>Type</th>
-      <th>Heures</th>
-      <th>Heures étudiants</th>
-      <th>Heures enseignant</th>
-      <th>Personnes</th>
-      <th></th>
+      <th>Projet</th>
+      <th>Label</th>
+      <th>Enseignants</th>
+      <th>Heures<br/><span class="small">étudiant/enseignant</span></th>
+      <th>Ouvrir</th>
     </tr>
   </thead>
   <tbody>
-    <% @teaching_module.events_for_year(@year).each do |event| %>
+    <% @teaching_module.events_for_year(@year).ordered.each do |event| %>
       <tr>
-        <td><%= event.date.strftime "%d/%m/%Y" %></td>
-        <td><%= event.kind.to_s.upcase %></td>
-        <td><%= number_to_human event.duration %></td>
-        <td><%= number_to_human event.student_hours %></td>
-        <td><%= number_to_human event.teacher_hours %></td>
+        <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
+        <td><%= event.project %></td>
+        <td>
+          <%= event.label %>
+          <p class="small"><%= event.description %></p>
+        </td>
         <td>
           <% event.users.each do |user| %>
             <%= link_to user, user %><br>
           <% end %>
+        </td>
+        <td>
+          <%= number_to_human event.duration %>h <%= event.kind.to_s.upcase %><br/>
+          <p class="small">
+            <%= number_to_human event.student_hours %> / <%= number_to_human event.teacher_hours %>
+          </p>
         </td>
         <td>
           <%= link_to 'Ouvrir la semaine',
@@ -95,42 +141,6 @@
         </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-
-<h2>Maquette</h2>
-<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Promotion</th>
-      <th>Personne</th>
-      <th>Heures étudiant total</th>
-      <th>CM</th>
-      <th>TD</th>
-      <th>TP</th>
-      <th>Heures enseignant</th>
-      <th>Note</th>
-      <th>Projet</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @year.involvements_for_teaching_module(@teaching_module).includes(:user).reorder('users.last_name').each do |involvement| %>
-    <tr>
-      <td><%= link_to involvement.promotion, involvement.promotion %></td>
-      <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
-      <td><%= involvement.student_hours %></td>
-      <td><%= involvement.hours_cm %></td>
-      <td><%= involvement.hours_td %> <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
-      <td><%= involvement.hours_tp %> <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
-      <td><%= involvement.teacher_hours %></td>
-      <td style="max-width: 200px"><%= simple_format involvement.description %></td>
-      <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
-      <td><%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement %></td>
-    </tr>
-  <% end %>
   </tbody>
 </table>
 

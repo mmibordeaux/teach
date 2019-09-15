@@ -21,8 +21,8 @@
       <%
       service = user.hours
       planned = @year.planned_hours_for(user)
-      scheduled = @year.scheduled_teacher_hours_for(user)
-      scheduled_ponderated = @year.scheduled_teacher_hours_ponderated_for(user)
+      scheduled = @year.scheduled_hours_for(user)
+      scheduled_ponderated = @year.scheduled_hours_ponderated_for(user)
       %>
       <tr>
         <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
@@ -55,8 +55,8 @@
       <%
       service = user.hours
       planned = @year.planned_hours_for(user)
-      scheduled = @year.scheduled_teacher_hours_for(user)
-      scheduled_ponderated = @year.scheduled_teacher_hours_ponderated_for(user)
+      scheduled = @year.scheduled_hours_for(user)
+      scheduled_ponderated = @year.scheduled_hours_ponderated_for(user)
       %>
       <tr>
         <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>

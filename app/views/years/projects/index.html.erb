@@ -1,6 +1,14 @@
 <%= render 'years/nav' %>
 
-<%= link_to 'Nouveau projet', new_year_project_path(year_id: @year.id), class: 'btn btn-primary btn-xs' if can? :create, Project %>
+<%= link_to 'Nouveau projet',
+            new_year_project_path(year_id: @year.id),
+            class: 'btn btn-primary btn-xs' if can? :create, Project %>
+
+<%= link_to 'Synchroniser la maquette à partir de l\'EDT pour tous les projets',
+            batch_sync_involvements_from_events_year_projects_path(year_id: @year.id),
+            method: :post,
+            class: 'btn btn-primary btn-xs' if can? :create, Project %>
+
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">
   var data = <%= { events: @year.projects.collect(&:to_event) }.to_json.html_safe %>;
@@ -17,9 +25,10 @@
       <tr>
         <th style="min-width: 200px">Nom</th>
         <th>Date</th>
-        <th width="500">Description</th>
+        <th width="400">Description</th>
         <th>Responsable</th>
-        <th>Heures étudiant (CM/TD/TP)</th>
+        <th>Heures étudiant<br/><small>CM/TD/TP</small></th>
+        <th>Heures sans intervenant<br/><small>heures étudiant, dans l'EDT</small></th>
       </tr>
     </thead>
     <tbody>
@@ -41,7 +50,9 @@
             <%= project.student_hours %>
             (<%= project.student_hours_cm %>/<%= project.student_hours_td %>/<%= project.student_hours_tp %>)
           </td>
-        </tr>
+          <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
+          <td class="<%= 'bg-danger' if hours_with_no_one > 0 %>"><%= hours_with_no_one.round %></td>
+         </tr>
       <% end %>
     </tbody>
   </table>

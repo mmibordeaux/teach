@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :semesters, only: [:index, :show]
   resources :years, only: [:index, :show] do
     resources :projects, module: :years do
+      collection do
+        post :batch_sync_involvements_from_events
+      end
       member do
         post :sync_involvements_from_events
       end
