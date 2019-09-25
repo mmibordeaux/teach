@@ -59,20 +59,29 @@
   <thead>
     <tr>
       <th>Projet</th>
-      <th>Semestre</th>
       <th width="200">Intervenants</th>
+      <th>Semestre</th>
       <th>Dates</th>
-      <th>Heures enseignant (tous enseignants)</th>
-      <th>Heures étudiant</th>
-      <th>Heures sans intervenant (heures étudiant, dans l'EDT)</th>
+      <th>
+        Heures enseignant<br/>
+        <span class="small">Tous enseignants</span>
+      </th>
+      <th>
+        Heures étudiant<br/>
+        <span class="small">Tous enseignants</span>
+      </th>
+      <th>
+        Heures sans intervenant<br/>
+        <span class="small">Heures étudiant, dans l'EDT</span>
+      </th>
     </tr>
   </thead>
   <tbody>
     <% @projects_in_charge.order(:from).each do |project| %>
       <tr>
         <td><%= link_to project, [@year, project] %></td>
-        <td><%= project.semesters.join(', ') %></td>
         <td class="small"><%= project.users.join(', ') %></td>
+        <td><%= project.semesters.join(', ') %></td>
         <td>
           du <%= l project.from, format: "%d/%m" %>
           au <%= l project.to, format: "%d/%m/%Y" %>
