@@ -101,6 +101,18 @@ class Project < ActiveRecord::Base
     sum_involvements :teacher_hours
   end
 
+  def teacher_hours_cm
+    sum_involvements :teacher_hours_cm
+  end
+
+  def teacher_hours_td
+    sum_involvements :teacher_hours_td
+  end
+
+  def teacher_hours_tp
+    sum_involvements :teacher_hours_tp
+  end
+
   # Scheduled (events)
 
   def events_for_user(user)
@@ -131,15 +143,17 @@ class Project < ActiveRecord::Base
     involvements.find_each &:reset_hours!
     events.each do |event|
       event.users.each do |user|
-        involvement = involvements.where(teaching_module: event.teaching_module, user: user, promotion: event.promotion)
+        involvement = involvements.where( teaching_module: event.teaching_module,
+                                          user: user,
+                                          promotion: event.promotion)
                                   .first_or_initialize
         case event.kind
         when 'cm'
-          involvement.hours_cm += event.student_hours
+          involvement.hours_cm += event.student_hours / event.users.count
         when 'td'
-          involvement.hours_td += event.student_hours
+          involvement.hours_td += event.student_hours / event.users.count
         when 'tp'
-          involvement.hours_tp += event.student_hours
+          involvement.hours_tp += event.student_hours / event.users.count
         end
         involvement.save
       end
