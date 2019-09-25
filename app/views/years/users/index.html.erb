@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @year.users.each do |user| %>
+    <% @users.each do |user| %>
       <% next if user.nil? %>
       <%
       service = user.hours

@@ -49,30 +49,25 @@ class Year < ActiveRecord::Base
   end
 
   def involvements
-    first_year_promotion_id = first_year_promotion.nil? ? nil : first_year_promotion.id
-    first_year_module_ids = TeachingModule.where(semester_id: [1, 2]).pluck(:id)
-    second_year_promotion_id = second_year_promotion.nil? ? nil : second_year_promotion.id
-    second_year_module_ids = TeachingModule.where(semester_id: [3, 4]).pluck(:id)
-    Involvement
-      .where('(promotion_id = ? AND teaching_module_id IN (?)) OR (promotion_id = ? AND teaching_module_id IN (?))',
-        first_year_promotion_id, first_year_module_ids,
-        second_year_promotion_id, second_year_module_ids)
+    if @involvements.nil?
+      first_year_promotion_id = first_year_promotion.nil? ? nil : first_year_promotion.id
+      first_year_module_ids = TeachingModule.where(semester_id: [1, 2]).pluck(:id)
+      second_year_promotion_id = second_year_promotion.nil? ? nil : second_year_promotion.id
+      second_year_module_ids = TeachingModule.where(semester_id: [3, 4]).pluck(:id)
+      @involvements = Involvement
+                        .where( '(promotion_id = ? AND teaching_module_id IN (?)) OR (promotion_id = ? AND teaching_module_id IN (?))',
+                                first_year_promotion_id, first_year_module_ids,
+                                second_year_promotion_id, second_year_module_ids)
+    end
+    @involvements
   end
 
   def projects_with_user_involved(user)
     involvements_for_user(user).collect(&:project).uniq.compact.to_ary.sort_by(&:week_number)
   end
 
-  def users_with_involvements
-    involvements.where.not(user: nil).collect(&:user).uniq.sort_by { |user| user&.last_name }
-  end
-
-  def users_with_events
-    events.collect(&:users).flatten.uniq.sort_by { |user| user&.last_name }
-  end
-
   def users
-    (users_with_involvements + users_with_events).uniq.sort_by { |user| user&.last_name }
+    @users ||= (users_with_involvements + users_with_events).uniq.sort_by { |user| user&.last_name }
   end
 
   # Planned (involvements)
@@ -136,7 +131,7 @@ class Year < ActiveRecord::Base
   end
 
   def events
-    Event.where('date >= ? AND date < ?', from, to)
+    @events ||= Event.where('date >= ? AND date < ?', from, to)
   end
 
   def events_for(user, kind = nil)
@@ -176,5 +171,15 @@ class Year < ActiveRecord::Base
 
   def to_s
     "#{year-1} - #{year}"
+  end
+
+  protected
+
+  def users_with_involvements
+    involvements.where.not(user: nil).collect(&:user)
+  end
+
+  def users_with_events
+    events.collect(&:users).flatten
   end
 end
