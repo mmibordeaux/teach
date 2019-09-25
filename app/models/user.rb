@@ -21,11 +21,13 @@
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  admin                  :boolean          default(FALSE), not null
+#  email_secondary        :string
 #
 
 class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable
 
+  scope :with_email, -> (email) { where('email LIKE ? OR email_secondary LIKE ?', email, email) }
   default_scope { order('last_name, first_name') }
 
   has_many :teaching_modules

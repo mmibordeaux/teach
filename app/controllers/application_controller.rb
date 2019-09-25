@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   end
 
   # def current_user
-  #   User.where(email: 'beatrice.lemoine@mmibordeaux.com').first
+  #   User.with_email('beatrice.lemoine@mmibordeaux.com').first
   # end
 end

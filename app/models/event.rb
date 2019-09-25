@@ -66,7 +66,7 @@ class Event < ActiveRecord::Base
                           description: calendar_event.description
     calendar_event.attendee.each do |attendee|
       email = attendee.to_s.remove 'mailto:'
-      user = User.where(email: email).first
+      user = User.with_email(email).first
       event.users << user unless user.nil?
     end
     if event.users.none?

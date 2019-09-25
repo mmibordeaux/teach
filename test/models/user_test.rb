@@ -21,6 +21,7 @@
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  admin                  :boolean          default(FALSE), not null
+#  email_secondary        :string
 #
 
 require 'test_helper'
