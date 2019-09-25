@@ -8,6 +8,7 @@
       <th>Email</th>
       <th>Email secondaire</th>
       <th>Fonctionnaire?</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
         </td>
         <td><%= user.email_secondary %></td>
         <td><%= user.public ? 'oui' : 'non' %></td>
+        <td><%= link_to 'Modifier', edit_user_path(user), class: 'btn btn-primary btn-xs' if can? :edit, user %></td>
       </tr>
     <% end %>
   </tbody>
