@@ -67,7 +67,7 @@
                 <h5><%= involvement.user %></h5>
                 <%= simple_format involvement.description %>
                 <p class="small">
-                  <%= involvement.teaching_module&.label %> : 
+                  <%= involvement.teaching_module&.label %> :
                   <%= involvement.hours_cm %> CM /
                   <%= involvement.hours_td %> TD /
                   <%= involvement.hours_tp %> TP
@@ -126,7 +126,7 @@
               <div class="text-xl"><%= involvement.student_hours_td.round %><small>TD</small></div>
               <strong>travaux dirigés</strong><br/>
               <% if involvement.student_hours_td > 0 %>
-                En demi-groupe, à assurer <%= involvement.multiplier_td %> fois. 
+                En demi-groupe, à assurer <%= involvement.multiplier_td %> fois.
                 Cela fait donc un total de <%= involvement.teacher_hours_td.round %>h d'enseignement en TD.
               <% end %>
             <% end %>
@@ -136,14 +136,16 @@
               <div class="text-xl"><%= involvement.student_hours_tp.round %><small>TP</small></div>
               <strong>travaux pratiques</strong><br/>
               <% if involvement.student_hours_tp > 0 %>
-                Avec <%= involvement.multiplier_tp %> groupes, à assurer <%= involvement.groups_tp %> fois. 
+                Avec <%= involvement.multiplier_tp %> groupes, à assurer <%= involvement.groups_tp %> fois.
                 Cela fait donc un total de <%= involvement.teacher_hours_tp.round %>h d'enseignement en TP.
               <% end %>
             <% end %>
           </div>
           <div class="col-md-2">
-            <h4><%= involvement.teaching_module %> (<%= involvement.teaching_module.semester %>)</h4>
-            <p><%= involvement.teaching_module.label %></p>
+            <% if involvement.teaching_module %>
+              <h4><%= involvement.teaching_module %> (<%= involvement.teaching_module.semester %>)</h4>
+              <p><%= involvement.teaching_module.label %></p>
+            <% end %>
           </div>
         </div>
         <hr>
