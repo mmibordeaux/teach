@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     render json: PPN.parse
   end
 
-  def current_user
-    User.with_email('marlene.dulaurans@mmibordeaux.com').first
-  end
+  # def current_user
+  #   User.with_email('marlene.dulaurans@mmibordeaux.com').first
+  # end
 end
