@@ -79,6 +79,14 @@ class Event < ActiveRecord::Base
     byebug
   end
 
+  def from
+    @from ||= date.in_time_zone('Paris')
+  end
+
+  def to
+    @to ||= @from + duration.hours
+  end
+
   protected
 
   def compute_student_hours
