@@ -56,6 +56,18 @@ class Project < ActiveRecord::Base
     "#{real_year}-#{ '%02d' % position}"
   end
 
+  def days
+    unless @days
+      @days = []
+      current_date = from
+      while current_date < to
+        @days << current_date
+        current_date += 1.day
+      end
+    end
+    @days
+  end
+
   def possible_teaching_modules
     ids = objectives.collect &:teaching_module_id
     TeachingModule.where(semester: semesters, id: ids)

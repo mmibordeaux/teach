@@ -148,3 +148,30 @@
     </table>
   </div>
 </div>
+
+<h2 class="mt-5">Emploi du temps</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <% @project.days.each do |day| %>
+        <th><%= l day, format: "%A %d" %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @project.days.each do |day| %>
+        <td>
+          <ul>
+            <% @project.events.where('DATE(date) = ?', day).each do |event| %>
+              <li>
+                <%= event.users.join(', ') %>
+                <p class="small text-muted"><%= event.teaching_module&.label %></p>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
