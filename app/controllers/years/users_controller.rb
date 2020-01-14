@@ -7,6 +7,7 @@ class Years::UsersController < YearsController
 
   def show
     @user = User.find params[:id]
+    redirect_to [@year, :users] unless can? :show_service, @user
     @title = @user
     @projects_in_charge = @year.projects.where(user: @user)
     breadcrumb

@@ -21,24 +21,36 @@
   <tbody>
     <% @users.each do |user| %>
       <% next if user.nil? %>
-      <%
-      service = user.hours
-      planned = @year.planned_hours_for(user)
-      scheduled = @year.scheduled_hours_for(user)
-      scheduled_ponderated = @year.scheduled_hours_ponderated_for(user)
-      %>
-      <tr>
-        <td>
-          <%= link_to user, year_user_path(year_id: @year.id, id: user.id) %>
-          <% if user.public %><span class="label label-default">Fonctionnaire</span><% end %>
-        </td>
-        <td><%= service.round unless service.nil? %></td>
-        <td><%= planned.round %></td>
-        <%= render 'application/td_delta', value: planned, reference: service %>
-        <td><%= scheduled.round %></td>
-        <td><%= scheduled_ponderated.round %></td>
-        <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
-      </tr>
+      <% if can? :show_service, user %>
+        <%
+        service = user.hours
+        planned = @year.planned_hours_for(user)
+        scheduled = @year.scheduled_hours_for(user)
+        scheduled_ponderated = @year.scheduled_hours_ponderated_for(user)
+        %>
+        <tr>
+          <td>
+            <%= link_to user, year_user_path(year_id: @year.id, id: user.id) %>
+            <% if user.public %><span class="label label-default">Fonctionnaire</span><% end %>
+          </td>
+          <td><%= service.round unless service.nil? %></td>
+          <td><%= planned.round %></td>
+          <%= render 'application/td_delta', value: planned, reference: service %>
+          <td><%= scheduled.round %></td>
+          <td><%= scheduled_ponderated.round %></td>
+          <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
+        </tr>
+      <% else %>
+        <tr>
+          <td><%= user %></td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      <% end %>
     <% end unless @year.users.nil? %>
   </tbody>
 </table>

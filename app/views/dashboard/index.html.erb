@@ -68,9 +68,9 @@
                 <%= simple_format involvement.description %>
                 <p class="small">
                   <%= involvement.teaching_module&.label %> :
-                  <%= involvement.hours_cm %> CM /
-                  <%= involvement.hours_td %> TD /
-                  <%= involvement.hours_tp %> TP
+                  <%= involvement.hours_cm.round %> CM /
+                  <%= involvement.hours_td.round %> TD /
+                  <%= involvement.hours_tp.round %> TP
                 </p>
               </li>
             <% end %>

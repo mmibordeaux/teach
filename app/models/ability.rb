@@ -5,12 +5,13 @@ class Ability
     user ||= User.new
 
     can :read, :all
-    can :summary, TeachingModule
-    can :costs, TeachingModule
-    can :summary, User
-    can :costs, User
+    can :show_service, User, id: user.id
 
     if user.admin?
+      can :summary, TeachingModule
+      can :summary, User
+      can :costs, TeachingModule
+      can :costs, User
       can :manage, :all
     end
   end
