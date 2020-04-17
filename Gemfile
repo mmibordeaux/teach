@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.6.3'
+ruby '2.6.6'
 
 # Infrastructure
 gem 'pg', '0.20.0'
