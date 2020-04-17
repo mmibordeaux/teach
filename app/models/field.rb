@@ -12,13 +12,13 @@
 #
 
 class Field < ActiveRecord::Base
-  belongs_to :parent, class_name: Field
-  has_many :children, class_name: Field, foreign_key: :parent_id
+  belongs_to :parent, class_name: 'Field'
+  has_many :children, class_name: 'Field', foreign_key: :parent_id
   has_many :fields_teaching_modules
   has_many :teaching_modules, through: :fields_teaching_modules
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :users
-  
+
   accepts_nested_attributes_for :fields_teaching_modules, allow_destroy: true
   accepts_nested_attributes_for :fields_projects, allow_destroy: true
   accepts_nested_attributes_for :projects
@@ -26,7 +26,7 @@ class Field < ActiveRecord::Base
   scope :root, -> { where(parent_id: nil) }
   scope :not_root, -> { where.not(parent_id: nil) }
   scope :sorted, -> { order(:position) }
-  
+
   def teaching_modules_including_children
     list = teaching_modules
     if children.any?
