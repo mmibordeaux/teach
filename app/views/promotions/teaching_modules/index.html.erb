@@ -11,29 +11,29 @@
         legend: { enabled: false },
         credits: { enabled: false },
         series: [
-          { 
-            name: 'TP', 
+          {
+            name: 'TP',
             data: [
-              <%= @student_hours_tp %>, 
+              <%= @student_hours_tp %>,
               <%= @promotion.planned_student_hours_tp %>,
               <%= @promotion.events.tp.sum(:student_hours) %>
               ]
-            }, 
-          { 
-            name: 'TD', 
+            },
+          {
+            name: 'TD',
             data: [
-              <%= @student_hours_td %>, 
+              <%= @student_hours_td %>,
               <%= @promotion.planned_student_hours_td %>,
               <%= @promotion.events.td.sum(:student_hours) %>
-              ] 
-            }, 
-          { 
-            name: 'CM', 
+              ]
+            },
+          {
+            name: 'CM',
             data: [
-              <%= @student_hours_cm %>, 
+              <%= @student_hours_cm %>,
               <%= @promotion.planned_student_hours_cm %>,
               <%= @promotion.events.cm.sum(:student_hours) %>
-            ] 
+            ]
           }
           ]
     });
@@ -43,11 +43,11 @@
 <div class="row">
   <div class="col-md-6">
     <h2>Heures planifiées</h2>
-    <%= @promotion.planned_student_hours.round %> heures étudiants | 
+    <%= @promotion.planned_student_hours.round %> heures étudiants |
     <%= @promotion.planned_student_hours_cm.round %> CM |
     <%= @promotion.planned_student_hours_td.round %> TD |
     <%= @promotion.planned_student_hours_tp.round %> TP<br/>
-    <%= pie_chart [ 
+    <%= pie_chart [
                     ['CM', @promotion.planned_student_hours_cm],
                     ['TD', @promotion.planned_student_hours_td],
                     ['TP', @promotion.planned_student_hours_tp],
@@ -59,7 +59,7 @@
     <%= @student_hours_cm.round %> heures de CM |
     <%= @student_hours_td.round %> heures de TD |
     <%= @student_hours_tp.round %> heures de TP<br/>
-    <%= pie_chart [ 
+    <%= pie_chart [
                     ['CM', @student_hours_cm],
                     ['TD', @student_hours_td],
                     ['TP', @student_hours_tp],
@@ -69,11 +69,11 @@
 
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>
-  
+
   <h3>Heures</h3>
   <p>
     <%= semester.expected_student_hours.round %> PPN /
-    <%= @promotion.involvements.in_semester(semester).sum(:student_hours).round %> maquette / 
+    <%= @promotion.involvements.in_semester(semester).sum(:student_hours).round %> maquette /
     <%= @promotion.events.in_semester(semester).sum(:student_hours).round %> EDT
   </p>
   <p>En heures étudiant, sous la forme "Heures totales (heures CM / heures TD / heures TP)</p>
@@ -91,29 +91,29 @@
           legend: { enabled: false },
           credits: { enabled: false },
           series: [
-            { 
-              name: 'TP', 
+            {
+              name: 'TP',
               data: [
-                <%= semester.student_hours_tp %>, 
+                <%= semester.student_hours_tp %>,
                 <%= @promotion.involvements.in_semester(semester).sum(:student_hours_tp) %>,
                 <%= @promotion.events.tp.in_semester(semester).sum(:student_hours) %>
                 ]
-              }, 
-            { 
-              name: 'TD', 
+              },
+            {
+              name: 'TD',
               data: [
-                <%= semester.student_hours_td %>, 
+                <%= semester.student_hours_td %>,
                 <%= @promotion.involvements.in_semester(semester).sum(:student_hours_td) %>,
                 <%= @promotion.events.td.in_semester(semester).sum(:student_hours) %>
-                ] 
-              }, 
-            { 
-              name: 'CM', 
+                ]
+              },
+            {
+              name: 'CM',
               data: [
-                <%= semester.student_hours_cm %>, 
+                <%= semester.student_hours_cm %>,
                 <%= @promotion.involvements.in_semester(semester).sum(:student_hours_cm) %>,
                 <%= @promotion.events.cm.in_semester(semester).sum(:student_hours) %>
-              ] 
+              ]
             }
             ]
       });
@@ -129,11 +129,12 @@
         <th>PPN vs Maquette</th>
         <th>EDT</th>
         <th>Maquette vs EDT</th>
+        <th>PPN vs EDT</th>
       </tr>
     </thead>
     <tbody>
       <% semester.teaching_modules.each do |teaching_module| %>
-        <% 
+        <%
         program = teaching_module.expected_student_hours.round
         planned = @promotion.involvements.where(teaching_module: teaching_module).sum(:student_hours).round
         scheduled = @promotion.events.where(teaching_module: teaching_module).sum(:student_hours).round
@@ -160,6 +161,7 @@
             <%= @promotion.events.tp.where(teaching_module: teaching_module).sum(:student_hours).round %>)
             </td>
           <%= render 'application/td_delta', value: scheduled, reference: planned %>
+          <%= render 'application/td_delta', value: scheduled, reference: program %>
         </tr>
       <% end %>
     </tbody>
