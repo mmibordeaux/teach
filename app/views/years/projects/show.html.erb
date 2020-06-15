@@ -36,118 +36,119 @@
   </div>
   <div class="col-md-9">
     <%= render 'years/projects/evaluation', project: @project %>
-
-    <h4>Maquette (heures planifiées)</h4>
-    <p>
-      Heures étudiants : <%= @project.student_hours %>
-      (CM <%= @project.student_hours_cm %>
-      TD <%= @project.student_hours_td %>
-      TP <%= @project.student_hours_tp %>)
-      <br/>
-      Heures enseignants : <%= @project.teacher_hours %>
-    </p>
-    <%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, project_id: @project.id), class: 'btn btn-primary btn-xs' %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Personne</th>
-          <th>Module</th>
-          <th>Promotion</th>
-          <th>Heures étudiant total</th>
-          <th>CM</th>
-          <th>TD</th>
-          <th>TP</th>
-          <th>Heures enseignant</th>
-          <th>Note</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @involvements.each do |involvement| %>
-        <tr>
-          <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
-          <td><%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %></td>
-          <td><%= link_to involvement.promotion&.year, involvement.promotion %></td>
-          <td><%= involvement.student_hours.round %></td>
-          <td><%= involvement.hours_cm.round %></td>
-          <td><%= involvement.hours_td.round %></td>
-          <td><%= involvement.hours_tp.round %></td>
-          <td><%= involvement.teacher_hours.round %></td>
-          <td><%= simple_format involvement.description %></td>
-          <td>
-            <%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%>
-            <%= link_to 'Supprimer', year_involvement_path(year_id: @year.id, id: involvement.id), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger btn-xs'  %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-
-    <h4>Emploi du temps</h4>
-    <p>
-      Attention, certains événements peuvent avoir lieu pendant le temps du projet sans être rattachés au projet.
-      Ce tableau peut donc présenter des faux positifs.
-    </p>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Module</th>
-          <th>Type</th>
-          <th>Heures</th>
-          <th>Heures étudiants</th>
-          <th>Heures enseignant</th>
-          <th>Personnes</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @project.events.ordered.each do |event| %>
-        <tr>
-          <td><%= event.date.strftime "%d/%m/%Y" %></td>
-          <td><%= event.teaching_module&.full_name %></td>
-          <td><%= event.kind.to_s.upcase %></td>
-          <td><%= number_to_human event.duration %></td>
-          <td><%= number_to_human event.student_hours %></td>
-          <td><%= number_to_human event.teacher_hours %></td>
-          <td>
-            <% event.users.each do |user| %>
-              <%= link_to user, user %><br>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to 'Ouvrir la semaine',
-                        "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
-                        target: :blank,
-                        class: 'btn btn-default btn-xs' %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-
-    <h4>Objectifs visés par ce projet</h4>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th width="300">Module</th>
-          <th>Objectif</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @project.objectives.each do |objective| %>
-          <tr>
-            <td><%= objective.teaching_module.full_name %></td>
-            <td><%= objective %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
   </div>
 </div>
+
+<h4>Maquette (heures planifiées)</h4>
+<p>
+  Heures étudiants : <%= @project.student_hours %>
+  (CM <%= @project.student_hours_cm %>
+  TD <%= @project.student_hours_td %>
+  TP <%= @project.student_hours_tp %>)
+  <br/>
+  Heures enseignants : <%= @project.teacher_hours %>
+</p>
+<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, project_id: @project.id), class: 'btn btn-primary btn-xs' %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Personne</th>
+      <th>Module</th>
+      <th>Promotion</th>
+      <th>Heures étudiant total</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Coût</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @involvements.each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
+      <td><%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %></td>
+      <td><%= link_to involvement.promotion&.year, involvement.promotion %></td>
+      <td><%= involvement.student_hours.round %></td>
+      <td><%= involvement.hours_cm.round %></td>
+      <td><%= involvement.hours_td.round %></td>
+      <td><%= involvement.hours_tp.round %></td>
+      <td><%= involvement.teacher_hours.round %></td>
+      <td><%= number_to_currency involvement.teacher_hours_costs %></td>
+      <td><%= simple_format involvement.description %></td>
+      <td>
+        <%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%>
+        <%= link_to 'Supprimer', year_involvement_path(year_id: @year.id, id: involvement.id), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger btn-xs'  %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h4>Emploi du temps</h4>
+<p>
+  Attention, certains événements peuvent avoir lieu pendant le temps du projet sans être rattachés au projet.
+  Ce tableau peut donc présenter des faux positifs.
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Module</th>
+      <th>Type</th>
+      <th>Heures</th>
+      <th>Heures étudiants</th>
+      <th>Heures enseignant</th>
+      <th>Personnes</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @project.events.ordered.each do |event| %>
+    <tr>
+      <td><%= event.date.strftime "%d/%m/%Y" %></td>
+      <td><%= event.teaching_module&.full_name %></td>
+      <td><%= event.kind.to_s.upcase %></td>
+      <td><%= number_to_human event.duration %></td>
+      <td><%= number_to_human event.student_hours %></td>
+      <td><%= number_to_human event.teacher_hours %></td>
+      <td>
+        <% event.users.each do |user| %>
+          <%= link_to user, user %><br>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to 'Ouvrir la semaine',
+                    "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
+                    target: :blank,
+                    class: 'btn btn-default btn-xs' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h4>Objectifs visés par ce projet</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width="300">Module</th>
+      <th>Objectif</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @project.objectives.each do |objective| %>
+      <tr>
+        <td><%= objective.teaching_module.full_name %></td>
+        <td><%= objective %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <h2 class="mt-5">Emploi du temps</h2>
 <table class="table table-bordered">

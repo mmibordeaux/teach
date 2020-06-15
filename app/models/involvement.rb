@@ -65,8 +65,8 @@ class Involvement < ActiveRecord::Base
   # COST_RATIO_TP = 0.66
   COST_RATIO_TP = 1.0
 
-  COST_HOUR_PRIVATE = 58.31
-  COST_HOUR_PUBLIC = 42.96
+  COST_HOUR_PRIVATE = 58.40
+  COST_HOUR_PUBLIC = 43.00
 
   def teacher_hours_cm_costs
     teacher_hours_cm * COST_RATIO_CM * cost_hour

@@ -172,6 +172,21 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def cost
+    unless @cost
+      @cost = 0
+      involvements.each do |involvement|
+        @cost += involvement.teacher_hours_costs
+      end
+    end
+    @cost
+  end
+
+  def cost_per_student_hour
+    return 0 if student_hours.zero?
+    cost / student_hours
+  end
+
   def to_s
     return 'Projet sans titre' if label.blank?
     "#{label}"
