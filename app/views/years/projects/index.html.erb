@@ -28,13 +28,15 @@
         <th width="400">Description</th>
         <th>Responsable</th>
         <th>Heures étudiant<br/><small>CM/TD/TP</small></th>
-        <th>
-          Coût<br/>
-          <small>
-            total <br>
-            heure étudiant
-          </small>
-        </th>
+        <% if current_user.admin %>
+          <th>
+            Coût<br/>
+            <small>
+              total <br>
+              heure étudiant
+            </small>
+          </th>
+        <% end %>
         <th>Heures sans intervenant<br/><small>heures étudiant, dans l'EDT</small></th>
       </tr>
     </thead>
@@ -57,10 +59,12 @@
             <%= project.student_hours %><br>
             <%= project.student_hours_cm %>/<%= project.student_hours_td %>/<%= project.student_hours_tp %>
           </td>
-          <td>
-            <%= number_to_currency project.cost, precision: 0 %><br>
-            <%= number_to_currency project.cost_per_student_hour %>
-          </td>
+          <% if current_user.admin %>
+            <td>
+              <%= number_to_currency project.cost, precision: 0 %><br>
+              <%= number_to_currency project.cost_per_student_hour %>
+            </td>
+          <% end %>
           <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
           <td class="<%= 'bg-danger' if hours_with_no_one > 0 %>"><%= hours_with_no_one.round %></td>
          </tr>
