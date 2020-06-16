@@ -62,7 +62,7 @@
           <% if current_user.admin %>
             <td>
               <%= number_to_currency project.cost, precision: 0 %><br>
-              <%= number_to_currency project.cost_per_student_hour %>
+              <small><%= number_to_currency project.cost_per_student_hour %></small>
             </td>
           <% end %>
           <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>

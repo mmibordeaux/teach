@@ -16,6 +16,7 @@
       <th>EDT</th>
       <th>EDT (heures pondérées)</th>
       <th>Delta service / EDT pondéré</th>
+      <th>Surcoût</th>
     </tr>
   </thead>
   <tbody>
@@ -39,10 +40,14 @@
           <td><%= scheduled.round %></td>
           <td><%= scheduled_ponderated.round %></td>
           <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
+          <td>
+            <%= number_to_currency user.cost_for_year(@year) %>
+          </td>
         </tr>
       <% else %>
         <tr>
           <td><%= user %></td>
+          <td>-</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>

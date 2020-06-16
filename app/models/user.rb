@@ -117,6 +117,21 @@ class User < ActiveRecord::Base
     involvements.collect(&:teacher_hours_costs).sum
   end
 
+  def cost_for_year(year)
+    year_involvements = year.involvements.where(user: self)
+    cm = year_involvements.collect(&:teacher_hours_cm).sum
+    td = year_involvements.collect(&:teacher_hours_td).sum
+    tp = year_involvements.collect(&:teacher_hours_tp).sum
+    total_hours = cm * Involvement::COST_RATIO_CM
+    total_hours += td * Involvement::COST_RATIO_TD
+    total_hours += tp * Involvement::COST_RATIO_TP
+    extra_hours = total_hours - hours.to_i
+    extra_hours = [0, extra_hours].max
+    cost = public ? Involvement::COST_HOUR_PUBLIC
+                  : Involvement::COST_HOUR_PRIVATE
+    extra_hours * cost
+  end
+
   def to_s
     "#{first_name} #{last_name}"
   end
