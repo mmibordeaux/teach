@@ -13,10 +13,11 @@
       <th>Service</th>
       <th>Maquette</th>
       <th>Delta service / maquette</th>
+      <th>Surcoût (maquette)</th>
       <th>EDT</th>
       <th>EDT (heures pondérées)</th>
       <th>Delta service / EDT pondéré</th>
-      <th>Surcoût</th>
+      <th>Surcoût (EDT)</th>
     </tr>
   </thead>
   <tbody>
@@ -37,12 +38,11 @@
           <td><%= service.round unless service.nil? %></td>
           <td><%= planned.round %></td>
           <%= render 'application/td_delta', value: planned, reference: service %>
+          <td><%= number_to_currency user.planned_cost_for_year(@year) %></td>
           <td><%= scheduled.round %></td>
           <td><%= scheduled_ponderated.round %></td>
           <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
-          <td>
-            <%= number_to_currency user.cost_for_year(@year) %>
-          </td>
+          <td><%= number_to_currency user.scheduled_cost_for_year(@year) %></td>
         </tr>
       <% else %>
         <tr>
