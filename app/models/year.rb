@@ -127,9 +127,10 @@ class Year < ActiveRecord::Base
     unless @scheduled_student_hours_by_non_tenured_teachers
       @scheduled_student_hours_by_non_tenured_teachers = 0
       events.each do |event|
-        next if event.users.none?
-        next if event.users.first.tenured
-        @scheduled_student_hours_by_non_tenured_teachers += event.student_hours
+        event.users.each do |user|
+          next if user.tenured
+          @scheduled_student_hours_by_non_tenured_teachers += event.student_hours
+        end
       end
     end
     @scheduled_student_hours_by_non_tenured_teachers
