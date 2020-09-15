@@ -34,9 +34,11 @@
   <thead>
     <tr>
       <th style="min-width: 200px">Nom</th>
+      <th>Fonctionnaire</th>
+      <th>Titulaire</th>
       <th>Service</th>
       <th>Maquette</th>
-      <th>Delta service / maquette</th>
+      <th>Delta   service / maquette</th>
       <th>Surcoût (maquette)</th>
       <th>EDT</th>
       <th>EDT (heures pondérées)</th>
@@ -55,10 +57,9 @@
         scheduled_ponderated = @year.scheduled_hours_ponderated_for(user)
         %>
         <tr>
-          <td>
-            <%= link_to user, year_user_path(year_id: @year.id, id: user.id) %>
-            <% if user.public %><span class="label label-default">Fonctionnaire</span><% end %>
-          </td>
+          <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
+          <td><%= 'Oui' if user.public %></td>
+          <td><%= 'Oui' if user.tenured %></td>
           <td><%= service.round unless service.nil? %></td>
           <td><%= planned.round %></td>
           <%= render 'application/td_delta', value: planned, reference: service %>
@@ -71,6 +72,8 @@
       <% else %>
         <tr>
           <td><%= user %></td>
+          <td>-</td>
+          <td>-</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>
