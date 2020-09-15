@@ -55,6 +55,7 @@ class Event < ActiveRecord::Base
         teaching_module = TeachingModule.with_code(hashtag).first
       end
     end
+    return if teaching_module.nil?
     project = Project.at_date_for_promotion(date, promotion)
     event = Event.create  promotion: promotion,
                           duration: duration,
