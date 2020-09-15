@@ -27,7 +27,7 @@
 
   <h3>Heures</h3>
   <p>
-    <%= semester.expected_student_hours.round %> PPN /
+    <%= semester.expected_student_hours.round %>h étudiant PPN /
     <%= @year.involvements.in_semester(semester).sum(:student_hours).round %>h étudiant maquette /
     <%= @year.events.in_semester(semester).sum(:student_hours).round %>h étudiant EDT
   </p>
