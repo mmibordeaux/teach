@@ -1,8 +1,6 @@
 class Years::TeachingModulesController < YearsController
   def index
     @teaching_modules = TeachingModule.all.order(:semester_id)
-    @student_hours = @year.student_hours
-    @teacher_hours = @year.teacher_hours
     @title = 'Modules'
     @subtitle = @year.to_s
     breadcrumb

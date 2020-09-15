@@ -1,6 +1,26 @@
 <%= render 'years/nav' %>
 
-<p><%= @student_hours %> heures étudiants, <%= @teacher_hours %> heures enseignant</p>
+
+<br><br>
+<div class="row">
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.planned_student_hours.round %>h</div>
+    <strong>étudiant maquette</strong>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.planned_teacher_hours.round %>h</div>
+    <strong>enseignant maquette</strong>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.scheduled_student_hours.round %>h</div>
+    <strong>étudiant EDT</strong>
+  </div>
+  <div class="col-md-3">
+    <div class="text-xl"><%= @year.scheduled_teacher_hours.round %>h</div>
+    <strong>enseignant EDT</strong>
+  </div>
+</div>
+<br><br><br>
 
 <% Semester.all.each do |semester| %>
   <h2><%= semester %></h2>
@@ -8,8 +28,8 @@
   <h3>Heures</h3>
   <p>
     <%= semester.expected_student_hours.round %> PPN /
-    <%= @year.involvements.in_semester(semester).sum(:student_hours).round %> maquette /
-    <%= @year.events.in_semester(semester).sum(:student_hours).round %> EDT
+    <%= @year.involvements.in_semester(semester).sum(:student_hours).round %>h étudiant maquette /
+    <%= @year.events.in_semester(semester).sum(:student_hours).round %>h étudiant EDT
   </p>
   <p>En heures étudiant, sous la forme "Heures totales (heures CM / heures TD / heures TP)</p>
 

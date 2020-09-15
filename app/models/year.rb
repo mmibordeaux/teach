@@ -29,11 +29,11 @@ class Year < ActiveRecord::Base
   end
 
   def from
-    Date.new year-1, 9
+    @from ||= Date.new year-1, 9
   end
 
   def to
-    from + 1.year - 1.day
+    @to ||= from + 1.year - 1.day
   end
 
   def first_year_promotion
@@ -80,11 +80,11 @@ class Year < ActiveRecord::Base
     involvements.where(teaching_module: teaching_module)
   end
 
-  def student_hours
+  def planned_student_hours
     involvements.collect(&:student_hours).sum.round(2)
   end
 
-  def teacher_hours
+  def planned_teacher_hours
     involvements.collect(&:teacher_hours).sum.round(2)
   end
 
@@ -112,15 +112,27 @@ class Year < ActiveRecord::Base
   # Scheduled (events)
 
   def scheduled_student_hours
-    events.joins(:users).sum(:student_hours)
+    @scheduled_student_hours ||= events.sum(:student_hours)
+  end
+
+  def scheduled_teacher_hours
+    @scheduled_teacher_hours ||= events.sum(:teacher_hours)
   end
 
   def scheduled_student_hours_by_tenured_teachers
-    events.joins(:users).where('users.tenured = true').sum(:student_hours)
+    scheduled_student_hours - scheduled_student_hours_by_non_tenured_teachers
   end
 
   def scheduled_student_hours_by_non_tenured_teachers
-    events.joins(:users).where('users.tenured = false').sum(:student_hours)
+    unless @scheduled_student_hours_by_non_tenured_teachers
+      @scheduled_student_hours_by_non_tenured_teachers = 0
+      events.each do |event|
+        next if event.users.none?
+        next if event.users.first.tenured
+        @scheduled_student_hours_by_non_tenured_teachers += event.student_hours
+      end
+    end
+    @scheduled_student_hours_by_non_tenured_teachers
   end
 
   def scheduled_student_hours_non_tenured_ratio
