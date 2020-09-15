@@ -7,7 +7,7 @@ namespace :app do
         begin
           sh 'heroku pg:backups capture'
           sh 'curl -o latest.dump `heroku pg:backups public-url`'
-          sh 'bundle exec rake db:drop'
+          sh 'DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:drop'
           sh 'bundle exec rake db:create'
           sh "pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d #{ Rails.application.config.database_configuration[Rails.env]['database']} latest.dump"
           sh 'bundle exec rake db:migrate'

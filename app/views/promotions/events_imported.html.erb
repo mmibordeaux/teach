@@ -11,14 +11,14 @@
       <th>Heures</th>
       <th>Heures étudiants</th>
       <th>Heures enseignant</th>
-      <th>Personnes</th>
+      <th>Personne</th>
       <th>Ouvrir</th>
     </tr>
   </thead>
   <tbody>
     <% @promotion.events.ordered.each do |event| %>
       <tr>
-        <td class="<%= 'bg-danger' if event.teaching_module.nil? %>"><%= event.teaching_module %></td>
+        <td><%= event.teaching_module %></td>
         <td><%= event.project %></td>
         <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
         <td><%= event.kind.to_s.upcase %></td>
@@ -27,11 +27,7 @@
         <td><%= number_to_human event.duration %></td>
         <td><%= number_to_human event.student_hours %></td>
         <td><%= number_to_human event.teacher_hours %></td>
-        <td class="<%= 'bg-danger' if event.users.empty? %>">
-          <% event.users.each do |user| %>
-            <%= user %><br>
-          <% end %>
-        </td>
+        <td><%= event.user %></td>
         <td>
           <%= link_to 'Ouvrir la semaine',
                       "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",

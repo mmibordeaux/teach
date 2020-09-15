@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
   belongs_to :teaching_module
   belongs_to :promotion
   belongs_to :project
-  has_and_belongs_to_many :users
+  belongs_to :user
 
   scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
   scope :ordered, -> { order(:date) }
@@ -57,23 +57,25 @@ class Event < ActiveRecord::Base
     end
     return if teaching_module.nil?
     project = Project.at_date_for_promotion(date, promotion)
-    event = Event.create  promotion: promotion,
-                          duration: duration,
-                          date: date,
-                          kind: kind,
-                          project: project,
-                          teaching_module: teaching_module,
-                          label: calendar_event.summary,
-                          description: calendar_event.description
+    users = []
     calendar_event.attendee.each do |attendee|
       email = attendee.to_s.remove 'mailto:'
       user = User.with_email(email).first
-      event.users << user unless user.nil?
+      users << user unless user.nil?
     end
-    event.users << User.temporary if event.users.none?
-    # Compute hours now that users are set
-    event.save
-    event
+    users << User.temporary if users.none?
+    users.each do |user|
+      Event.create  promotion: promotion,
+                    duration: duration,
+                    date: date,
+                    kind: kind,
+                    project: project,
+                    teaching_module: teaching_module,
+                    label: calendar_event.summary,
+                    description: calendar_event.description,
+                    user: user
+      puts "Created event #{calendar_event.summary} with #{user}"
+    end
   rescue => e
     byebug
   end
@@ -88,12 +90,17 @@ class Event < ActiveRecord::Base
 
   protected
 
+  def groups
+    unless @groups
+      @groups = 1.0
+      @groups = Involvement::GROUPS_TD if td?
+      @groups = Involvement::GROUPS_TP if tp?
+    end
+    @groups
+  end
+
   def compute_student_hours
-    users_count = users.any? ? users.count : 1
-    self.teacher_hours = self.duration * users_count
-    groups = 1.0
-    groups = Involvement::GROUPS_TD if td?
-    groups = Involvement::GROUPS_TP if tp?
-    self.student_hours = self.teacher_hours / groups
+    self.teacher_hours = self.duration
+    self.student_hours = self.duration / groups
   end
 end

@@ -107,7 +107,7 @@
       <th>Heures</th>
       <th>Heures étudiants</th>
       <th>Heures enseignant</th>
-      <th>Personnes</th>
+      <th>Personne</th>
       <th></th>
     </tr>
   </thead>
@@ -120,11 +120,7 @@
       <td><%= number_to_human event.duration %></td>
       <td><%= number_to_human event.student_hours %></td>
       <td><%= number_to_human event.teacher_hours %></td>
-      <td>
-        <% event.users.each do |user| %>
-          <%= link_to user, user %><br>
-        <% end %>
-      </td>
+      <td><%= link_to event.user, event.user %></td>
       <td>
         <%= link_to 'Ouvrir la semaine',
                     "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
@@ -170,7 +166,7 @@
           <ul>
             <% @project.events.where('DATE(date) = ?', day).each do |event| %>
               <li>
-                <%= event.users.join(', ') %>
+                <%= event.user %>
                 <p class="small text-muted"><%= event.teaching_module&.label %></p>
               </li>
             <% end %>

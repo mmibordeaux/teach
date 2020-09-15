@@ -55,6 +55,11 @@
       </tr>
     </thead>
     <tbody>
+      <%
+      total = 0
+      tenured = 0
+      non_tenured = 0
+      %>
       <% @users.each do |user| %>
         <% next if user.nil? %>
         <% if can? :show_service, user %>
@@ -63,6 +68,13 @@
           planned = @year.planned_hours_for(user)
           scheduled = @year.scheduled_hours_for(user)
           scheduled_ponderated = @year.scheduled_hours_ponderated_for(user)
+          scheduled_student_hours = @year.scheduled_student_hours_for(user)
+          total += scheduled_student_hours
+          if user.tenured
+            tenured += scheduled_student_hours
+          else
+            non_tenured += scheduled_student_hours
+          end
           %>
           <tr>
             <td><%= link_to user, year_user_path(year_id: @year.id, id: user.id) %></td>
@@ -77,7 +89,7 @@
             <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
             <td><%= number_to_currency user.scheduled_cost_for_year(@year), precision: 0 %></td>
             <td><%= @year.planned_hours_for(user, :teacher_hours).round %></td>
-            <td><%= @year.scheduled_student_hours_for(user).round %></td>
+            <td><%= scheduled_student_hours.round %></td>
           </tr>
         <% else %>
           <tr>
@@ -99,3 +111,34 @@
     </tbody>
   </table>
 </div>
+
+
+<h2>Contrôle par sommes du tableau</h2>
+<p>Doit être identique aux chiffres en haut de page</p>
+<div class="row">
+  <div class="col-md-2">
+    <div class="text-xl"><%= @users.count %></div>
+    <strong>enseignants</strong>
+  </div>
+  <div class="col-md-4">
+    <div class="text-xl"><%= total.round %>h</div>
+    <strong>de cours (étudiant) dans l'EDT</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= tenured.round %>h</div>
+    <strong>par des permanents</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= non_tenured.round %>h</div>
+    <strong>par des vacataires</strong>
+  </div>
+  <%
+  percentage = 0
+  percentage = 100.0 * non_tenured / total unless total.zero?
+  %>
+  <div class="col-md-2">
+    <div class="text-xl"><%= number_to_percentage percentage, precision: 0 %></div>
+    <strong>de vacataires</strong>
+  </div>
+</div>
+<br><br><br>

@@ -48,7 +48,7 @@
       <th>Heures</th>
       <th>Heures étudiants</th>
       <th>Heures enseignant</th>
-      <th>Personnes</th>
+      <th>Personne</th>
     </tr>
   </thead>
   <tbody>
@@ -57,14 +57,10 @@
         <td><%= event.teaching_module %></td>
         <td><%= event.date.strftime "%d/%m/%Y" %></td>
         <td><%= event.kind.to_s.upcase %></td>
-        <td><%= event.duration %></td>
-        <td><%= event.student_hours %></td>
-        <td><%= event.teacher_hours %></td>
-        <td>
-          <% event.users.each do |user| %>
-            <%= link_to user, user %><br>
-          <% end %>
-        </td>
+        <td><%= event.duration.round(1) %></td>
+        <td><%= event.student_hours.round(1) %></td>
+        <td><%= event.teacher_hours.round(1) %></td>
+        <td><%= link_to event.user, event.user if event.user %></td>
       </tr>
     <% end %>
   </tbody>

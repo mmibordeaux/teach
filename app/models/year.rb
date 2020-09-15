@@ -120,20 +120,11 @@ class Year < ActiveRecord::Base
   end
 
   def scheduled_student_hours_by_tenured_teachers
-    scheduled_student_hours - scheduled_student_hours_by_non_tenured_teachers
+    @scheduled_student_hours_by_tenured_teachers ||= events.joins(:user).where('users.tenured = true').sum(:student_hours)
   end
 
   def scheduled_student_hours_by_non_tenured_teachers
-    unless @scheduled_student_hours_by_non_tenured_teachers
-      @scheduled_student_hours_by_non_tenured_teachers = 0
-      events.each do |event|
-        event.users.each do |user|
-          next if user.tenured
-          @scheduled_student_hours_by_non_tenured_teachers += event.student_hours
-        end
-      end
-    end
-    @scheduled_student_hours_by_non_tenured_teachers
+    @scheduled_student_hours_by_non_tenured_teachers ||= events.joins(:user).where('users.tenured = false').sum(:student_hours)
   end
 
   def scheduled_student_hours_non_tenured_ratio
@@ -210,6 +201,6 @@ class Year < ActiveRecord::Base
   end
 
   def users_with_events
-    events.collect(&:users).flatten
+    events.where.not(user: nil).collect(&:user)
   end
 end

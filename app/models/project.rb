@@ -128,7 +128,7 @@ class Project < ActiveRecord::Base
   # Scheduled (events)
 
   def events_for_user(user)
-    events.includes(:users).where(users: { id: user.id })
+    events.where(user: user)
   end
 
   def to_event
