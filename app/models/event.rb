@@ -69,9 +69,8 @@ class Event < ActiveRecord::Base
       user = User.with_email(email).first
       event.users << user unless user.nil?
     end
-    if event.users.none?
-      event.users << User.temporary
-    end
+    # Do not count time scheduled with no teacher, it might be exams or anything, but not lessons
+    # event.users << User.temporary if event.users.none?
     # Compute hours now that users are set
     event.save
     event
