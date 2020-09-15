@@ -1,10 +1,34 @@
 <%= render 'years/nav' %>
 
-<p><%= @users.count %> personnes</p>
 <p class="small">
   Attention, la maquette est une étape préalable d'organisation, seul l'emploi du temps compte.
   Les semaines académiques ne sont pas intégrées dans la maquette, ce qui explique de fortes différences maquette/EDT pour les personnes qui utilisent beaucoup ces semaines.
 </p>
+
+<br><br>
+<div class="row">
+  <div class="col-md-2">
+    <div class="text-xl"><%= @users.count %></div>
+    <strong>enseignants</strong>
+  </div>
+  <div class="col-md-4">
+    <div class="text-xl"><%= @year.scheduled_student_hours.round %>h</div>
+    <strong>de cours (étudiant) dans l'EDT</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.scheduled_student_hours_by_tenured_teachers.round %>h</div>
+    <strong>par des permanents</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.scheduled_student_hours_by_non_tenured_teachers.round %>h</div>
+    <strong>par des vacataires</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= number_to_percentage @year.scheduled_student_hours_non_tenured_ratio, precision: 0 %></div>
+    <strong>de vacataires</strong>
+  </div>
+</div>
+<br><br><br>
 
 <table class="table table-hover table-striped">
   <thead>

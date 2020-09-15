@@ -111,6 +111,23 @@ class Year < ActiveRecord::Base
 
   # Scheduled (events)
 
+  def scheduled_student_hours
+    events.joins(:users).sum(:student_hours)
+  end
+
+  def scheduled_student_hours_by_tenured_teachers
+    events.joins(:users).where('users.tenured = true').sum(:student_hours)
+  end
+
+  def scheduled_student_hours_by_non_tenured_teachers
+    events.joins(:users).where('users.tenured = false').sum(:student_hours)
+  end
+
+  def scheduled_student_hours_non_tenured_ratio
+    return 0 if scheduled_student_hours.zero?
+    100.0 * scheduled_student_hours_by_non_tenured_teachers / scheduled_student_hours
+  end
+
   def scheduled_hours_for(user, kind = nil)
     events_for(user, kind).sum(:duration)
   end
