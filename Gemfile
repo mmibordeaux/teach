@@ -7,7 +7,7 @@ gem 'puma'
 gem 'sendgrid-ruby'
 
 # Back
-gem 'rails', '5.2.4.2'
+gem 'rails', '5.2.4.4'
 gem 'rails-i18n'
 gem 'nokogiri'
 gem 'formtastic'
