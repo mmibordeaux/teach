@@ -250,7 +250,7 @@ DEPENDENCIES
   nokogiri
   pg (= 0.20.0)
   puma
-  rails (= 5.2.4.4)
+  rails (~> 5)
   rails-i18n
   rails_12factor
   rb-readline
