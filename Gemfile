@@ -40,6 +40,7 @@ group :development do
   gem 'byebug'
   gem 'spring'
   gem 'annotate'
+  gem 'figaro'
 end
 
 group :production do
