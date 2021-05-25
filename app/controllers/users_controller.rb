@@ -65,7 +65,7 @@ class UsersController < ApplicationController
 
   def reset
     @user.send_reset_password_instructions
-    redirect_to :back
+    redirect_to users_path, notice: 'Mail sent'
   end
 
   def destroy
