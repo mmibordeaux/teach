@@ -1,21 +1,19 @@
-<%= semantic_form_for @user do |f| %>
-  <%= f.inputs do %>
-    <div class="row">
-      <div class="col-md-4">
-        <%= f.input :email, as: :email %>
-        <%= f.input :email_secondary, as: :email %>
-        <%= f.input :admin if current_user.admin? %>
-      </div>
-      <div class="col-md-4">
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-      </div>
-      <div class="col-md-4">
-        <%= f.input :hours %>
-        <%= f.input :public %>
-        <%= f.input :tenured %>
-      </div>
+<%= simple_form_for @user do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.input :email, as: :email %>
+      <%= f.input :email_secondary, as: :email %>
+      <%= f.input :admin if current_user.admin? %>
     </div>
-  <% end %>
-  <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
+    <div class="col-md-4">
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
+    </div>
+    <div class="col-md-4">
+      <%= f.input :hours %>
+      <%= f.input :public %>
+      <%= f.input :tenured %>
+    </div>
+  </div>
+  <%= f.button :submit, 'Enregistrer' %>
 <% end %>
