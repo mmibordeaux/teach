@@ -4,7 +4,7 @@
       <%= f.input :label %>
       <%= f.input :sublabel %>
       <%= f.input :year_id, as: :hidden %>
-      <%= f.input :user, label: 'Responsable' %>
+      <%= f.association :user, label: 'Responsable' %>
       <%= f.input :description, input_html: { rows: 5 } %>
       <%= f.input :detailed_description, input_html: { rows: 15 } %>
       <%= f.submit 'Enregistrer', class: 'btn btn-default' %>
