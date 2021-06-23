@@ -26,7 +26,7 @@
 
   <h3>Heures</h3>
   <p>
-    <%= semester.expected_student_hours.round %>h étudiant PPN /
+    <%= semester.resources_student_hours.round %>h étudiant PPN /
     <%= @year.involvements.in_semester(semester).sum(:student_hours).round %>h étudiant maquette /
     <%= @year.events.in_semester(semester).sum(:student_hours).round %>h étudiant EDT
   </p>
@@ -48,7 +48,7 @@
             {
               name: 'TP',
               data: [
-                <%= semester.student_hours_tp %>,
+                <%= semester.resources_student_hours_tp %>,
                 <%= @year.involvements.in_semester(semester).sum(:student_hours_tp) %>,
                 <%= @year.events.tp.in_semester(semester).sum(:student_hours) %>
                 ]
@@ -56,7 +56,7 @@
             {
               name: 'TD',
               data: [
-                <%= semester.student_hours_td %>,
+                <%= semester.resources_student_hours_td %>,
                 <%= @year.involvements.in_semester(semester).sum(:student_hours_td) %>,
                 <%= @year.events.td.in_semester(semester).sum(:student_hours) %>
                 ]
@@ -64,12 +64,12 @@
             {
               name: 'CM',
               data: [
-                <%= semester.student_hours_cm %>,
+                <%= semester.resources_student_hours_cm %>,
                 <%= @year.involvements.in_semester(semester).sum(:student_hours_cm) %>,
                 <%= @year.events.cm.in_semester(semester).sum(:student_hours) %>
               ]
             }
-            ]
+          ]
       });
   });
   </script>

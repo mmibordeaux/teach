@@ -24,7 +24,10 @@ class Event < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
 
-  scope :in_semester, -> (semester) { where(teaching_module: semester.teaching_modules) }
+  scope :in_semester, -> (semester) {
+    where(teaching_module: semester.teaching_modules)
+    .or(where(resource: semester.resources))
+  }
   scope :ordered, -> { order(:date) }
 
   enum kind: [:cm, :td, :tp]

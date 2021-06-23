@@ -5,8 +5,10 @@ class Resource < ApplicationRecord
   scope :with_code, -> (code) { where('code ILIKE ? OR code_apogee ILIKE ?', code, code) }
   default_scope { order(:code) }
 
+  # Expected student hours
+
   def expected_student_hours
-    0
+    hours_cm + hours_tp
   end
 
   def to_s

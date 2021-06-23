@@ -31,6 +31,25 @@ class Semester < ActiveRecord::Base
     all.collect(&:planned_teacher_hours_costs).sum
   end
 
+  # Resources
+
+  def resources_student_hours
+    resources.collect(&:expected_student_hours).sum
+  end
+
+  def resources_student_hours_cm
+    resources.collect(&:hours_cm).sum.round(2)
+  end
+
+  # Les ressources ont des heures CM/TD, sans spécification
+  def resources_student_hours_td
+    0
+  end
+
+  def resources_student_hours_tp
+    resources.collect(&:hours_tp).sum.round(2)
+  end
+
   # Expected
 
   def expected_student_hours

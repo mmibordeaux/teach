@@ -18,15 +18,6 @@ tabs = [
       <%= link_to name, path, class: "nav-link #{ 'active' if active }" %>
     </li>
   <% end %>
-  <% if can? :edit, @promotion %>
-    <li class="nav-item">
-      <%= link_to 'EDT: Synchroniser avec Google Calendar',
-                  promotion_events_sync_path(promotion_id: @promotion.id),
-                  method: :post,
-                  class: 'nav-link bg-warning' %>
-    </li>
-  <% end %>
-
 </ul>
 
 <p class="small mt-4">
@@ -39,6 +30,14 @@ tabs = [
   <% end %>
 </p>
 
-<%= link_to 'Modifier',
-            edit_promotion_path(@promotion),
-            class: 'btn btn-primary btn-sm' if can? :edit, @promotion %>
+<% if can? :edit, @promotion %>
+<div class="mb-4">
+  <%= link_to 'Modifier',
+              edit_promotion_path(@promotion),
+              class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'EDT: Synchroniser avec Google Calendar',
+              promotion_events_sync_path(promotion_id: @promotion.id),
+              method: :post,
+              class: 'btn btn-warning btn-sm' %>
+</div>
+<% end %>
