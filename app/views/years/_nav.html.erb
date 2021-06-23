@@ -2,22 +2,25 @@
 tabs = [
   ['Projets', year_projects_path(year_id: @year.id)],
   ['Interventions', year_involvements_path(year_id: @year.id)],
+  ['Ressources', year_resources_path(year_id: @year.id)],
   ['Modules', year_teaching_modules_path(year_id: @year.id)],
   ['Equipe', year_users_path(year_id: @year.id)],
   ['Semestres (couverture des objectifs)', year_semesters_path(year_id: @year.id)]
 ]
 %>
 
-<div>
+<ul class="nav nav-pills">
   <% tabs.each do |tab| %>
     <%
     name = tab.first
     path = tab.last
     active = tab.last == request.path
     %>
-    <%= link_to name, path, class: "btn btn-lg #{ active ? 'btn-info' : 'btn-primary' }" %>
+    <li class="nav-item">
+      <%= link_to name, path, class: "nav-link #{ 'active' if active }" %>
+    </li>
   <% end %>
-</div>
+</ul>
 <br/>
 <p class="small">
   La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion %> est en première année,

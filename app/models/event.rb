@@ -18,7 +18,8 @@
 #
 
 class Event < ActiveRecord::Base
-  belongs_to :teaching_module
+  belongs_to :teaching_module, optional: true
+  belongs_to :resource, optional: true
   belongs_to :promotion
   belongs_to :project
   belongs_to :user

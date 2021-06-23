@@ -1,13 +1,13 @@
 <% if percent %>
-  <% 
+  <%
   if percent < -30
-    color_class = 'btn-danger'
+    color_class = 'bg-danger text-white'
   elsif percent < -20
-    color_class = 'btn-warning'
+    color_class = 'bg-warning'
   elsif percent < 20
     color_class = ''
-  else 
-    color_class = 'btn-info'
+  else
+    color_class = 'bg-info'
   end
   %>
   <td class="<%= color_class %>">

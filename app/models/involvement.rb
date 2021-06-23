@@ -27,7 +27,8 @@
 #
 
 class Involvement < ActiveRecord::Base
-  belongs_to :teaching_module
+  belongs_to :teaching_module, optional: true
+  belongs_to :resource, optional: true
   belongs_to :user
   belongs_to :project
   belongs_to :promotion

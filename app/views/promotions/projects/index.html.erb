@@ -1,3 +1,4 @@
+<%= render 'promotions/nav' %>
 
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">
@@ -6,10 +7,10 @@
   new TL.Timeline('timeline', data, config);
 </script>
 
-<%= link_to 'Evaluations', evaluations_promotion_projects_path(@promotion), class: 'btn btn-primary' %> 
+<%= link_to 'Evaluations', evaluations_promotion_projects_path(@promotion), class: 'btn btn-primary' %>
 <% @semesters.each do |semester| %>
   <h2><%= semester %></h2>
-  
+
   <h3>Projets</h3>
   <%
   projects = @promotion.projects_in(semester).sort_by(&:week_number)

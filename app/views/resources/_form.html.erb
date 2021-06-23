@@ -1,11 +1,18 @@
 <%= simple_form_for(@resource) do |f| %>
-  <%= f.input :label %>
-  <%= f.input :code %>
-  <%= f.input :description %>
-  <%= f.input :hours_cm %>
-  <%= f.input :hours_td %>
-  <%= f.input :hours_tp %>
-  <%= f.input :code_apogee %>
-  <%= f.association :semester, include_blank: false %>
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <%= f.input :code %>
+      <%= f.input :code_apogee %>
+      <%= f.association :semester, include_blank: false %>
+    </div>
+    <div class="col-md-8">
+      <%= f.input :label %>
+      <%= f.input :description, input_html: { rows: 4 } %>
+    </div>
+    <div class="col-md-2">
+      <%= f.input :hours_cm %>
+      <%= f.input :hours_tp %>
+    </div>
+  </div>
   <%= f.button :submit %>
 <% end %>

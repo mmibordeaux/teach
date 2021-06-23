@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="btn btn-block btn-primary">
+      <h2>PPN <%= @teaching_module.expected_student_hours.round %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="btn btn-block btn-primary">
+      <h2>Planifié <%= @year.planned_hours_for_teaching_module(@teaching_module, :student_hours).round %></h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="btn btn-block btn-primary">
+      <h2>EDT <%= @year.scheduled_hours_for_teaching_module(@teaching_module).round %></h2>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+<div id="hours"></div></td>
+<script type="text/javascript">
+  $(function () {
+    $('#hours').highcharts({
+        chart: { type: 'bar', height: 150 },
+        title: null,
+        xAxis: { categories: ['PPN', 'Planifié', 'EDT'], tickWidth: 0 },
+        yAxis: { min: 0, title: null },
+        tooltip: { backgroundColor: 'white', valueSuffix: ' heures' },
+        plotOptions: { series: { stacking: 'normal', dataLabels: { enabled: false } } },
+        legend: { enabled: false },
+        credits: { enabled: false },
+        series: [
+          {
+            name: 'TP',
+            data: [
+              <%= @teaching_module.hours_tp %>,
+              <%= @year.planned_hours_for_teaching_module(@teaching_module, :hours_tp) %>,
+              <%= @year.scheduled_hours_for_teaching_module(@teaching_module, :tp) %>
+            ]
+          },
+          {
+            name: 'TD',
+            data: [
+              <%= @teaching_module.hours_td %>,
+              <%= @year.planned_hours_for_teaching_module(@teaching_module, :hours_td) %>,
+              <%= @year.scheduled_hours_for_teaching_module(@teaching_module, :td) %>
+            ]
+          },
+          {
+            name: 'CM',
+            data: [
+              <%= @teaching_module.hours_cm %>,
+              <%= @year.planned_hours_for_teaching_module(@teaching_module, :hours_cm) %>,
+              <%= @year.scheduled_hours_for_teaching_module(@teaching_module, :cm) %>
+              ]
+            }
+          ]
+    });
+});
+</script>
+
+
+<h2>Maquette</h2>
+<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-sm' if can? :create, Involvement %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Projet</th>
+      <th>Personne</th>
+      <th>Heures étudiant</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Heures enseignant</th>
+      <th>Note</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @year.involvements_for_teaching_module(@teaching_module).includes(:user).reorder('users.last_name').each do |involvement| %>
+    <tr>
+      <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
+      <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
+      <td><%= involvement.student_hours.round %></td>
+      <td><%= involvement.hours_cm.round %></td>
+      <td>
+        <%= involvement.hours_td.round %>
+        <span class="label label-default">x <%= involvement.multiplier_td %></span></td>
+      <td>
+        <%= involvement.hours_tp.round %>
+        <span class="label label-default">x <%= involvement.multiplier_tp %> / <%= involvement.groups_tp %></span></td>
+      <td><%= involvement.teacher_hours.round %></td>
+      <td style="max-width: 200px"><%= simple_format involvement.description %></td>
+      <td><%= link_to 'Modifier',
+                      edit_year_involvement_path(year_id: @year.id, id: involvement.id),
+                      class: 'btn btn-primary btn-sm' if can? :edit, involvement %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h2>EDT</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Projet</th>
+      <th>Label</th>
+      <th>Enseignants</th>
+      <th>Heures<br/><span class="small">étudiant/enseignant</span></th>
+      <th>Ouvrir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teaching_module.events_for_year(@year).ordered.each do |event| %>
+      <tr>
+        <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
+        <td><%= event.project %></td>
+        <td>
+          <%= event.label %>
+          <p class="small"><%= event.description %></p>
+        </td>
+        <td>
+          <% event.users.each do |user| %>
+            <%= link_to user, user %><br>
+          <% end %>
+        </td>
+        <td>
+          <%= number_to_human event.duration %>h <%= event.kind.to_s.upcase %><br/>
+          <p class="small">
+            <%= number_to_human event.student_hours %> / <%= number_to_human event.teacher_hours %>
+          </p>
+        </td>
+        <td>
+          <%= link_to 'Ouvrir la semaine',
+                      "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
+                      target: :blank,
+                      class: 'btn btn-primary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'En savoir plus sur ce module', @teaching_module, class: 'btn btn-primary' %>

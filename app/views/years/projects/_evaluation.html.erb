@@ -1,11 +1,10 @@
 <% unless project.evaluation['status'] == 500 %>
   <% if project.evaluation['evaluations'] > 0 %>
-    <h4>Evaluation du projet par les étudiants</h4>
+    <h2 class="mt-5">Evaluation du projet par les étudiants</h2>
     <small><%= project.evaluation['evaluations'] %> évaluations</small>
     <table class="table table-bordered">
       <tbody>
         <tr>
-
           <td><h3>Qualité globale du projet</h3></td>
           <td><%= render  'years/projects/evaluation_stars',
                           value: project.evaluation['quality'],

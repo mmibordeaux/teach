@@ -1,0 +1,38 @@
+<%
+tabs = [
+  ['Projets', promotion_projects_path(promotion_id: @promotion.id)],
+  ['Modules', promotion_teaching_modules_path(promotion_id: @promotion.id)],
+  ['EDT: événements bruts', promotion_events_path(promotion_id: @promotion.id)],
+  ['EDT: événements importés', promotion_events_imported_path(promotion_id: @promotion.id)],
+]
+%>
+
+<ul class="nav nav-pills">
+  <% tabs.each do |tab| %>
+    <%
+    name = tab.first
+    path = tab.last
+    active = tab.last == request.path
+    %>
+    <li class="nav-item">
+      <%= link_to name, path, class: "nav-link #{ 'active' if active }" %>
+    </li>
+  <% end %>
+  <% if can? :edit, @promotion %>
+    <li class="nav-item">
+      <%= link_to 'EDT: Synchroniser avec Google Calendar',
+                  promotion_events_sync_path(promotion_id: @promotion.id),
+                  method: :post,
+                  class: 'nav-link bg-warning' %>
+    </li>
+  <% end %>
+
+</ul>
+
+<p class="small mt-4">
+  Cette promotion est en première année en <%= link_to @promotion.first_year, @promotion.first_year %>, et en seconde année en <%= link_to @promotion.second_year, @promotion.second_year %>.<br>
+</p>
+
+<%= link_to 'Modifier',
+            edit_promotion_path(@promotion),
+            class: 'btn btn-primary btn-sm' if can? :edit, @promotion %>

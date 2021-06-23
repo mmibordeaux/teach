@@ -10,27 +10,7 @@ class PromotionsController < ApplicationController
   end
 
   def show
-    @title = @promotion.to_s
-    @subtitle = 'Répartition des heures du point de vue étudiant'
-    @semesters = Semester.all
-    breadcrumb
-  end
-
-  def events
-    @title = 'EDT: événements bruts'
-    breadcrumb
-    add_breadcrumb @title
-  end
-
-  def events_imported
-    @title = 'EDT: événements importés'
-    breadcrumb
-    add_breadcrumb @title
-  end
-
-  def events_sync
-    @promotion.sync_events
-    redirect_to promotion_events_imported_path(@promotion)
+    redirect_to promotion_projects_path(@promotion)
   end
 
   def new
@@ -82,7 +62,7 @@ class PromotionsController < ApplicationController
 
   def breadcrumb
     add_breadcrumb 'Promotions', :promotions_path
-    add_breadcrumb @promotion.year, @promotion if @promotion
+    add_breadcrumb @promotion.year if @promotion
   end
 
   def load_promotion

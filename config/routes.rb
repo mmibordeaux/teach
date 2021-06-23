@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :involvements, module: :years
     resources :semesters, module: :years, only: [:index, :show]
     resources :teaching_modules, module: :years, only: [:index, :show]
+    resources :resources, module: :years, only: [:index, :show]
     resources :users, module: :years
   end
   resources :promotions do
@@ -30,9 +31,14 @@ Rails.application.routes.draw do
       end
     end
     resources :teaching_modules, module: :promotions, only: :index
-    get :events
-    get :events_imported
-    post :events_sync
+    namespace :events, module: :promotions do
+      get '/' => 'events#index'
+      get '/imported' => 'events#imported'
+      post '/' => 'events#sync', as: :sync
+    end
+    # resources :events, module: :promotions, only: :index
+    # get :events_imported
+    # post :events_sync
   end
   get 'dashboard' => 'dashboard#index', as: :dashboard
   scope :discuss do

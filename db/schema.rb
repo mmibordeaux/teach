@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_22_162754) do
+ActiveRecord::Schema.define(version: 2021_06_23_071304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 2021_06_22_162754) do
     t.text "description"
     t.integer "project_id"
     t.bigint "user_id"
+    t.bigint "resource_id"
     t.index ["project_id"], name: "index_events_on_project_id"
     t.index ["promotion_id"], name: "index_events_on_promotion_id"
+    t.index ["resource_id"], name: "index_events_on_resource_id"
     t.index ["teaching_module_id"], name: "index_events_on_teaching_module_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -112,7 +114,9 @@ ActiveRecord::Schema.define(version: 2021_06_22_162754) do
     t.float "student_hours_td", default: 0.0, null: false
     t.float "student_hours_tp", default: 0.0, null: false
     t.float "student_hours", default: 0.0, null: false
+    t.bigint "resource_id"
     t.index ["promotion_id"], name: "index_involvements_on_promotion_id"
+    t.index ["resource_id"], name: "index_involvements_on_resource_id"
   end
 
   create_table "jobs", id: :serial, force: :cascade do |t|
@@ -181,7 +185,6 @@ ActiveRecord::Schema.define(version: 2021_06_22_162754) do
     t.string "code"
     t.text "description"
     t.integer "hours_cm", default: 0, null: false
-    t.integer "hours_td", default: 0, null: false
     t.integer "hours_tp", default: 0, null: false
     t.string "code_apogee"
     t.bigint "semester_id"

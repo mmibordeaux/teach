@@ -1,5 +1,6 @@
-<h2><%= @promotion.calendar_events.count %> événements Google Calendar bruts</h2>
-<table class="table">
+<%= render 'promotions/nav' %>
+<h2><%= @promotion.calendar_events&.count %> événements Google Calendar bruts</h2>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Cours</th>

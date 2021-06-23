@@ -4,6 +4,9 @@ fr:
       user: 'Utilisateur'
       field: 'Champ'
     attributes:
+      resource:
+        hours_cm: 'Heures CM/TD'
+        hours_tp: 'Heures TP'
       user:
         first_name: 'Prénom'
         last_name: 'Nom'

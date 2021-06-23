@@ -5,13 +5,14 @@
             sync_involvements_from_events_year_project_path(year_id: @year.id, id: @project.id),
             method: :post,
             class: 'btn btn-primary' if can? :edit, @project %>
-<br/><br/>
-<div class="row">
-  <div class="col-md-3">
-    <%= @project.sublabel %>
+<div class="row mt-5">
+  <div class="col-md-6">
     <h4>Description détaillée</h4>
+    <%= @project.sublabel %>
     <%= simple_format @project.detailed_description %>
-    <h4>Année</h4>
+  </div>
+  <div class="col-md-3">
+    <h4>Dates</h4>
     <p>
       <%= link_to @project.year, @project.year %>
       (<%= @project.week_number %>)
@@ -19,8 +20,9 @@
     <% if @project.from && @project.to %>
       <p>Du <%= l @project.from %> au <%= l @project.to %></p>
     <% end %>
-    <h4>Semestres</h4>
     <%= render partial: 'semesters/inline_list', locals: {semesters: @project.semesters} %>
+  </div>
+  <div class="col-md-3">
     <h4>Personnes</h4>
     <%= link_to @project.user do %><strong><%= @project.user %></strong><% end %><br>
     <ul class="list-unstyled">
@@ -30,11 +32,12 @@
     </ul>
   </div>
   <div class="col-md-9">
-    <%= render 'years/projects/evaluation', project: @project %>
   </div>
 </div>
 
-<h4>Maquette (heures planifiées)</h4>
+<%= render 'years/projects/evaluation', project: @project %>
+
+<h2 class="mt-5">Maquette (heures planifiées)</h2
 <p>
   Heures étudiants : <%= @project.student_hours %>
   (CM <%= @project.student_hours_cm %>
@@ -48,7 +51,7 @@
   <thead>
     <tr>
       <th>Personne</th>
-      <th>Module</th>
+      <th>Ressource</th>
       <th>Promotion</th>
       <th>Heures étudiant total</th>
       <th>CM</th>
@@ -66,7 +69,13 @@
   <% @involvements.each do |involvement| %>
     <tr>
       <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
-      <td><%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %></td>
+      <td>
+        <% if involvement.teaching_module %>
+          <%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %>
+        <% elsif involvement.resource %>
+
+        <% end %>
+      </td>
       <td><%= link_to involvement.promotion&.year, involvement.promotion %></td>
       <td><%= involvement.student_hours.round %></td>
       <td><%= involvement.hours_cm.round %></td>
@@ -87,12 +96,13 @@
 </table>
 
 
-<h4>Emploi du temps</h4>
+<h2 class="mt-5">Emploi du temps</h2>
 <p>
   Attention, certains événements peuvent avoir lieu pendant le temps du projet sans être rattachés au projet.
   Ce tableau peut donc présenter des faux positifs.
 </p>
 
+<h3>Liste</h3>
 <table class="table">
   <thead>
     <tr>
@@ -127,25 +137,7 @@
   </tbody>
 </table>
 
-<h4>Objectifs visés par ce projet</h4>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th width="300">Module</th>
-      <th>Objectif</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @project.objectives.each do |objective| %>
-      <tr>
-        <td><%= objective.teaching_module.full_name %></td>
-        <td><%= objective %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<h2 class="mt-5">Emploi du temps</h2>
+<h3>Tableau synoptique</h3>
 <table class="table table-bordered">
   <thead>
     <tr>

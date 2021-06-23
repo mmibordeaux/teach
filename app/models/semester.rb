@@ -12,6 +12,7 @@ class Semester < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
   has_many :teaching_modules
+  has_many :resources
   has_many :objectives, through: :teaching_modules
 
   def self.planned_teacher_hours_cm_costs

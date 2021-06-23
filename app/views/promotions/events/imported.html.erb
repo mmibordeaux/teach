@@ -1,8 +1,9 @@
+<%= render 'promotions/nav' %>
 <h2><%= @promotion.events.count %> événements Google Calendar importés</h2>
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Module</th>
+      <th>Ressource</th>
       <th>Projet</th>
       <th>Date</th>
       <th>Type</th>
@@ -18,7 +19,10 @@
   <tbody>
     <% @promotion.events.ordered.each do |event| %>
       <tr>
-        <td><%= event.teaching_module %></td>
+        <td>
+          <%= event.teaching_module %>
+          <%= event.resource %>
+        </td>
         <td><%= event.project %></td>
         <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
         <td><%= event.kind.to_s.upcase %></td>

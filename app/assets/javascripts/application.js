@@ -10,9 +10,4 @@
 //= require timeline/timeline-min
 //= require star-rating/star-rating.min
 //= require star-rating/locales/fr
-//= require_self
-
-// jQuery(function() {
-//   $("a[rel~=popover], .has-popover").popover();
-//   $("a[rel~=tooltip], .has-tooltip").tooltip();
-// });
+//= require application/toastr

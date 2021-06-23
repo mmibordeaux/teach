@@ -13,7 +13,7 @@ class Promotion < ActiveRecord::Base
   has_many :involvements
   has_many :events
 
-  default_scope { order(:year) }
+  default_scope { order(year: :desc) }
 
   def first_year
     Year.where(year: year-1).first
