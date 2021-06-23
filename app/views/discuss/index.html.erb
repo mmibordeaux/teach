@@ -2,9 +2,23 @@
   <h1>Années scolaires</h1>
 <% end %>
 
-Cliquez sur une année scolaire ci-dessous pour accéder aux contenus pédagogiques
-<ul class="list-unstyled">
+<p class="small text-muted">
+  Cliquez sur une année scolaire ci-dessous pour accéder aux contenus pédagogiques
+</p>
+
+<div class="row">
   <% @years.each do |year| %>
-    <li><%= link_to year, discuss_year_path(year.year) %></li>
+    <% next if year.projects.none? %>
+    <div class="col-md-3">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2><%= year %></h2>
+          <p><%= year.projects.count %> projets</p>
+          <div class="text-end">
+            <%= link_to 'Voir', discuss_year_path(year.year), class: 'btn btn-primary btn-sm stretched-link' %>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>

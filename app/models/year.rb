@@ -88,6 +88,10 @@ class Year < ActiveRecord::Base
     involvements.where(teaching_module: teaching_module)
   end
 
+  def involvements_for_resource(resource)
+    involvements.where(resource: resource)
+  end
+
   def planned_student_hours
     involvements.collect(&:student_hours).sum.round(2)
   end
@@ -111,6 +115,10 @@ class Year < ActiveRecord::Base
 
   def planned_hours_for_teaching_module(teaching_module, kind = :teacher_hours)
     involvements_for_teaching_module(teaching_module).sum(kind)
+  end
+
+  def planned_hours_for_resource(resource, kind = :teacher_hours)
+    involvements_for_resource(resource).sum(kind)
   end
 
   def planned_hours_for_teaching_module_and_user(teaching_module, user, kind = :teacher_hours)

@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col-md-4">
     <div class="btn btn-block btn-primary">
-      <h2>PPN <%= @teaching_module.expected_student_hours.round %></h2>
+      <h2>PPN <%= @resource.expected_student_hours.round %></h2>
     </div>
   </div>
   <div class="col-md-4">
     <div class="btn btn-block btn-primary">
-      <h2>Planifié <%= @year.planned_hours_for_teaching_module(@teaching_module, :student_hours).round %></h2>
+      <h2>Planifié <%= @year.planned_hours_for_resource(@resource, :student_hours).round %></h2>
     </div>
   </div>
   <div class="col-md-4">
     <div class="btn btn-block btn-primary">
-      <h2>EDT <%= @year.scheduled_hours_for_teaching_module(@teaching_module).round %></h2>
+      <h2>EDT <%= @year.scheduled_hours_for_resource(@resource).round %></h2>
     </div>
   </div>
 </div>
@@ -35,24 +35,24 @@
             name: 'TP',
             data: [
               <%= @teaching_module.hours_tp %>,
-              <%= @year.planned_hours_for_teaching_module(@teaching_module, :hours_tp) %>,
-              <%= @year.scheduled_hours_for_teaching_module(@teaching_module, :tp) %>
+              <%= @year.planned_hours_for_resource(@resource, :hours_tp) %>,
+              <%= @year.scheduled_hours_for_resource(@resource, :tp) %>
             ]
           },
           {
             name: 'TD',
             data: [
               <%= @teaching_module.hours_td %>,
-              <%= @year.planned_hours_for_teaching_module(@teaching_module, :hours_td) %>,
-              <%= @year.scheduled_hours_for_teaching_module(@teaching_module, :td) %>
+              <%= @year.planned_hours_for_resource(@resource, :hours_td) %>,
+              <%= @year.scheduled_hours_for_resource(@resource, :td) %>
             ]
           },
           {
             name: 'CM',
             data: [
               <%= @teaching_module.hours_cm %>,
-              <%= @year.planned_hours_for_teaching_module(@teaching_module, :hours_cm) %>,
-              <%= @year.scheduled_hours_for_teaching_module(@teaching_module, :cm) %>
+              <%= @year.planned_hours_for_resource(@resource, :hours_cm) %>,
+              <%= @year.scheduled_hours_for_resource(@resource, :cm) %>
               ]
             }
           ]
@@ -62,7 +62,9 @@
 
 
 <h2>Maquette</h2>
-<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id), class: 'btn btn-primary btn-sm' if can? :create, Involvement %>
+<%= link_to 'Planifier une intervention',
+            new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id),
+            class: 'btn btn-primary btn-sm' if can? :create, Involvement %>
 <table class="table">
   <thead>
     <tr>
@@ -78,7 +80,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @year.involvements_for_teaching_module(@teaching_module).includes(:user).reorder('users.last_name').each do |involvement| %>
+  <% @year.involvements_for_resource(@resource).includes(:user).reorder('users.last_name').each do |involvement| %>
     <tr>
       <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
       <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>

@@ -1,14 +1,15 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Year</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @years.each do |year| %>
-      <tr>
-        <td><%= link_to year, year %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <% @years.each do |year| %>
+    <div class="col-md-2">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2><%= year %></h2>
+          <p><%= year.projects.count %> projets</p>
+          <div class="text-end">
+            <%= link_to 'Voir', year, class: 'btn btn-primary btn-sm stretched-link' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

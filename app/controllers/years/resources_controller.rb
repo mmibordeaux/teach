@@ -7,7 +7,7 @@ class Years::ResourcesController < YearsController
   end
 
   def show
-    @title = @resource.full_name
+    @title = @resource.to_s
     @subtitle = @year.to_s
     breadcrumb
   end
