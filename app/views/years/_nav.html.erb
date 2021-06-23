@@ -15,7 +15,7 @@ tabs = [
     path = tab.last
     active = tab.last == request.path
     %>
-    <%= link_to name, path, class: "btn btn-lg #{ active ? 'btn-info' : 'btn-default' }" %>
+    <%= link_to name, path, class: "btn btn-lg #{ active ? 'btn-info' : 'btn-primary' }" %>
   <% end %>
 </div>
 <br/>

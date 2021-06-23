@@ -1,16 +1,16 @@
 <div class="row">
   <div class="col-md-4">
-    <div class="btn btn-block btn-default">
+    <div class="btn btn-block btn-primary">
       <h2>PPN <%= @teaching_module.expected_student_hours.round %></h2>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="btn btn-block btn-default">
+    <div class="btn btn-block btn-primary">
       <h2>Planifié <%= @year.planned_hours_for_teaching_module(@teaching_module, :student_hours).round %></h2>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="btn btn-block btn-default">
+    <div class="btn btn-block btn-primary">
       <h2>EDT <%= @year.scheduled_hours_for_teaching_module(@teaching_module).round %></h2>
     </div>
   </div>
@@ -137,11 +137,11 @@
           <%= link_to 'Ouvrir la semaine',
                       "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
                       target: :blank,
-                      class: 'btn btn-default btn-sm' %>
+                      class: 'btn btn-primary btn-sm' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'En savoir plus sur ce module', @teaching_module, class: 'btn btn-default' %>
+<%= link_to 'En savoir plus sur ce module', @teaching_module, class: 'btn btn-primary' %>

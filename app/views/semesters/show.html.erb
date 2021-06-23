@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-3">
-    <div class="btn btn-block btn-default">
+    <div class="btn btn-block btn-primary">
       <h2>Maquette <%= @semester.planned_student_hours.round %></h2>
     </div>
   </div>
   <div class="col-md-3">
-    <div class="btn btn-block btn-default">
+    <div class="btn btn-block btn-primary">
       <h2>PPN <%= @semester.expected_student_hours.round %></h2>
     </div>
   </div>
@@ -80,7 +80,7 @@
         });
         </script>
         <td>
-          <a data-toggle="collapse" data-target="#collapse<%= teaching_module.id %>" class="btn btn-default btn-sm">+</a>
+          <a data-toggle="collapse" data-target="#collapse<%= teaching_module.id %>" class="btn btn-primary btn-sm">+</a>
           <div id="collapse<%= teaching_module.id %>" class="collapse">
             <% teaching_module.involvements.each do |involvement| %>
               <%#= render 'involvements/short', involvement: involvement %><br/>
