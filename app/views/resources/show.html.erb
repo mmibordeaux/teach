@@ -1,39 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-2">
+    <p>
+      <strong>Code</strong>
+      <%= @resource.code %>
+    </p>
+    <p>
+      <strong>Code Apogée</strong>
+      <%= @resource.code_apogee %>
+    </p>
+    <p>
+      <strong>Semestre</strong>
+      <%= @resource.semester %>
+    </p>
+  </div>
+  <div class="col-md-8">
+    <%= simple_format @resource.description %>
+  </div>
+  <div class="col-md-2">
+    <p>
+      <%= @resource.hours_cm %> heures de CM/TD
+    </p>
+    <p>
+      <%= @resource.hours_tp %> heures de TP
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Nom</strong>
-  <%= @resource.label %>
-</p>
-
-<p>
-  <strong>Code Apogée</strong>
-  <%= @resource.code_apogee %>
-</p>
-
-<p>
-  <strong>Code</strong>
-  <%= @resource.code %>
-</p>
-
-<p>
-  <strong>Description</strong>
-  <%= @resource.description %>
-</p>
-
-<p>
-  <strong>Heures CM/TD</strong>
-  <%= @resource.hours_cm %>
-</p>
-
-<p>
-  <strong>Heures TP</strong>
-  <%= @resource.hours_tp %>
-</p>
-
-<p>
-  <strong>Semestre</strong>
-  <%= @resource.semester %>
-</p>
-
-<%= link_to 'Edit', edit_resource_path(@resource) %> |
-<%= link_to 'Back', resources_path %>
+<%= link_to 'Modifier', edit_resource_path(@resource), class: button_classes %>
