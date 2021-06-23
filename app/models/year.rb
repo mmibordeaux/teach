@@ -19,6 +19,7 @@ class Year < ActiveRecord::Base
     where(year: year).first_or_create
     where(year: year+1).first_or_create
     where(year: year+2).first_or_create
+    where(year: year+3).first_or_create
   end
 
   def self.current
@@ -37,10 +38,17 @@ class Year < ActiveRecord::Base
   end
 
   def first_year_promotion
-    Promotion.where(year: year+1).first
+    y = year < 2022 ? year+1 : year+2
+    Promotion.where(year: y).first
   end
 
   def second_year_promotion
+    y = year < 2023 ? year : year+1
+    Promotion.where(year: y).first
+  end
+
+  def third_year_promotion
+    return if year < 2024
     Promotion.where(year: year).first
   end
 

@@ -2,14 +2,15 @@
   <h1><%= @year %></h1>
 <% end %>
 
+<p class="small text-muted mb-0">Cliquez pour accéder directement au semestre choisi</p>
 <ul class="list-inline">
   <% Semester.all.each do |semester| %>
-    <li><%= link_to semester, "#semester#{semester.id}" %></li>
+    <li class="list-inline-item"><%= link_to semester, "#semester#{semester.id}" %></li>
   <% end %>
 </ul>
 
 <% Semester.all.each do |semester| %>
-  <h3 id="semester<%= semester.id %>"><%= semester %></h3>
+  <h3 id="semester<%= semester.id %>" class="mt-5"><%= semester %></h3>
   <% projects = @year.projects.in_semester(semester) %>
   <p><%= projects.count %> projets</p>
   <hr>

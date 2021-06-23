@@ -16,11 +16,18 @@ class Promotion < ActiveRecord::Base
   default_scope { order(year: :desc) }
 
   def first_year
-    Year.where(year: year-1).first
+    y = year >= 2024 ? year - 2 : year - 1
+    Year.where(year: y).first_or_create
   end
 
   def second_year
-    Year.where(year: year).first
+    y = year >= 2024 ? year - 1 : year
+    Year.where(year: y).first_or_create
+  end
+
+  def third_year
+    return if year < 2024
+    Year.where(year: year).first_or_create
   end
 
   def years
@@ -33,6 +40,10 @@ class Promotion < ActiveRecord::Base
 
   def second_year_projects
     second_year.projects.joins(:semesters).where(semesters: { id: [3, 4] })
+  end
+
+  def third_year_projects
+    third_year.projects.joins(:semesters).where(semesters: { id: [5, 6] })
   end
 
   def year_for_teaching_module(teaching_module)

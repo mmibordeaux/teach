@@ -3,8 +3,8 @@
 <% end %>
 
 Cliquez sur une année scolaire ci-dessous pour accéder aux contenus pédagogiques
-<ul>
+<ul class="list-unstyled">
   <% @years.each do |year| %>
-    <li><h2><%= link_to year, discuss_year_path(year.year) %></h2></li>
+    <li><%= link_to year, discuss_year_path(year.year) %></li>
   <% end %>
 </ul>

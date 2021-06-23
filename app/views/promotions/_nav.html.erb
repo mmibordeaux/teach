@@ -30,7 +30,13 @@ tabs = [
 </ul>
 
 <p class="small mt-4">
-  Cette promotion est en première année en <%= link_to @promotion.first_year, @promotion.first_year %>, et en seconde année en <%= link_to @promotion.second_year, @promotion.second_year %>.<br>
+  Première année en <%= link_to @promotion.first_year, @promotion.first_year %><br>
+  Seconde année en <%= link_to @promotion.second_year, @promotion.second_year %><br>
+  <% if @promotion.third_year %>
+    Troisième année en <%= link_to @promotion.third_year, @promotion.third_year %>
+  <% else %>
+    Pas de troisième année
+  <% end %>
 </p>
 
 <%= link_to 'Modifier',

@@ -23,9 +23,12 @@ tabs = [
 </ul>
 <br/>
 <p class="small">
-  La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion %> est en première année,
-  La promotion <%= link_to @year.second_year_promotion, @year.second_year_promotion %> est en seconde année.
+  La promotion <%= link_to @year.first_year_promotion, @year.first_year_promotion %> est en première année.<br>
+  La promotion <%= link_to @year.second_year_promotion, @year.second_year_promotion %> est en seconde année.<br>
+  <% if @year.third_year_promotion %>
+  La promotion <%= link_to @year.third_year_promotion, @year.third_year_promotion %> est en troisième année.<br>
+  <% end %>
   <% if can? :edit, @year.first_year_promotion %>
-  Pour actualiser l'EDT depuis Google, cliquez sur la promotion concernée.
+    Pour actualiser l'EDT depuis Google, cliquez sur la promotion concernée.
   <% end %>
 </p>

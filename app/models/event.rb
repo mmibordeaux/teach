@@ -42,6 +42,7 @@ class Event < ActiveRecord::Base
       duration = (date_end - date) / 60 / 60
     end
     teaching_module = nil
+    resource = nil
     hashtags = calendar_event.description.scan(/#(\w+)/).flatten
     kind = Event.kinds[:cm] # default
     hashtags.each do |hashtag|
@@ -54,9 +55,10 @@ class Event < ActiveRecord::Base
         kind = Event.kinds[:tp]
       else
         teaching_module = TeachingModule.with_code(hashtag).first
+        resource = Resource.with_code(hashtag).first
       end
     end
-    return if teaching_module.nil?
+    return if teaching_module.nil? && resource.nil?
     project = Project.at_date_for_promotion(date, promotion)
     users = []
     calendar_event.attendee.each do |attendee|
@@ -72,6 +74,7 @@ class Event < ActiveRecord::Base
                     kind: kind,
                     project: project,
                     teaching_module: teaching_module,
+                    resource: resource,
                     label: calendar_event.summary,
                     description: calendar_event.description,
                     user: user
