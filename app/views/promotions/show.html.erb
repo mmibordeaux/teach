@@ -1,4 +1,4 @@
-<%= link_to 'Modifier', edit_promotion_path(@promotion), class: 'btn btn-primary btn-xs' if can? :edit, @promotion %>
+<%= link_to 'Modifier', edit_promotion_path(@promotion), class: 'btn btn-primary btn-sm' if can? :edit, @promotion %>
 
 <p>
   Cette promotion est en première année en <%= link_to @promotion.first_year, @promotion.first_year %>, et en seconde année en <%= link_to @promotion.second_year, @promotion.second_year %>.<br>

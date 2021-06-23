@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :resources
   devise_for :users
   match "/delayed_job" => DelayedJobWeb, anchor: false, via: [:get, :post]
   get 'users/summary' => 'users#summary', as: 'users_summary'

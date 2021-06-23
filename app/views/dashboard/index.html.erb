@@ -4,7 +4,7 @@
 <% else %>
   Je suis vacataire.
 <% end %>
-<div class="row">
+<div class="row mt-4">
   <div class="col-md-2">
     <div class="text-xl"><%= @year.scheduled_teacher_hours_for(current_user).round %><small>H</small></div>
   </div>
@@ -30,27 +30,23 @@
   <% end %>
 </div>
 
-<hr class="spacer">
-
 <h2>Projets dont je suis responsable</h2>
 
 <% @projects_in_charge.each do |project| %>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <div class="pull-right">
-        <% project.semesters.each do |semester| %>
-          <span class="label label-info"><%= semester %></span>
-        <% end %>
-      </div>
-      <h3><%= link_to project, [project.year, project] %></h3>
+  <div class="card mb-3">
+    <div class="card-body">
       <div class="pull-right">
         Du <%= l project.from, format: "%d/%m" %>
         au <%= l project.to, format: "%d/%m/%Y" %>
+        <% project.semesters.each do |semester| %>
+        <span class="badge bg-info"><%= semester %></span>
+        <% end %>
       </div>
-      <%= project.description %>&nbsp;
-    </div>
-    <div class="panel-body">
-      <div class="row">
+      <h3><%= link_to project, [project.year, project] %></h3>
+      <p>
+        <%= project.description %>
+      </p>
+      <div class="row mt-5">
         <div class="col-md-4">
           <%= simple_format project.detailed_description %>
         </div>
@@ -64,8 +60,8 @@
           <ul>
             <% project.involvements.each do |involvement| %>
               <li>
-                <h5><%= involvement.user %></h5>
-                <%= simple_format involvement.description %>
+                <h5 class="mb-0"><%= involvement.user %></h5>
+                <%= simple_format involvement.description unless involvement.description.blank? %>
                 <p class="small">
                   <%= involvement.teaching_module&.label %> :
                   <%= involvement.hours_cm.round %> CM /
@@ -78,10 +74,14 @@
         </div>
         <% hours_with_no_one = project.events_for_user(User.temporary).sum(:student_hours) %>
         <% if hours_with_no_one > 0 %>
-          <div class="col-md-2 bg-danger">
-            <div class="text-xl"><%= hours_with_no_one.round %><small>h</small></div>
-            <p>Heures sans intervenant <br/>
-            <span class="small">heures étudiant, dans l'EDT</span></p>
+          <div class="col-md-2">
+            <div class="bg-danger text-white card">
+              <div class="card-body">
+                <div class="text-xl"><%= hours_with_no_one.round %><small>h</small></div>
+                <p>Heures sans intervenant <br/>
+                <span class="small">heures étudiant, dans l'EDT</span></p>
+              </div>
+            </div>
           </div>
         <% end %>
       </div>
@@ -89,12 +89,10 @@
   </div>
 <% end %>
 
-<hr class="spacer">
-
 <h2>Projets dans lesquels j'interviens</h2>
 <% @projects.each do |project| %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card mb-4">
+    <div class="card-body">
       <div class="pull-right">
         <% project.semesters.each do |semester| %>
           <span class="label label-primary"><%= semester %></span>
@@ -102,8 +100,6 @@
       </div>
       <h3><%= link_to project, [project.year, project] %></h3>
       <h5>Responsable du projet: <%= project.user %></h5>
-    </div>
-    <div class="panel-body">
       <% project.involvements.where(user: current_user).each do |involvement| %>
         <div class="row">
           <div class="col-md-2">
@@ -148,41 +144,7 @@
             <% end %>
           </div>
         </div>
-        <hr>
       <% end %>
     </div>
   </div>
 <% end %>
-
-<hr class="spacer">
-
-<h2>Modules</h2>
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Module</th>
-        <th>Semestre</th>
-        <th>Total heures enseignant</th>
-        <th>CM</th>
-        <th>TD</th>
-        <th>TP</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @teaching_modules.each do |teaching_module| %>
-        <tr>
-          <td><%= teaching_module.code %></td>
-          <td><%= teaching_module.label %></td>
-          <td><%= teaching_module.semester %></td>
-          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user).round %></td>
-          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_cm).round %></td>
-          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_td).round %></td>
-          <td><%= @year.planned_hours_for_teaching_module_and_user(teaching_module, current_user, :teacher_hours_tp).round %></td>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>

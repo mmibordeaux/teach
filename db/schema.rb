@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_15_184905) do
+ActiveRecord::Schema.define(version: 2021_06_22_162754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,20 @@ ActiveRecord::Schema.define(version: 2020_09_15_184905) do
     t.string "calendar_url"
   end
 
+  create_table "resources", force: :cascade do |t|
+    t.string "label"
+    t.string "code"
+    t.text "description"
+    t.integer "hours_cm", default: 0, null: false
+    t.integer "hours_td", default: 0, null: false
+    t.integer "hours_tp", default: 0, null: false
+    t.string "code_apogee"
+    t.bigint "semester_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["semester_id"], name: "index_resources_on_semester_id"
+  end
+
   create_table "semesters", id: :serial, force: :cascade do |t|
     t.integer "number"
     t.datetime "created_at", null: false
@@ -257,4 +271,5 @@ ActiveRecord::Schema.define(version: 2020_09_15_184905) do
   add_foreign_key "events", "users"
   add_foreign_key "involvements", "promotions"
   add_foreign_key "projects", "years"
+  add_foreign_key "resources", "semesters"
 end

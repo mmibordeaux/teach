@@ -23,8 +23,8 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 
 # Front
-gem 'bootstrap-sass'
-gem 'sass-rails'
+gem 'bootstrap'
+gem 'sassc-rails'
 gem 'font-awesome-rails'
 gem 'mini_racer'
 gem 'uglifier'

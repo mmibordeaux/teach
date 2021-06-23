@@ -31,8 +31,8 @@
         legend: { enabled: false },
         credits: { enabled: false },
         series: [
-          { name: 'TP', data: [<%= @semester.student_hours_tp %>, <%= @semester.planned_student_hours_tp %>] }, 
-          { name: 'TD', data: [<%= @semester.student_hours_td %>, <%= @semester.planned_student_hours_td %>] }, 
+          { name: 'TP', data: [<%= @semester.student_hours_tp %>, <%= @semester.planned_student_hours_tp %>] },
+          { name: 'TD', data: [<%= @semester.student_hours_td %>, <%= @semester.planned_student_hours_td %>] },
           { name: 'CM', data: [<%= @semester.student_hours_cm %>, <%= @semester.planned_student_hours_cm %>] }
           ]
     });
@@ -72,18 +72,18 @@
                 legend: { enabled: false },
                 credits: { enabled: false },
                 series: [
-                  { name: 'TP', data: [<%= teaching_module.hours_tp %>, <%= teaching_module.planned_student_hours_tp %>] }, 
-                  { name: 'TD', data: [<%= teaching_module.hours_td %>, <%= teaching_module.planned_student_hours_td %>] }, 
+                  { name: 'TP', data: [<%= teaching_module.hours_tp %>, <%= teaching_module.planned_student_hours_tp %>] },
+                  { name: 'TD', data: [<%= teaching_module.hours_td %>, <%= teaching_module.planned_student_hours_td %>] },
                   { name: 'CM', data: [<%= teaching_module.hours_cm %>, <%= teaching_module.planned_student_hours_cm %>] }
                   ]
             });
         });
         </script>
         <td>
-          <a data-toggle="collapse" data-target="#collapse<%= teaching_module.id %>" class="btn btn-default btn-xs">+</a>
+          <a data-toggle="collapse" data-target="#collapse<%= teaching_module.id %>" class="btn btn-default btn-sm">+</a>
           <div id="collapse<%= teaching_module.id %>" class="collapse">
             <% teaching_module.involvements.each do |involvement| %>
-              <%= render 'involvements/short', involvement: involvement %><br/>
+              <%#= render 'involvements/short', involvement: involvement %><br/>
             <% end %>
           </div>
         </td>

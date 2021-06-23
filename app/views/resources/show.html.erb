@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @resource.label %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @resource.code %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @resource.description %>
+</p>
+
+<p>
+  <strong>Hours cm:</strong>
+  <%= @resource.hours_cm %>
+</p>
+
+<p>
+  <strong>Hours td:</strong>
+  <%= @resource.hours_td %>
+</p>
+
+<p>
+  <strong>Hours tp:</strong>
+  <%= @resource.hours_tp %>
+</p>
+
+<p>
+  <strong>Code apogee:</strong>
+  <%= @resource.code_apogee %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @resource.semester %>
+</p>
+
+<%= link_to 'Edit', edit_resource_path(@resource) %> |
+<%= link_to 'Back', resources_path %>

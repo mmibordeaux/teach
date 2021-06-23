@@ -2,12 +2,12 @@
 
 <%= link_to 'Nouveau projet',
             new_year_project_path(year_id: @year.id),
-            class: 'btn btn-primary btn-xs' if can? :create, Project %>
+            class: 'btn btn-primary btn-sm' if can? :create, Project %>
 
 <%= link_to 'Synchroniser la maquette à partir de l\'EDT pour tous les projets',
             batch_sync_involvements_from_events_year_projects_path(year_id: @year.id),
             method: :post,
-            class: 'btn btn-primary btn-xs' if can? :create, Project %>
+            class: 'btn btn-primary btn-sm' if can? :create, Project %>
 
 <div id='timeline' style="width: 100%; height: 600px"></div>
 <script type="text/javascript">

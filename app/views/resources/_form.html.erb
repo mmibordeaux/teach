@@ -1,0 +1,11 @@
+<%= simple_form_for(@resource) do |f| %>
+  <%= f.input :label %>
+  <%= f.input :code %>
+  <%= f.input :description %>
+  <%= f.input :hours_cm %>
+  <%= f.input :hours_td %>
+  <%= f.input :hours_tp %>
+  <%= f.input :code_apogee %>
+  <%= f.association :semester, include_blank: false %>
+  <%= f.button :submit %>
+<% end %>

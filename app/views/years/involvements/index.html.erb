@@ -1,6 +1,6 @@
 <%= render 'years/nav' %>
 
-<%= link_to 'Nouvelle intervention', new_year_involvement_path(year_id: @year.id), class: 'btn btn-primary btn-xs' if can? :create, Involvement %>
+<%= link_to 'Nouvelle intervention', new_year_involvement_path(year_id: @year.id), class: 'btn btn-primary btn-sm' if can? :create, Involvement %>
 
 <table class="table table-hover">
   <thead>
@@ -31,7 +31,7 @@
       <td><%= involvement.teacher_hours.round %></td>
       <td><%= simple_format involvement.description %></td>
       <td><%= link_to involvement.project, [@year, involvement.project] unless involvement.project.nil? %></td>
-      <td><%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%></td>
+      <td><%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-sm' if can? :edit, involvement%></td>
     </tr>
   <% end %>
   </tbody>

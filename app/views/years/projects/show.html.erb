@@ -21,11 +21,6 @@
     <% end %>
     <h4>Semestres</h4>
     <%= render partial: 'semesters/inline_list', locals: {semesters: @project.semesters} %>
-    <h4>Champs concernés</h4>
-    <%= render partial: 'fields/inline_list', locals: {fields: @project.fields} %>
-    <h4>Modules concernés</h4>
-    <p>Nous pouvons intégrer des notes de ce projet dans les modules suivants</p>
-    <%= render partial: 'teaching_modules/inline_list', locals: {teaching_modules: @project.teaching_modules} %>
     <h4>Personnes</h4>
     <%= link_to @project.user do %><strong><%= @project.user %></strong><% end %><br>
     <ul class="list-unstyled">
@@ -48,7 +43,7 @@
   <br/>
   Heures enseignants : <%= @project.teacher_hours %>
 </p>
-<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, project_id: @project.id), class: 'btn btn-primary btn-xs' %>
+<%= link_to 'Planifier une intervention', new_year_involvement_path(year_id: @year.id, project_id: @project.id), class: 'btn btn-primary btn-sm' %>
 <table class="table">
   <thead>
     <tr>
@@ -83,8 +78,8 @@
       <% end %>
       <td><%= simple_format involvement.description %></td>
       <td>
-        <%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-xs' if can? :edit, involvement%>
-        <%= link_to 'Supprimer', year_involvement_path(year_id: @year.id, id: involvement.id), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger btn-xs'  %>
+        <%= link_to 'Modifier', edit_year_involvement_path(year_id: @year.id, id: involvement.id), class: 'btn btn-primary btn-sm' if can? :edit, involvement%>
+        <%= link_to 'Supprimer', year_involvement_path(year_id: @year.id, id: involvement.id), method: :delete, data: {confirm: "Sûr(e)?"}, class: 'btn btn-danger btn-sm'  %>
       </td>
     </tr>
   <% end %>
@@ -125,7 +120,7 @@
         <%= link_to 'Ouvrir la semaine',
                     "https://calendar.google.com/calendar/b/1/r/week/#{event.date.year}/#{event.date.month}/#{event.date.day}",
                     target: :blank,
-                    class: 'btn btn-default btn-xs' %>
+                    class: 'btn btn-default btn-sm' %>
       </td>
     </tr>
   <% end %>

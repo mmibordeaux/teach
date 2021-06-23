@@ -1,5 +1,6 @@
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
+//= require popper
 //= require bootstrap
 //= require d3
 //= require highcharts
@@ -11,7 +12,7 @@
 //= require star-rating/locales/fr
 //= require_self
 
-jQuery(function() {
-  $("a[rel~=popover], .has-popover").popover();
-  $("a[rel~=tooltip], .has-tooltip").tooltip();
-});
+// jQuery(function() {
+//   $("a[rel~=popover], .has-popover").popover();
+//   $("a[rel~=tooltip], .has-tooltip").tooltip();
+// });

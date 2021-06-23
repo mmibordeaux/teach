@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>CM</th>
+      <th>TD</th>
+      <th>TP</th>
+      <th>Semestre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @resources.each do |resource| %>
+      <tr>
+        <td><%= link_to resource, resource %></td>
+        <td><%= resource.hours_cm %></td>
+        <td><%= resource.hours_td %></td>
+        <td><%= resource.hours_tp %></td>
+        <td><%= resource.semester %></td>
+        <td>
+          <%= link_to 'Edit', edit_resource_path(resource), class: button_classes %>
+          <%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' }, class: button_classes_danger %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Resource', new_resource_path %>

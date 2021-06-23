@@ -1,5 +1,5 @@
 <p><%= @users.count %> personnes</p>
-<%= link_to 'Nouvelle personne', new_user_path, class: 'btn btn-primary btn-xs' if can? :create, User %>
+<%= link_to 'Nouvelle personne', new_user_path, class: 'btn btn-primary btn-sm' if can? :create, User %>
 
 <table class="table table-hover">
   <thead>
@@ -18,12 +18,12 @@
         <td>
           <%= user.email %>
           <% if current_user.admin? and user.email.present? %>
-            <%= link_to 'Envoyer l\'invitation', reset_user_path(user), class: 'btn btn-primary btn-xs', method: :post %>
+            <%= link_to 'Envoyer l\'invitation', reset_user_path(user), class: 'btn btn-primary btn-sm', method: :post %>
           <% end %>
         </td>
         <td><%= user.email_secondary %></td>
         <td><%= user.public ? 'oui' : 'non' %></td>
-        <td><%= link_to 'Modifier', edit_user_path(user), class: 'btn btn-primary btn-xs' if can? :edit, user %></td>
+        <td><%= link_to 'Modifier', edit_user_path(user), class: 'btn btn-primary btn-sm' if can? :edit, user %></td>
       </tr>
     <% end %>
   </tbody>
