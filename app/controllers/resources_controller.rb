@@ -12,6 +12,7 @@ class ResourcesController < ApplicationController
   end
 
   def new
+    @title = 'Nouvelle ressource'
     @resource = Resource.new
     breadcrumb
     add_breadcrumb 'Nouvelle ressource'
