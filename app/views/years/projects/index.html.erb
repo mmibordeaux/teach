@@ -10,15 +10,15 @@
             class: 'btn btn-primary btn-sm' if can? :create, Project %>
 
 <% Semester.all.each do |semester| %>
-  <h3><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h3>
   <% projects = @year.projects.in_semester(semester) %>
-  <p><%= projects.count %> projets</p>
   <div id='timeline-s<%= semester.id %>' style="width: 100%; height: 600px"></div>
   <script type="text/javascript">
     var data = <%= { events: projects.collect(&:to_event) }.to_json.html_safe %>;
     var config = { language: 'fr', initial_zoom: 1 };
     new TL.Timeline('timeline-s<%= semester.id %>', data, config);
   </script>
+  <h2 class="mt-5"><%= link_to semester, year_semester_path(year_id: @year.id, id: semester) %></h2>
+  <p><%= projects.count %> projets</p>
   <table class="table table-hover">
     <thead>
       <tr>
