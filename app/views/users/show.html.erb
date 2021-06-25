@@ -3,17 +3,17 @@
 <br/><br/>
 
 <div>
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs">
     <% @years.each_with_index do |year, index| %>
-      <li role="presentation"<%= raw ' class="active"' if index.zero? %>>
-        <a href="#year<%= year.id %>" role="tab" data-toggle="tab"><%= year %></a>
+      <li class="nav-item">
+        <a class="nav-link<%= ' active' if index.zero? %>" href="#year<%= year.id %>" role="tab" data-bs-toggle="tab"><%= year %></a>
       </li>
     <% end %>
   </ul>
   <div class="tab-content">
     <% @years.each_with_index do |year, index| %>
       <div role="tabpanel" class="tab-pane<%= ' active' if index.zero? %>" id="year<%= year.id %>">
-        <h2><%= year %></h2>
+        <h2 class="mt-5"><%= year %></h2>
 
         <h3>Service prévisionnel (prévu dans la maquette)</h3>
         <p><%= year.planned_hours_for(@user).round %> heures enseignant</p>
@@ -73,6 +73,6 @@
           </tbody>
         </table>
       </div>
-    <% end %>  
+    <% end %>
   </div>
 </div>

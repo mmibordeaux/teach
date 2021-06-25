@@ -14,7 +14,6 @@
       Soit le <%= l @project.from if @project.from %>.
       <%= f.input :to, label: 'Fin de l\'atelier', html5: true %>
       <%= f.association :semesters, as: :check_boxes, label: 'Semestres' %>
-      <%= f.association :fields, as: :check_boxes, label: 'Champs', collection: Field.not_root %>
     </div>
     <div class="col-md-4">
       <%= f.association :users, as: :check_boxes, label: 'Personnes impliquées'  %>

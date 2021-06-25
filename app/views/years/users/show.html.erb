@@ -20,7 +20,7 @@
 <p><%= @year.scheduled_hours_ponderated_for(@user).round %> heures avec CM pondérés</p>
 
 
-<h3>Service validé (planifié dans l'emploi du temps)</h3>
+<h3 class="mt-5">Service validé (planifié dans l'emploi du temps)</h3>
 <p>Heures enseignant</p>
 <table class="table">
   <thead>
@@ -46,22 +46,21 @@
         <td><%= @year.scheduled_hours_for_teaching_module_and_user(teaching_module, @user, :hours_tp).round %></td>
       </tr>
     <% end %>
-    <% hours_without_module = @year.scheduled_hours_for_teaching_module_and_user(nil, @user).round %>
-    <% if hours_without_module > 0 %>
+    <% @year.scheduled_resource_for(@user).each do |resource| %>
       <tr>
-        <td>NA</td>
-        <td>NA</td>
-        <td>Heures sans module</td>
-        <td><%= hours_without_module %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user, :hours_cm).round %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user, :hours_td).round %></td>
-        <td><%= @year.scheduled_hours_for_teaching_module_and_user(nil, @user, :hours_tp).round %></td>
+        <td><%= resource.code %></td>
+        <td><%= resource.code_apogee %></td>
+        <td><%= resource.label %></td>
+        <td><%= @year.scheduled_hours_for_resource_and_user(resource, @user).round %></td>
+        <td><%= @year.scheduled_hours_for_resource_and_user(resource, @user, :hours_cm).round %></td>
+        <td><%= @year.scheduled_hours_for_resource_and_user(resource, @user, :hours_td).round %></td>
+        <td><%= @year.scheduled_hours_for_resource_and_user(resource, @user, :hours_tp).round %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h3>Projets gérés</h3>
+<h3 class="mt-5">Projets gérés</h3>
 <table class="table">
   <thead>
     <tr>
@@ -108,7 +107,7 @@
   </tbody>
 </table>
 
-<h3>Evénements importés de l'emploi du temps</h3>
+<h3 class="mt-5">Evénements importés de l'emploi du temps</h3>
 <table class="table">
   <thead>
     <tr>
@@ -148,9 +147,7 @@
   </tbody>
 </table>
 
-<hr/>
-
-<h2>Maquette</h2>
+<h2 class="mt-5">Maquette</h2>
 
 <div class="row">
   <div class="col-md-2">

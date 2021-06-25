@@ -201,6 +201,30 @@ class Year < ActiveRecord::Base
     events.sum :duration
   end
 
+  def scheduled_resource_for(user)
+    resources = events_for(user).collect(&:resource).uniq.compact
+    resources.sort_by { |r| r.code }
+  end
+
+  def scheduled_hours_for_resource(resource, kind_of_hours = nil)
+    e = events.where(resource: resource)
+    e = e.send(kind_of_hours) if kind_of_hours
+    e.sum(:student_hours)
+  end
+
+  def scheduled_hours_for_resource_and_user(resource, user, kind = :teacher_hours)
+    events = events_for(user).where(resource: resource)
+    case kind
+    when :hours_cm
+      events = events.cm
+    when :hours_td
+      events = events.td
+    when :hours_tp
+      events = events.tp
+    end
+    events.sum :duration
+  end
+
   def scheduled_delta_for(user)
     return 0 if user.hours.nil?
     scheduled_hours_for(user) - user.hours
