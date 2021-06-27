@@ -16,7 +16,7 @@ class Years::ResourcesController < YearsController
 
   def breadcrumb
     super
-    add_breadcrumb 'Modules', year_resources_path(year_id: @year.id)
+    add_breadcrumb 'Ressources', year_resources_path(year_id: @year.id)
     add_breadcrumb @resource if @resource
   end
 end

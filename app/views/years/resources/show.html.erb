@@ -124,11 +124,7 @@
           <%= event.label %>
           <p class="small"><%= event.description %></p>
         </td>
-        <td>
-          <% event.users.each do |user| %>
-            <%= link_to user, user %><br>
-          <% end %>
-        </td>
+        <td><%= link_to event.user, event.user %></td>
         <td>
           <%= number_to_human event.duration %>h <%= event.kind.to_s.upcase %><br/>
           <p class="small">
