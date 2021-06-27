@@ -151,8 +151,7 @@ class TeachingModule < ActiveRecord::Base
   # Events
 
   def events_for_year(year)
-    promotion = semester_id.in?([1, 2]) ? year.first_year_promotion
-                                        : year.second_year_promotion
+    promotion = year.promotion_for_semester(semester)
     events.where(promotion: promotion).ordered
   end
 

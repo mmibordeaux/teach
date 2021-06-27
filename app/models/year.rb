@@ -56,6 +56,17 @@ class Year < ActiveRecord::Base
     [first_year_promotion, second_year_promotion]
   end
 
+  def promotion_for_semester(semester)
+    case semester.id
+    when 1, 2
+      first_year_promotion
+    when 3, 4
+      second_year_promotion
+    when 5, 6
+      third_year_promotion
+    end
+  end
+
   def involvements
     if @involvements.nil?
       first_year_promotion_id = first_year_promotion.nil? ? nil : first_year_promotion.id

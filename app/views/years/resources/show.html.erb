@@ -34,7 +34,7 @@
           {
             name: 'TP',
             data: [
-              <%= @teaching_module.hours_tp %>,
+              <%= @resource.hours_tp %>,
               <%= @year.planned_hours_for_resource(@resource, :hours_tp) %>,
               <%= @year.scheduled_hours_for_resource(@resource, :tp) %>
             ]
@@ -42,7 +42,7 @@
           {
             name: 'TD',
             data: [
-              <%= @teaching_module.hours_td %>,
+              <%= @resource.hours_td %>,
               <%= @year.planned_hours_for_resource(@resource, :hours_td) %>,
               <%= @year.scheduled_hours_for_resource(@resource, :td) %>
             ]
@@ -50,7 +50,7 @@
           {
             name: 'CM',
             data: [
-              <%= @teaching_module.hours_cm %>,
+              <%= @resource.hours_cm %>,
               <%= @year.planned_hours_for_resource(@resource, :hours_cm) %>,
               <%= @year.scheduled_hours_for_resource(@resource, :cm) %>
               ]
@@ -63,7 +63,7 @@
 
 <h2>Maquette</h2>
 <%= link_to 'Planifier une intervention',
-            new_year_involvement_path(year_id: @year.id, teaching_module_id: @teaching_module.id),
+            new_year_involvement_path(year_id: @year.id, resource_id: @resource.id),
             class: 'btn btn-primary btn-sm' if can? :create, Involvement %>
 <table class="table">
   <thead>
@@ -116,7 +116,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @teaching_module.events_for_year(@year).ordered.each do |event| %>
+    <% @resource.events_for_year(@year).ordered.each do |event| %>
       <tr>
         <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
         <td><%= event.project %></td>
