@@ -1,12 +1,16 @@
 <%= render 'years/nav' %>
 
-<p class="small">
-  Attention, la maquette est une étape préalable d'organisation, seul l'emploi du temps compte.
-  Les semaines académiques ne sont pas intégrées dans la maquette, ce qui explique de fortes différences maquette/EDT pour les personnes qui utilisent beaucoup ces semaines.
-</p>
+<% with_planning = params.has_key? :with_planning %>
+<%= link_to 'Afficher la maquette', request.path + '?with_planning=true', class: button_classes %>
 
-<br><br>
-<div class="row">
+<% if with_planning %>
+  <p class="small">
+    Attention, la maquette est une étape préalable d'organisation, seul l'emploi du temps compte.
+    Les semaines académiques ne sont pas intégrées dans la maquette, ce qui explique de fortes différences maquette/EDT pour les personnes qui utilisent beaucoup ces semaines.
+  </p>
+<% end %>
+
+<div class="row mt-4">
   <div class="col-md-2">
     <div class="text-xl"><%= @users.count %></div>
     <strong>enseignants</strong>
@@ -35,22 +39,26 @@
     <thead>
       <tr>
         <th colspan="4">Personne</th>
-        <th colspan="7">Heures enseignants</th>
-        <th colspan="6">Heures étudiant</th>
+        <th colspan="<%= with_planning ? 7 : 4 %>">Heures enseignants</th>
+        <th colspan="<%= with_planning ? 6 : 5 %>">Heures étudiant</th>
       </tr>
       <tr>
         <th style="min-width: 200px">Nom</th>
         <th>Fonctionnaire</th>
         <th>Titulaire</th>
         <th>Service</th>
-        <th>Maquette</th>
-        <th>Δ service / maquette</th>
-        <th>Surcoût</th>
+        <% if with_planning %>
+          <th>Maquette</th>
+          <th>Δ service / maquette</th>
+          <th>Surcoût</th>
+        <% end %>
         <th>EDT</th>
         <th>Pondéré</th>
         <th>Δ service / pondéré</th>
         <th>Surcoût</th>
-        <th>Maquette</th>
+        <% if with_planning %>
+          <th>Maquette</th>
+        <% end %>
         <th>EDT</th>
       </tr>
     </thead>
@@ -81,14 +89,18 @@
             <td><%= 'Oui' if user.public %></td>
             <td><%= 'Oui' if user.tenured %></td>
             <td><%= service.round unless service.nil? %></td>
-            <td><%= planned.round %></td>
-            <%= render 'application/td_delta', value: planned, reference: service %>
-            <td><%= number_to_currency user.planned_cost_for_year(@year), precision: 0 %></td>
+            <% if with_planning %>
+              <td><%= planned.round %></td>
+              <%= render 'application/td_delta', value: planned, reference: service %>
+              <td><%= number_to_currency user.planned_cost_for_year(@year), precision: 0 %></td>
+            <% end %>
             <td><%= scheduled.round %></td>
             <td><%= scheduled_ponderated.round %></td>
             <%= render 'application/td_delta', value: scheduled_ponderated, reference: service %>
             <td><%= number_to_currency user.scheduled_cost_for_year(@year), precision: 0 %></td>
-            <td><%= @year.planned_hours_for(user, :teacher_hours).round %></td>
+            <% if with_planning %>
+              <td><%= @year.planned_hours_for(user, :teacher_hours).round %></td>
+            <% end %>
             <td><%= scheduled_student_hours.round %></td>
           </tr>
         <% else %>

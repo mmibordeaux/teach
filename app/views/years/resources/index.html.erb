@@ -1,7 +1,6 @@
 <%= render 'years/nav' %>
 
 <% with_planning = params.has_key? :with_planning %>
-
 <%= link_to 'Afficher la maquette', request.path + '?with_planning=true', class: button_classes %>
 
 <div class="row mt-4">
