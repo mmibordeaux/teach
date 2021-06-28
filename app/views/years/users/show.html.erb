@@ -121,12 +121,14 @@
   </thead>
   <tbody>
     <% @year.events_for(@user).ordered.each do |event| %>
+      <% nothing =  event.resource.nil? && event.teaching_module.nil? %>
       <tr>
         <td>
-          <%= event.date.strftime "%d/%m/%Y" %>
+          <%= event.date.strftime "%d/%m/%Y" %><br>
           <p class="small"><%= event.from.strftime "%kh" %> - <%= event.to.strftime "%kh" %></p>
         </td>
-        <td class="<%= 'bg-danger' if event.teaching_module.nil? %>">
+        <td class="<%= 'bg-danger' if nothing  %>">
+          <%= event.resource %>
           <%= event.teaching_module %>
           <p class="small">Promo <%= event.promotion.year %></p>
         </td>
