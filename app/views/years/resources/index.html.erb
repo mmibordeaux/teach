@@ -1,15 +1,20 @@
 <%= render 'years/nav' %>
 
-<br><br>
-<div class="row">
-  <div class="col-md-3">
-    <div class="text-xl"><%= @year.planned_student_hours.round %>h</div>
-    <strong>étudiant maquette</strong>
-  </div>
-  <div class="col-md-3">
-    <div class="text-xl"><%= @year.planned_teacher_hours.round %>h</div>
-    <strong>enseignant maquette</strong>
-  </div>
+<% with_planning = params.has_key? :with_planning %>
+
+<%= link_to 'Afficher la maquette', request.path + '?with_planning=true', class: button_classes %>
+
+<div class="row mt-4">
+  <% if with_planning %>
+    <div class="col-md-3">
+      <div class="text-xl"><%= @year.planned_student_hours.round %>h</div>
+      <strong>étudiant maquette</strong>
+    </div>
+    <div class="col-md-3">
+      <div class="text-xl"><%= @year.planned_teacher_hours.round %>h</div>
+      <strong>enseignant maquette</strong>
+    </div>
+  <% end %>
   <div class="col-md-3">
     <div class="text-xl"><%= @year.scheduled_student_hours.round %>h</div>
     <strong>étudiant EDT</strong>
@@ -27,12 +32,30 @@
   <h3>Heures</h3>
   <p>
     <%= semester.resources_student_hours.round %>h étudiant PPN /
-    <%= @year.involvements.in_semester(semester).sum(:student_hours).round %>h étudiant maquette /
+    <% if with_planning %>
+      <%= @year.involvements.in_semester(semester).sum(:student_hours).round %>h étudiant maquette /
+    <% end %>
     <%= @year.events.in_semester(semester).sum(:student_hours).round %>h étudiant EDT
   </p>
   <p>En heures étudiant, sous la forme "Heures totales (heures CM / heures TD / heures TP)</p>
 
   <div id="semester-<%= semester.id %>"></div></td>
+  <%
+  tp = []
+  tp << semester.resources_student_hours_tp.round
+  tp << @year.involvements.in_semester(semester).sum(:student_hours_tp).round if with_planning
+  tp << @year.events.tp.in_semester(semester).sum(:student_hours).round
+
+  td = []
+  td << semester.resources_student_hours_td.round
+  td << @year.involvements.in_semester(semester).sum(:student_hours_td).round if with_planning
+  td << @year.events.td.in_semester(semester).sum(:student_hours).round
+
+  cm = []
+  cm << semester.resources_student_hours_cm.round
+  cm << @year.involvements.in_semester(semester).sum(:student_hours_cm) if with_planning
+  cm << @year.events.cm.in_semester(semester).sum(:student_hours).round
+  %>
   <script type="text/javascript">
     $(function () {
       $('#semester-<%= semester.id %>').highcharts({
@@ -45,30 +68,9 @@
           legend: { enabled: false },
           credits: { enabled: false },
           series: [
-            {
-              name: 'TP',
-              data: [
-                <%= semester.resources_student_hours_tp %>,
-                <%= @year.involvements.in_semester(semester).sum(:student_hours_tp) %>,
-                <%= @year.events.tp.in_semester(semester).sum(:student_hours) %>
-                ]
-              },
-            {
-              name: 'TD',
-              data: [
-                <%= semester.resources_student_hours_td %>,
-                <%= @year.involvements.in_semester(semester).sum(:student_hours_td) %>,
-                <%= @year.events.td.in_semester(semester).sum(:student_hours) %>
-                ]
-              },
-            {
-              name: 'CM',
-              data: [
-                <%= semester.resources_student_hours_cm %>,
-                <%= @year.involvements.in_semester(semester).sum(:student_hours_cm) %>,
-                <%= @year.events.cm.in_semester(semester).sum(:student_hours) %>
-              ]
-            }
+            { name: 'TP', data: <%= tp %> },
+            { name: 'TD', data: <%= td %> },
+            { name: 'CM', data: <%= cm %> }
           ]
       });
   });
@@ -79,10 +81,14 @@
       <tr>
         <th>Nom</th>
         <th>PPN</th>
-        <th>Maquette</th>
-        <th>PPN vs Maquette</th>
+        <% if with_planning %>
+          <th>Maquette</th>
+          <th>PPN vs Maquette</th>
+        <% end %>
         <th>EDT</th>
-        <th>Maquette vs EDT</th>
+        <% if with_planning %>
+          <th>Maquette vs EDT</th>
+        <% end %>
         <th>PPN vs EDT</th>
       </tr>
     </thead>
@@ -100,20 +106,22 @@
             (<%= resource.hours_cm %> /
             <%= resource.hours_tp %>)
           </td>
-          <td>
-            <%= planned %>
-            (<%= @year.involvements.where(resource: resource).sum(:student_hours_cm).round %> /
-            <%= @year.involvements.where(resource: resource).sum(:student_hours_td).round %> /
-            <%= @year.involvements.where(resource: resource).sum(:student_hours_tp).round %>)
-          </td>
-          <%= render 'application/td_delta', value: planned, reference: program %>
+          <% if with_planning %>
+            <td>
+              <%= planned %>
+              (<%= @year.involvements.where(resource: resource).sum(:student_hours_cm).round %> /
+              <%= @year.involvements.where(resource: resource).sum(:student_hours_td).round %> /
+              <%= @year.involvements.where(resource: resource).sum(:student_hours_tp).round %>)
+            </td>
+            <%= render 'application/td_delta', value: planned, reference: program %>
+          <% end %>
           <td>
             <%= scheduled %>
             (<%= @year.events.cm.where(resource: resource).sum(:student_hours).round %> /
             <%= @year.events.td.where(resource: resource).sum(:student_hours).round %> /
             <%= @year.events.tp.where(resource: resource).sum(:student_hours).round %>)
-            </td>
-          <%= render 'application/td_delta', value: scheduled, reference: planned %>
+          </td>
+          <%= render 'application/td_delta', value: scheduled, reference: planned if with_planning %>
           <%= render 'application/td_delta', value: scheduled, reference: program %>
         </tr>
       <% end %>
