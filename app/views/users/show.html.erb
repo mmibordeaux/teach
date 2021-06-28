@@ -1,8 +1,6 @@
 <%= link_to 'Modifier', edit_user_path(@user), class: 'btn btn-primary btn-sm' if can? :edit, @user %>
 
-<br/><br/>
-
-<div>
+<div class="mt-4">
   <ul class="nav nav-tabs">
     <% @years.each_with_index do |year, index| %>
       <li class="nav-item">
