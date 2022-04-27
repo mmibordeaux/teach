@@ -20,7 +20,6 @@ class UsersController < ApplicationController
 
   def show
     @title = @user.to_s
-    @subtitle = @user.email
     @years = Year.order(year: :desc)
     add_breadcrumb @user, @user
   end

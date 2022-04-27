@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
-ruby '2.7.2'
+ruby '2.7.5'
 
 # Infrastructure
-gem 'pg', '0.20.0'
+gem 'pg'
 gem 'puma'
 gem 'sendgrid-ruby'
 
 # Back
-gem 'rails', '~> 5'
+gem 'rails', '~> 6.1'
 gem 'rails-i18n'
 gem 'nokogiri'
 gem 'simple_form'
@@ -37,10 +37,7 @@ gem 'bootstrap-glyphicons'
 group :development do
   gem 'rb-readline'
   gem 'byebug'
+  gem 'listen'
   gem 'annotate'
   gem 'figaro'
-end
-
-group :production do
-  gem 'rails_12factor'
 end
