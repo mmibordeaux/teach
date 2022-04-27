@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'budgets/users' => 'budgets#users', as: 'budgets_users'
   get 'budgets/teaching_modules' => 'budgets#teaching_modules', as: 'budgets_teaching_modules'
   # get 'parse' => 'application#parse'
-  resources :users, :jobs, :fields, :objectives, :keywords, :competencies, :teaching_modules, :teaching_categories, :teaching_subjects, :teaching_units
+  resources :users, :jobs, :fields, :objectives, :keywords, :competencies
   resources :semesters, only: [:index, :show]
   resources :years, only: [:index, :show] do
     resources :projects, module: :years do

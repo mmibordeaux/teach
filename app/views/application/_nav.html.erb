@@ -17,25 +17,16 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Divers</a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><%= link_to 'Discussion', root_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Champs', fields_path, class: 'dropdown-item' %></li>
             <li><%= link_to 'Services', users_summary_path, class: 'dropdown-item' %></li>
             <li><%= link_to 'Intervenants', budgets_users_path, class: 'dropdown-item' %></li>
             <li><%= link_to 'Modules', budgets_teaching_modules_path, class: 'dropdown-item' %></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">PPN </a>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">PN</a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><%= link_to 'Semestres', semesters_path, class: 'dropdown-item' %></li>
             <li><%= link_to 'Ressources', resources_path, class: 'dropdown-item' %></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><%= link_to 'Unités d\'enseignement', teaching_units_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Sujets', teaching_subjects_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Catégories', teaching_categories_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Modules', teaching_modules_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Objectifs', objectives_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Compétences', competencies_path, class: 'dropdown-item' %></li>
-            <li><%= link_to 'Mots-clés', keywords_path, class: 'dropdown-item' %></li>
           </ul>
         </li>
       </ul>

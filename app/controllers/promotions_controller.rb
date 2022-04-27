@@ -5,7 +5,6 @@ class PromotionsController < ApplicationController
   def index
     @promotions = Promotion.all
     @title = 'Promotions'
-    @subtitle = 'Chaque année, de beaux étudiants bien frais'
     breadcrumb
   end
 

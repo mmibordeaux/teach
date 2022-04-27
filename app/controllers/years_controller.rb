@@ -6,7 +6,6 @@ class YearsController < ApplicationController
     Year.create_necessary
     @years = Year.order(year: :desc)
     @title = 'Années'
-    @subtitle = 'Après années, après années...'
     breadcrumb
   end
 
