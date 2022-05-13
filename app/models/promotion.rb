@@ -80,8 +80,7 @@ class Promotion < ActiveRecord::Base
 
   def calendar_events
     return [] if calendar_url.blank?
-    require 'open-uri'
-    cal_file = open calendar_url
+    cal_file = URI.open calendar_url
     events = Icalendar::Parser.new(cal_file).parse.first.events
     events.sort_by { |event| event.dtstart }
   rescue

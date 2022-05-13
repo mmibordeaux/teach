@@ -20,8 +20,8 @@
 class Event < ActiveRecord::Base
   belongs_to :teaching_module, optional: true
   belongs_to :resource, optional: true
+  belongs_to :project, optional: true
   belongs_to :promotion
-  belongs_to :project
   belongs_to :user
 
   scope :in_semester, -> (semester) {
@@ -71,16 +71,16 @@ class Event < ActiveRecord::Base
     end
     users << User.temporary if users.none?
     users.each do |user|
-      Event.create  promotion: promotion,
-                    duration: duration,
-                    date: date,
-                    kind: kind,
-                    project: project,
-                    teaching_module: teaching_module,
-                    resource: resource,
-                    label: calendar_event.summary,
-                    description: calendar_event.description,
-                    user: user
+      event = Event.create  promotion: promotion,
+                            duration: duration,
+                            date: date,
+                            kind: kind,
+                            project: project,
+                            teaching_module: teaching_module,
+                            resource: resource,
+                            label: calendar_event.summary,
+                            description: calendar_event.description,
+                            user: user
       puts "Created event #{calendar_event.summary} with #{user}"
     end
   rescue => e
