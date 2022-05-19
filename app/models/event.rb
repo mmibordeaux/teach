@@ -46,7 +46,9 @@ class Event < ActiveRecord::Base
     end
     teaching_module = nil
     resource = nil
-    hashtags = calendar_event.description.scan(/#(\w+)/).flatten
+    description = calendar_event.description
+    description = description.gsub('# ', '#')
+    hashtags = description.scan(/#(\w+)/).flatten
     kind = Event.kinds[:cm] # default
     hashtags.each do |hashtag|
       case hashtag.downcase
@@ -61,7 +63,6 @@ class Event < ActiveRecord::Base
         resource = Resource.with_code(hashtag).first
       end
     end
-    return if teaching_module.nil? && resource.nil?
     project = Project.at_date_for_promotion(date, promotion)
     users = []
     calendar_event.attendee.each do |attendee|
@@ -69,7 +70,15 @@ class Event < ActiveRecord::Base
       user = User.with_email(email).first
       users << user unless user.nil?
     end
-    users << User.temporary if users.none?
+    if users.none? && (teaching_module || resource)
+      # C'est un enseignement, mais on n'a pas encore défini l'enseignant.
+      # on met l'utilisateur temporaire, afin d'identifier les heures à attribuer
+      users << User.temporary
+    else
+      # Sinon, on ne fait rien, c'est à dire que :
+      # - soit on n'a pas de users du tout, et aucun event ne sera créé (ex: temps en autonomie, début des stages...)
+      # - soit on a un user sans ressource, et on compte ses heures quand même (resource optionnelle)
+    end
     users.each do |user|
       event = Event.create  promotion: promotion,
                             duration: duration,
@@ -81,7 +90,8 @@ class Event < ActiveRecord::Base
                             label: calendar_event.summary,
                             description: calendar_event.description,
                             user: user
-      puts "Created event #{calendar_event.summary} with #{user}"
+      # byebug if 'Intelligence économique'.in? calendar_event.summary
+      # puts "Created event #{calendar_event.summary} with #{user}"
     end
   rescue => e
     byebug
