@@ -71,9 +71,9 @@
       <td><%= link_to involvement.user, involvement.user unless involvement.user.nil? %></td>
       <td>
         <% if involvement.teaching_module %>
-          <%= link_to involvement.teaching_module&.full_name, involvement.teaching_module %>
+          <%= involvement.teaching_module&.full_name %>
         <% elsif involvement.resource %>
-
+          <%= involvement.resource %>
         <% end %>
       </td>
       <td><%= link_to involvement.promotion&.year, involvement.promotion %></td>
