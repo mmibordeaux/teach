@@ -23,6 +23,7 @@ gem 'delayed_job_web'
 
 # Front
 gem 'bootstrap'
+gem 'bootstrap-glyphicons'
 gem 'sassc-rails'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
@@ -30,7 +31,6 @@ gem 'jbuilder'
 gem 'd3_rails'
 gem 'chartkick'
 gem 'highcharts-rails'
-gem 'bootstrap-glyphicons'
 
 group :development do
   gem 'rb-readline'

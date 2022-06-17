@@ -17,8 +17,7 @@
     </div>
     <div class="col-md-4">
       <%= f.association :users, as: :check_boxes, label: 'Personnes impliquées'  %>
+      <%= f.submit 'Enregistrer', class: 'btn btn-primary' %>
     </div>
   </div>
-  <%= f.input :objectives, as: :check_boxes, member_label: :objective_with_module %>
-  <%= f.submit 'Enregistrer', class: 'btn btn-primary' %>
 <% end %>
