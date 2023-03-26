@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.7.7'
+ruby '3.2.1'
 
 # Infrastructure
 gem 'pg'
 gem 'puma'
-gem 'sendgrid-ruby'
+gem 'mailgun_rails'
 
 # Back
 gem 'rails', '~> 6.1'
