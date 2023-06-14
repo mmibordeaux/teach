@@ -94,7 +94,7 @@ class Event < ActiveRecord::Base
       # puts "Created event #{calendar_event.summary} with #{user}"
     end
   rescue => e
-    byebug
+    # byebug
   end
 
   def from
