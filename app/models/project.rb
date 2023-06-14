@@ -146,7 +146,7 @@ class Project < ActiveRecord::Base
   end
 
   def evaluation
-    learn_api_url = "http://learn.mmibordeaux.com/api/projects/#{id}"
+    learn_api_url = "https://learn.mmibordeaux.com/api/projects/#{id}"
     response = Net::HTTP.get_response(URI.parse(learn_api_url))
     JSON.parse response.body
   end
