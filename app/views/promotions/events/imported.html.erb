@@ -27,7 +27,7 @@
         <td><%= event.date.strftime "%d/%m/%Y, %H:%M" %></td>
         <td><%= event.kind.to_s.upcase %></td>
         <td><%= event.label %></td>
-        <td><%= event.description %></td>
+        <td><%= event.description.html_safe %></td>
         <td><%= number_to_human event.duration %></td>
         <td><%= number_to_human event.student_hours %></td>
         <td><%= number_to_human event.teacher_hours %></td>
