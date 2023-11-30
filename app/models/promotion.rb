@@ -31,7 +31,7 @@ class Promotion < ActiveRecord::Base
   end
 
   def years
-    [first_year, second_year]
+    [first_year, second_year, third_year]
   end
 
   def first_year_projects
@@ -52,11 +52,18 @@ class Promotion < ActiveRecord::Base
   end
 
   def projects
-    first_year_projects + second_year_projects
+    first_year_projects + second_year_projects + third_year_projects
   end
 
   def projects_in(semester)
-    projects_concerned = semester.id.in?([1, 2]) ? first_year_projects : second_year_projects
+    case semester.number
+    when 1, 2
+      projects_concerned = first_year_projects
+    when 3, 4
+      projects_concerned = second_year_projects
+    when 5, 6
+      projects_concerned = third_year_projects
+    end
     projects_concerned.where(semesters: { id: semester } )
   end
 
