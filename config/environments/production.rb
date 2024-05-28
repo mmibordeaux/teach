@@ -67,11 +67,11 @@ Rails.application.configure do
  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    port:           ENV['SENDINBLUE_PORT'],
-    address:        ENV['SENDINBLUE_SMTP_SERVER'],
-    user_name:      ENV['SENDINBLUE_SMTP_LOGIN'],
-    password:       ENV['SENDINBLUE_SMTP_PASSWORD'],
-    authentication: :plain,
+      address: "smtp-relay.brevo.com",
+      port: 587,
+      user_name: ENV['SMTP_USER'],
+      password: ENV['SMTP_PASSWORD'],
+      authentication: :plain
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
