@@ -10,6 +10,7 @@
   </p>
 <% end %>
 
+
 <div class="row mt-4">
   <div class="col-md-2">
     <div class="text-xl"><%= @users.count %></div>
@@ -32,9 +33,28 @@
     <strong>de vacataires</strong>
   </div>
 </div>
-<br><br><br>
 
-<div class="table-responsive">
+<div class="row">
+  <div class="offset-md-2 col-md-4">
+    <div class="text-xl"><%= @year.scheduled_teacher_hours.round %>h</div>
+    <strong>de cours (enseignant) dans l'EDT</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_by_tenured_teachers.round %>h</div>
+    <strong>par des permanents</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= @year.scheduled_teacher_hours_by_non_tenured_teachers.round %>h</div>
+    <strong>par des vacataires</strong>
+  </div>
+  <div class="col-md-2">
+    <div class="text-xl"><%= number_to_percentage @year.scheduled_teacher_hours_non_tenured_ratio, precision: 0 %></div>
+    <strong>de vacataires</strong>
+  </div>
+</div>
+
+
+<div class="table-responsive mt-5">
   <table class="table table-hover table-bordered">
     <thead>
       <tr>

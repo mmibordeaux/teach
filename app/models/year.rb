@@ -146,17 +146,30 @@ class Year < ActiveRecord::Base
     @scheduled_teacher_hours ||= events.sum(:teacher_hours)
   end
 
+  def scheduled_teacher_hours_by_tenured_teachers
+    @scheduled_teacher_hours_by_tenured_teachers ||= events.tenured.sum(:teacher_hours)
+  end
+
+  def scheduled_teacher_hours_by_non_tenured_teachers
+    @scheduled_teacher_hours_by_non_tenured_teachers ||= events.non_tenured.sum(:teacher_hours)
+  end
+
+  def scheduled_teacher_hours_non_tenured_ratio
+    percentage  scheduled_teacher_hours_by_non_tenured_teachers, 
+                scheduled_teacher_hours
+  end
+
   def scheduled_student_hours_by_tenured_teachers
-    @scheduled_student_hours_by_tenured_teachers ||= events.joins(:user).where('users.tenured = true').sum(:student_hours)
+    @scheduled_student_hours_by_tenured_teachers ||= events.tenured.sum(:student_hours)
   end
 
   def scheduled_student_hours_by_non_tenured_teachers
-    @scheduled_student_hours_by_non_tenured_teachers ||= events.joins(:user).where('users.tenured = false').sum(:student_hours)
+    @scheduled_student_hours_by_non_tenured_teachers ||= events.non_tenured.sum(:student_hours)
   end
 
   def scheduled_student_hours_non_tenured_ratio
-    return 0 if scheduled_student_hours.zero?
-    100.0 * scheduled_student_hours_by_non_tenured_teachers / scheduled_student_hours
+    percentage  scheduled_student_hours_by_non_tenured_teachers,
+                scheduled_student_hours
   end
 
   def scheduled_hours_for(user, kind = nil)
@@ -246,6 +259,11 @@ class Year < ActiveRecord::Base
   end
 
   protected
+
+  def percentage(value, total)
+    return 0 if total.zero?
+    100.0 * value / total
+  end
 
   def users_with_involvements
     involvements.where.not(user: nil).collect(&:user)

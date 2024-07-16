@@ -28,6 +28,12 @@ class Event < ActiveRecord::Base
     where(teaching_module: semester.teaching_modules)
     .or(where(resource: semester.resources))
   }
+  scope :tenured, -> {
+    joins(:user).where(users: { tenured: true })
+  }
+  scope :non_tenured, -> {
+    joins(:user).where(users: { tenured: false })
+  }
   scope :ordered, -> { order(:date) }
 
   enum kind: [:cm, :td, :tp]
